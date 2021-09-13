@@ -6,10 +6,16 @@ const COLLECTIONS = path.join(ROOT, 'collections');
 
 interface Collection {
   path: string;
-  content: any;
+  content: {
+    format?: string;
+    events: {
+      description: string;
+      datetime: string;
+    }[];
+  };
 }
 
-function convertCollectionsIntoPages() {
+export function getCollections() {
   const collections: Collection[] = [];
   const entries = fs.readdirSync(COLLECTIONS, {
     encoding: 'utf-8',
@@ -24,7 +30,7 @@ function convertCollectionsIntoPages() {
     );
   }
 
-  console.log(collections);
+  return collections;
 }
 
 function recursivelyPushToCollections(
@@ -56,5 +62,3 @@ function recursivelyPushToCollections(
     });
   }
 }
-
-convertCollectionsIntoPages();
