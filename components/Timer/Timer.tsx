@@ -1,6 +1,6 @@
-import styles from './Timeplate.module.css';
+import styles from './Timer.module.css';
 
-interface TimeTemplateProps {
+interface TimerProps {
   years: number;
   months: number;
   days: number;
@@ -9,14 +9,14 @@ interface TimeTemplateProps {
   seconds: number;
 }
 
-export function TimeTemplate({
+export function Timer({
   years,
   months,
   days,
   hours,
   minutes,
   seconds
-}: TimeTemplateProps) {
+}: TimerProps) {
   return (
     <>
       <div className={styles.row}>
