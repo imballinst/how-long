@@ -1,40 +1,46 @@
+import { useEffect, useState } from 'react';
+import { calculate } from 'count-up-down';
+
 import styles from './Timer.module.css';
 
 export interface TimerProps {
-  years: number;
-  months: number;
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
+  // This should be ISO8601 string.
+  date: string;
 }
 
-export function Timer({
-  years,
-  months,
-  days,
-  hours,
-  minutes,
-  seconds
-}: TimerProps) {
+export function Timer({ date }: TimerProps) {
+  const [state, setState] = useState(
+    calculate(new Date(date), new Date()).result
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setState(calculate(new Date(date), new Date()).result);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <>
       <div className={styles.row}>
         <div className={styles.wrapper}>
           <div className={styles.value} id="years">
-            {years}
+            {state.years}
           </div>
           <div className={styles.unit}>years</div>
         </div>
         <div className={styles.wrapper}>
           <div className={styles.value} id="months">
-            {months}
+            {state.months}
           </div>
           <div className={styles.unit}>months</div>
         </div>
         <div className={styles.wrapper}>
           <div className={styles.value} id="days">
-            {days}
+            {state.days}
           </div>
           <div className={styles.unit}>days</div>
         </div>
@@ -42,19 +48,19 @@ export function Timer({
       <div className={styles.row}>
         <div className={styles.wrapper}>
           <div className={styles.value} id="hours">
-            {hours}
+            {state.hours}
           </div>
           <div className={styles.unit}>hours</div>
         </div>
         <div className={styles.wrapper}>
           <div className={styles.value} id="minutes">
-            {minutes}
+            {state.minutes}
           </div>
           <div className={styles.unit}>minutes</div>
         </div>
         <div className={styles.wrapper}>
           <div className={styles.value} id="seconds">
-            {seconds}
+            {state.seconds}
           </div>
           <div className={styles.unit}>seconds</div>
         </div>
