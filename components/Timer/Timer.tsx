@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { calculate } from 'count-up-down';
+import { calculate } from 'count-up-down/lib/src/index-node';
 
 import styles from './Timer.module.css';
 
@@ -24,7 +24,7 @@ export function Timer({ date }: TimerProps) {
   }, []);
 
   return (
-    <>
+    <div className={styles.root}>
       <div className={styles.row}>
         <div className={styles.wrapper}>
           <div className={styles.value} id="years">
@@ -65,6 +65,6 @@ export function Timer({ date }: TimerProps) {
           <div className={styles.unit}>seconds</div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
