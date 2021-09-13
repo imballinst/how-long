@@ -1,6 +1,6 @@
 import styles from './Timer.module.css';
 
-interface TimerProps {
+export interface TimerProps {
   years: number;
   months: number;
   days: number;
