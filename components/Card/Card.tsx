@@ -13,7 +13,7 @@ interface CardProps {
 export function Card(props: CardProps) {
   const tags: ReactNode[] = [];
 
-  for (let i = 0; i < props.tags.length; i++) {
+  for (let i = 0; i < props.tags?.length; i++) {
     tags.push(<Badge>{props.tags[i]}</Badge>);
 
     if (i + 1 < props.tags.length) {
@@ -31,13 +31,12 @@ export function Card(props: CardProps) {
             letterSpacing="wide"
             fontSize="xs"
             textTransform="uppercase"
-            ml="2"
           >
             {tags}
           </Box>
 
           <Box>
-            {formatDistanceToNow(new Date(props.date), {
+            {formatDistanceToNow(new Date(props.date || new Date()), {
               addSuffix: true
             })}
           </Box>
@@ -54,7 +53,7 @@ export function Card(props: CardProps) {
         </Box>
 
         <Box d="flex" mt="2" alignItems="center">
-          <Box as="span" color="gray.600" fontSize="sm" isTruncated>
+          <Box as="span" fontSize="sm" isTruncated>
             {props.text}
           </Box>
         </Box>

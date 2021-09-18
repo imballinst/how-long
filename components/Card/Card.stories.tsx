@@ -11,5 +11,13 @@ export default {
 
 const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
 
+// Constants.
+const ONE_HOUR_AGO = new Date(new Date().getTime() - 3600 * 1000);
+
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  date: ONE_HOUR_AGO.toISOString(),
+  text: 'Arsenal won 1-0 against Norwich City in a Premier League match, with Pierre-Emerick Aubameyang scoring the only goal.',
+  tags: ['arsenal', 'premier league'],
+  title: 'Arsenal won 1-0 against Norwich City.'
+};
