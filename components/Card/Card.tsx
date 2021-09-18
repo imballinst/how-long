@@ -1,4 +1,5 @@
-import { Box } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import { Box, Badge, HStack } from '@chakra-ui/react';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 interface CardProps {
@@ -10,10 +11,20 @@ interface CardProps {
 }
 
 export function Card(props: CardProps) {
+  const tags: ReactNode[] = [];
+
+  for (let i = 0; i < props.tags.length; i++) {
+    tags.push(<Badge>{props.tags[i]}</Badge>);
+
+    if (i + 1 < props.tags.length) {
+      tags.push(<>&bull;</>);
+    }
+  }
+
   return (
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box p="6">
-        <Box d="flex" alignItems="baseline">
+        <HStack>
           <Box
             color="gray.500"
             fontWeight="semibold"
@@ -22,9 +33,15 @@ export function Card(props: CardProps) {
             textTransform="uppercase"
             ml="2"
           >
-            {props.tags.join('&bull;')}
+            {tags}
           </Box>
-        </Box>
+
+          <Box>
+            {formatDistanceToNow(new Date(props.date), {
+              addSuffix: true
+            })}
+          </Box>
+        </HStack>
 
         <Box
           mt="1"
@@ -34,12 +51,6 @@ export function Card(props: CardProps) {
           isTruncated
         >
           {props.title}
-        </Box>
-
-        <Box>
-          {formatDistanceToNow(new Date(props.date), {
-            addSuffix: true
-          })}
         </Box>
 
         <Box d="flex" mt="2" alignItems="center">
