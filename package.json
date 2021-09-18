@@ -11,7 +11,12 @@
     "generate": "ts-node scripts/template.ts"
   },
   "dependencies": {
+    "@chakra-ui/react": "1.6.7",
+    "@emotion/react": "11",
+    "@emotion/styled": "11",
     "count-up-down": "0.1.1",
+    "date-fns": "2.24.0",
+    "framer-motion": "4",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
