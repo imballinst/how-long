@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { calculate } from 'count-up-down/lib/src/index-node';
+import { calculate } from 'count-up-down';
 
 import styles from './Timer.module.css';
 
