@@ -1,8 +1,11 @@
-import { ReactNode } from 'react';
-import { Box, Badge, HStack } from '@chakra-ui/react';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { ReactNode, useMemo } from 'react';
+import { Box, Badge, HStack, As } from '@chakra-ui/react';
+import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
+import { InternalLink } from '../Link';
 
-interface CardProps {
+export interface CardProps {
+  as?: As<any> | undefined;
+  href: string;
   title: string;
   tags: string[];
   // ISO8601 date string.
@@ -11,51 +14,54 @@ interface CardProps {
 }
 
 export function Card(props: CardProps) {
-  const tags: ReactNode[] = [];
+  const tags: ReactNode[] = useMemo(() => {
+    const tags: ReactNode[] = [];
 
-  for (let i = 0; i < props.tags?.length; i++) {
-    tags.push(<Badge>{props.tags[i]}</Badge>);
+    for (let i = 0; i < props.tags?.length; i++) {
+      tags.push(<Badge>{props.tags[i]}</Badge>);
 
-    if (i + 1 < props.tags.length) {
-      tags.push(<>&bull;</>);
+      if (i + 1 < props.tags.length) {
+        tags.push(<>&bull;</>);
+      }
     }
-  }
+
+    return tags;
+  }, [props.tags]);
 
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Box p="6">
-        <HStack>
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-          >
-            {tags}
-          </Box>
-
-          <Box>
-            {formatDistanceToNow(new Date(props.date || new Date()), {
-              addSuffix: true
-            })}
-          </Box>
-        </HStack>
-
+    <Box
+      as={props.as}
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      p={6}
+      _hover={{ borderColor: 'blue.500' }}
+      transition="border-color 250ms"
+    >
+      <HStack>
         <Box
-          mt="1"
+          color="gray.500"
           fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
+          letterSpacing="wide"
+          fontSize="xs"
+          textTransform="uppercase"
         >
-          {props.title}
+          {tags}
         </Box>
 
-        <Box d="flex" mt="2" alignItems="center">
-          <Box as="span" fontSize="sm" isTruncated>
-            {props.text}
-          </Box>
+        <Box fontSize="sm">
+          {formatDistanceToNowStrict(new Date(props.date || new Date()))}
+        </Box>
+      </HStack>
+
+      <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
+        <InternalLink href={props.href}>{props.title}</InternalLink>
+      </Box>
+
+      <Box d="flex" mt="2" alignItems="center">
+        <Box as="span" fontSize="sm" noOfLines={3}>
+          {props.text}
         </Box>
       </Box>
     </Box>
