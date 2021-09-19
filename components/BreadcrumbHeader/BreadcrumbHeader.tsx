@@ -1,11 +1,13 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 
-interface BreadcrumbHeaderProps {
-  pages: Array<{
-    href: string;
-    title: string;
-  }>;
+export interface Page {
+  href: string;
+  title: string;
+}
+
+export interface BreadcrumbHeaderProps {
+  pages: Page[];
 }
 
 export function BreadcrumbHeader(props: BreadcrumbHeaderProps) {
