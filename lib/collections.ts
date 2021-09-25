@@ -2,8 +2,13 @@ import fs from 'fs/promises';
 import type { Dirent } from 'fs';
 import path from 'path';
 
-const ROOT = path.join(__dirname, '..');
-const COLLECTIONS = path.join(ROOT, 'collections');
+let ROOT = path.join(__dirname, '..');
+
+if (process.env.NODE_ENV !== 'test') {
+  ROOT = path.join(ROOT, '../..');
+}
+
+export const COLLECTIONS = path.join(ROOT, 'collections');
 
 interface Collection {
   format?: string;
@@ -14,13 +19,13 @@ interface Collection {
 }
 
 interface DirectoryDictionary {
-  [index: string]: Directory;
+  [index: string]: DirectoryType;
 }
 interface CollectionDictionary {
   [index: string]: Collection;
 }
 
-interface Directory {
+interface DirectoryType {
   folders: DirectoryDictionary;
   files: CollectionDictionary;
 }
@@ -28,7 +33,7 @@ interface Directory {
 export async function getDirectoriesAndCollections(
   directoryPath = COLLECTIONS
 ) {
-  const directory: Directory = {
+  const directory: DirectoryType = {
     files: {},
     folders: {}
   };
@@ -43,8 +48,8 @@ export async function getDirectoriesAndCollections(
       `${directoryPath}/${entry.name}`
     );
 
-    directory.files[entry.name] = result.files[entry.name];
-    directory.folders[entry.name] = result.folders[entry.name];
+    directory.files[entry.name] = result.files[entry.name] || [];
+    directory.folders[entry.name] = result.folders[entry.name] || [];
   }
 
   return directory;
@@ -53,8 +58,8 @@ export async function getDirectoriesAndCollections(
 async function recursivelyPushToCollections(
   entry: Dirent,
   entryPath: string
-): Promise<Directory> {
-  const directory: Directory = {
+): Promise<DirectoryType> {
+  const directory: DirectoryType = {
     folders: {},
     files: {}
   };

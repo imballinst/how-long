@@ -1,27 +1,22 @@
 import NextLink from 'next/link';
-import { Box } from '@chakra-ui/react';
+import { Box, BoxProps } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-interface InternalLinkProps {
+interface InternalLinkProps extends BoxProps {
   href?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
-export function InternalLink(props: InternalLinkProps) {
-  // Mostly `props.children` will be text... but prehaps there are other times that it's not.
-  const node = (
-    <Box as="a" _hover={{ color: 'blue.500' }} transition="color 250ms">
-      {props.children}
-    </Box>
-  );
-
-  if (props.href === undefined) {
-    return node;
+export function InternalLink({ href, children, ...props }: InternalLinkProps) {
+  if (href === undefined) {
+    return <>{children}</>;
   }
 
   return (
-    <NextLink href={props.href} passHref>
-      {node}
+    <NextLink href={href} passHref>
+      <Box as="a" {...props}>
+        {children}
+      </Box>
     </NextLink>
   );
 }

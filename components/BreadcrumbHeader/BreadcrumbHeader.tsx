@@ -16,7 +16,7 @@ export function BreadcrumbHeader(props: BreadcrumbHeaderProps) {
   return (
     <Breadcrumb spacing="4px" separator={<ChevronRightIcon color="gray.500" />}>
       {props.pages.map((page, idx) => (
-        <BreadcrumbItem isCurrentPage={idx + 1 === length}>
+        <BreadcrumbItem key={page.href} isCurrentPage={idx + 1 === length}>
           <BreadcrumbLink href={page.href}>{page.title}</BreadcrumbLink>
         </BreadcrumbItem>
       ))}

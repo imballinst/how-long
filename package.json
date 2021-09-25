@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "yarn generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prettify": "prettier --write pages",
-    "generate": "ts-node scripts/template.ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest"

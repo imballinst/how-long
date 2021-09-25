@@ -21,7 +21,7 @@ export function Timer({ date }: TimerProps) {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [date]);
 
   return (
     <div className={styles.root}>
