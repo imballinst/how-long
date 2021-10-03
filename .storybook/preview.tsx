@@ -1,7 +1,6 @@
 // Samelessly copied from https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/.storybook/preview.tsx.
 import {
   ChakraProvider,
-  extendTheme,
   Flex,
   IconButton,
   useColorMode,
@@ -10,6 +9,8 @@ import {
 import { StoryContext } from '@storybook/react';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { withPerformance } from 'storybook-addon-performance';
+
+import theme from '../theme';
 
 /**
  * Add global context for RTL-LTR switching
@@ -47,13 +48,10 @@ const ColorModeToggleBar = () => {
   );
 };
 
-const withChakra = (StoryFn: Function, context: StoryContext) => {
-  const { direction } = context.globals;
-  const dir = direction.toLowerCase();
-
+const withChakra = (StoryFn: Function, _context: StoryContext) => {
   return (
-    <ChakraProvider theme={extendTheme({ direction: dir })}>
-      <div dir={dir} id="story-wrapper" style={{ minHeight: '100vh' }}>
+    <ChakraProvider theme={theme}>
+      <div id="story-wrapper" style={{ minHeight: '100vh' }}>
         <ColorModeToggleBar />
         <StoryFn />
       </div>

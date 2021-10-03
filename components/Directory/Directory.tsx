@@ -7,7 +7,12 @@ export interface DirectoryProps {
 
 export function Directory({ cards }: DirectoryProps) {
   return (
-    <SimpleGrid as="ul" listStyleType="none" columns={{ sm: 2, md: 3 }}>
+    <SimpleGrid
+      as="ul"
+      listStyleType="none"
+      columns={{ sm: 2, lg: 3, '2xl': 4 }}
+      spacing={2}
+    >
       {cards.map((card) => (
         <Card as="li" key={card.href} {...card} />
       ))}

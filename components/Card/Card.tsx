@@ -33,30 +33,31 @@ export function Card(props: CardProps) {
 
   return (
     <Box as={props.as} sx={styles}>
-      {tags.length > 0 ||
-        (props.date !== undefined && (
-          <HStack mb="1">
-            {tags.length > 0 && (
-              <Box
-                color="gray.500"
-                fontWeight="semibold"
-                letterSpacing="wide"
-                fontSize="xs"
-                textTransform="uppercase"
-              >
-                {tags}
-              </Box>
-            )}
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mb="1"
+      >
+        <Box
+          color="gray.500"
+          fontWeight="semibold"
+          letterSpacing="wide"
+          fontSize="xs"
+          textTransform="uppercase"
+        >
+          {tags}
+        </Box>
 
-            {props.date !== undefined && (
-              <Box fontSize="sm">
-                {formatDistanceToNowStrict(new Date(props.date), {
-                  addSuffix: true
-                })}
-              </Box>
-            )}
-          </HStack>
-        ))}
+        {props.date !== undefined && (
+          <Box fontSize="sm">
+            {formatDistanceToNowStrict(new Date(props.date), {
+              addSuffix: true
+            })}
+          </Box>
+        )}
+      </Box>
 
       <InternalLink href={props.href}>
         <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
