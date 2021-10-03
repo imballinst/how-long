@@ -4,12 +4,18 @@ import {
   Flex,
   IconButton,
   useColorMode,
-  useColorModeValue
+  useColorModeValue,
+  HStack
 } from '@chakra-ui/react';
 import Head from 'next/head';
-import Image from 'next/image';
 import { ReactNode } from 'react';
-import { EFFECTIVE_WIDTHS } from '../../lib/constants';
+import {
+  EFFECTIVE_WIDTHS,
+  GITHUB_LINK,
+  LINKEDIN_LINK,
+  TWITTER_LINK
+} from '../../lib/constants';
+import { ExternalLink } from '../Links';
 
 export function Layout({ children }: { children: ReactNode }) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -44,36 +50,60 @@ export function Layout({ children }: { children: ReactNode }) {
           width={EFFECTIVE_WIDTHS}
         >
           <IconButton
-            aria-label={`Toggle ${colorMode === 'light' ? 'Dark' : 'Light'}`}
+            aria-label={`Toggle ${
+              colorMode === 'light' ? 'dark' : 'light'
+            } mode`}
             variant="ghost"
             onClick={toggleColorMode}
             borderRadius="50%"
+            colorScheme="teal"
           >
             {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
           </IconButton>
         </Flex>
       </Box>
 
-      <Box height="calc(100vh - 56px)" mt="56px">
-        {children}
+      <Box
+        height="calc(100vh - 56px)"
+        mt="56px"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Box
+          width={EFFECTIVE_WIDTHS}
+          display="flex"
+          flexDirection="column"
+          height="100%"
+        >
+          <Box flex="1 1 0%" p={4}>
+            {children}
+          </Box>
 
-        <footer>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by{' '}
-            <span>
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                width={72}
-                height={16}
-              />
-            </span>
-          </a>
-        </footer>
+          <Box as="footer" flex="0 0 0%" p={4}>
+            <Box fontWeight={700} mb={2} textAlign="center">
+              Copyright &copy; 2021 Try Ajitiono.
+            </Box>
+
+            <HStack
+              as="ul"
+              listStyleType="none"
+              display="flex"
+              flexDirection="row"
+              justifyContent="center"
+            >
+              <Box as="li">
+                <ExternalLink href={TWITTER_LINK}>Twitter</ExternalLink>
+              </Box>
+              <Box as="li">
+                <ExternalLink href={GITHUB_LINK}>GitHub</ExternalLink>
+              </Box>
+              <Box as="li">
+                <ExternalLink href={LINKEDIN_LINK}>LinkedIn</ExternalLink>
+              </Box>
+            </HStack>
+          </Box>
+        </Box>
       </Box>
     </div>
   );

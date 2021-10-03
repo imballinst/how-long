@@ -4,6 +4,8 @@ import path from 'path';
 
 let ROOT = path.join(__dirname, '..');
 
+// When the environment is development, then the working directory is
+// .next/cache/server.
 if (process.env.NODE_ENV !== 'test') {
   ROOT = path.join(ROOT, '../..');
 }
@@ -12,6 +14,7 @@ export const COLLECTIONS = path.join(ROOT, 'collections');
 
 interface Collection {
   format?: string;
+  title: string;
   events: Array<{
     description: string;
     datetime: string;
@@ -25,7 +28,7 @@ interface CollectionDictionary {
   [index: string]: Collection;
 }
 
-interface DirectoryType {
+export interface DirectoryType {
   folders: DirectoryDictionary;
   files: CollectionDictionary;
 }
@@ -45,19 +48,27 @@ export async function getDirectoriesAndCollections(
   for (const entry of entries) {
     const result = await recursivelyPushToCollections(
       entry,
-      `${directoryPath}/${entry.name}`
+      `${directoryPath}/${entry.name}`,
+      `${entry.name}`
     );
 
-    directory.files[entry.name] = result.files[entry.name] || [];
-    directory.folders[entry.name] = result.folders[entry.name] || [];
+    for (const key in result.folders) {
+      directory.folders[key] = result.folders[key];
+    }
+
+    for (const key in result.files) {
+      directory.files[key] = result.files[key];
+    }
   }
 
   return directory;
 }
 
+// Helper functions.
 async function recursivelyPushToCollections(
   entry: Dirent,
-  entryPath: string
+  entryPath: string,
+  parentPath: string
 ): Promise<DirectoryType> {
   const directory: DirectoryType = {
     folders: {},
@@ -76,9 +87,11 @@ async function recursivelyPushToCollections(
     };
 
     for (const dirEntry of dirEntries) {
+      const isFolder = dirEntry.isDirectory();
       const result = await recursivelyPushToCollections(
         dirEntry,
-        `${entryPath}/${dirEntry.name}`
+        `${entryPath}/${dirEntry.name}`,
+        `${parentPath}/${isFolder ? dirEntry.name : ''}`
       );
 
       for (const key in result.folders) {
@@ -87,18 +100,23 @@ async function recursivelyPushToCollections(
 
       for (const key in result.files) {
         directory.folders[entry.name].files[key] = result.files[key];
+        directory.files[key] = result.files[key];
       }
     }
   } else {
     const fileContent = await fs.readFile(entryPath, 'utf-8');
     const json = JSON.parse(fileContent);
 
-    directory.files[trimJsonExtension(entry.name)] = json;
+    directory.files[`${parentPath}${trimJsonExtension(entry.name)}`] = json;
   }
 
   return directory;
 }
 
 function trimJsonExtension(fileName: string) {
-  return fileName.slice(0, -5);
+  if (fileName.endsWith('.json')) {
+    return fileName.slice(0, -5);
+  }
+
+  return fileName;
 }

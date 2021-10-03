@@ -1,11 +1,11 @@
 import { ReactNode, useMemo } from 'react';
-import { Box, Badge, HStack, As } from '@chakra-ui/react';
+import { Box, Badge, HStack, As, useStyleConfig } from '@chakra-ui/react';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
-import { InternalLink } from '../Link';
+import { InternalLink } from '../Links';
 
 export interface CardProps {
   as?: As<any> | undefined;
-  href?: string;
+  href: string;
   title: string;
   tags?: string[];
   // ISO8601 date string.
@@ -14,6 +14,7 @@ export interface CardProps {
 }
 
 export function Card(props: CardProps) {
+  const styles = useStyleConfig('Card');
   const tags: ReactNode[] = useMemo(() => {
     const tags: ReactNode[] = [];
 
@@ -31,21 +32,11 @@ export function Card(props: CardProps) {
   }, [props.tags]);
 
   return (
-    <InternalLink href={props.href}>
-      <Box
-        as={props.as}
-        maxW="sm"
-        borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        borderColor="gray.500"
-        p={4}
-        _hover={{ borderColor: props.href ? 'blue.500' : 'normal' }}
-        transition="border-color 250ms"
-      >
-        {tags.length > 0 ||
-          (props.date !== undefined && (
-            <HStack mb="1">
+    <Box as={props.as} sx={styles}>
+      {tags.length > 0 ||
+        (props.date !== undefined && (
+          <HStack mb="1">
+            {tags.length > 0 && (
               <Box
                 color="gray.500"
                 fontWeight="semibold"
@@ -55,25 +46,29 @@ export function Card(props: CardProps) {
               >
                 {tags}
               </Box>
+            )}
 
-              {props.date !== undefined && (
-                <Box fontSize="sm">
-                  {formatDistanceToNowStrict(new Date(props.date))}
-                </Box>
-              )}
-            </HStack>
-          ))}
+            {props.date !== undefined && (
+              <Box fontSize="sm">
+                {formatDistanceToNowStrict(new Date(props.date), {
+                  addSuffix: true
+                })}
+              </Box>
+            )}
+          </HStack>
+        ))}
 
+      <InternalLink href={props.href}>
         <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
           {props.title}
         </Box>
+      </InternalLink>
 
-        <Box d="flex" mt="2" alignItems="center">
-          <Box as="span" fontSize="sm" noOfLines={3}>
-            {props.text}
-          </Box>
+      <Box d="flex" mt="2" alignItems="center">
+        <Box as="span" fontSize="sm" noOfLines={3}>
+          {props.text}
         </Box>
       </Box>
-    </InternalLink>
+    </Box>
   );
 }
