@@ -59,11 +59,9 @@ export function Card(props: CardProps) {
         )}
       </Box>
 
-      <InternalLink href={props.href}>
-        <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-          {props.title}
-        </Box>
-      </InternalLink>
+      <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
+        <InternalLink href={props.href}>{props.title}</InternalLink>
+      </Box>
 
       <Box d="flex" mt="2" alignItems="center">
         <Box as="span" fontSize="sm" noOfLines={3}>

@@ -10,7 +10,7 @@ export function Directory({ cards }: DirectoryProps) {
     <SimpleGrid
       as="ul"
       listStyleType="none"
-      columns={{ sm: 2, lg: 3, '2xl': 4 }}
+      columns={{ sm: 1, md: 2, lg: 3 }}
       spacing={2}
     >
       {cards.map((card) => (

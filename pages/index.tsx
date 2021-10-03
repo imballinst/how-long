@@ -14,12 +14,20 @@ const Home = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <Layout>
-      <Box as="h1" fontSize="1.5rem" fontWeight={700} mb={4}>
-        Since{' '}
-        <InternalLink href="/since" ml={4}>
-          View all
-        </InternalLink>
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Box as="h1" fontSize="1.5rem" fontWeight={700}>
+          Since
+        </Box>
+
+        <InternalLink href="/since">View all</InternalLink>
       </Box>
+
+      <Box as="hr" height={1} mt={2} mb={4} />
 
       {
         <Directory

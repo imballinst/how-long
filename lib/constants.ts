@@ -1,4 +1,4 @@
-export const EFFECTIVE_WIDTHS = ['100%', '48em'];
+export const EFFECTIVE_WIDTHS = ['100%', '30em', '48em', '60em'];
 
 // Social medias.
 export const TWITTER_LINK = 'https://twitter.com/Ajiballinst';
