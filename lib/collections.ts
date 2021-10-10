@@ -2,6 +2,8 @@ import fs from 'fs/promises';
 import type { Dirent } from 'fs';
 import path from 'path';
 
+import { isAfter, isBefore } from 'date-fns';
+
 let ROOT = path.join(__dirname, '..');
 
 // When the environment is development, then the working directory is
@@ -22,22 +24,50 @@ interface Collection {
 }
 
 interface DirectoryDictionary {
-  [index: string]: DirectoryType;
-}
-interface CollectionDictionary {
-  [index: string]: Collection;
+  [index: string]: CollectionType;
 }
 
-export interface DirectoryType {
+interface CollectionDictionary {
+  since: {
+    [index: string]: Collection;
+  };
+  until: {
+    [index: string]: Collection;
+  };
+  exact: {
+    [index: string]: Collection;
+  };
+}
+
+export interface CollectionType {
   folders: DirectoryDictionary;
   files: CollectionDictionary;
 }
 
+// Generate collection.
+export async function generateCollection(
+  directoryPath = COLLECTIONS,
+  json: CollectionType
+) {
+  return fs.writeFile(
+    path.join(directoryPath, 'collection.json'),
+    JSON.stringify(json),
+    'utf-8'
+  );
+}
+
+// Create collection.
+const CURRENT_DATE = new Date();
+
 export async function getDirectoriesAndCollections(
   directoryPath = COLLECTIONS
 ) {
-  const directory: DirectoryType = {
-    files: {},
+  const collection: CollectionType = {
+    files: {
+      since: {},
+      until: {},
+      exact: {}
+    },
     folders: {}
   };
   const entries = await fs.readdir(directoryPath, {
@@ -46,6 +76,11 @@ export async function getDirectoriesAndCollections(
   });
 
   for (const entry of entries) {
+    // Ignore top-level collection.json.
+    if (entry.name === 'collection.json') {
+      continue;
+    }
+
     const result = await recursivelyPushToCollections(
       entry,
       `${directoryPath}/${entry.name}`,
@@ -53,15 +88,23 @@ export async function getDirectoriesAndCollections(
     );
 
     for (const key in result.folders) {
-      directory.folders[key] = result.folders[key];
+      collection.folders[key] = result.folders[key];
     }
 
-    for (const key in result.files) {
-      directory.files[key] = result.files[key];
+    for (const key in result.files.since) {
+      collection.files.since[key] = result.files.since[key];
+    }
+
+    for (const key in result.files.until) {
+      collection.files.until[key] = result.files.until[key];
+    }
+
+    for (const key in result.files.exact) {
+      collection.files.exact[key] = result.files.exact[key];
     }
   }
 
-  return directory;
+  return { collection, date: CURRENT_DATE };
 }
 
 // Helper functions.
@@ -69,10 +112,14 @@ async function recursivelyPushToCollections(
   entry: Dirent,
   entryPath: string,
   parentPath: string
-): Promise<DirectoryType> {
-  const directory: DirectoryType = {
+): Promise<CollectionType> {
+  const directory: CollectionType = {
     folders: {},
-    files: {}
+    files: {
+      since: {},
+      until: {},
+      exact: {}
+    }
   };
 
   if (entry.isDirectory()) {
@@ -82,7 +129,11 @@ async function recursivelyPushToCollections(
     });
 
     directory.folders[entry.name] = {
-      files: {},
+      files: {
+        since: {},
+        until: {},
+        exact: {}
+      },
       folders: {}
     };
 
@@ -98,16 +149,47 @@ async function recursivelyPushToCollections(
         directory.folders[entry.name].folders[key] = result.folders[key];
       }
 
-      for (const key in result.files) {
-        directory.folders[entry.name].files[key] = result.files[key];
-        directory.files[key] = result.files[key];
+      for (const key in result.files.since) {
+        directory.folders[entry.name].files.since[key] =
+          result.files.since[key];
+        directory.files.since[key] = result.files.since[key];
+      }
+
+      for (const key in result.files.until) {
+        directory.folders[entry.name].files.until[key] =
+          result.files.until[key];
+        directory.files.until[key] = result.files.until[key];
+      }
+
+      for (const key in result.files.exact) {
+        directory.folders[entry.name].files.exact[key] =
+          result.files.exact[key];
+        directory.files.exact[key] = result.files.exact[key];
       }
     }
   } else {
     const fileContent = await fs.readFile(entryPath, 'utf-8');
-    const json = JSON.parse(fileContent);
+    const json: Collection = JSON.parse(fileContent);
 
-    directory.files[`${parentPath}${trimJsonExtension(entry.name)}`] = json;
+    const lastDate = new Date(json.events[0].datetime);
+    const isDateBefore = isBefore(CURRENT_DATE, lastDate);
+    const isDateAfter = isAfter(CURRENT_DATE, lastDate);
+
+    let key = `${parentPath}${trimJsonExtension(entry.name)}`;
+    let status: keyof CollectionDictionary;
+
+    if (isDateBefore) {
+      status = 'until';
+      key = `until/${key}`;
+    } else if (isDateAfter) {
+      status = 'since';
+      key = `since/${key}`;
+    } else {
+      status = 'exact';
+      key = `exact/${key}`;
+    }
+
+    directory.files[status][key] = json;
   }
 
   return directory;
