@@ -34,7 +34,7 @@ test('getDirectoriesAndCollections', async () => {
   ).toBeGreaterThan(0);
   expect(Object.keys(collection.folders.arsenal.files.exact).length).toBe(0);
 
-  expect(date instanceof Date).toBe(true);
+  expect(typeof date === 'string').toBe(true);
 });
 
 test('generateCollection', async () => {

@@ -59,6 +59,8 @@ export async function generateCollection(
 // Create collection.
 const CURRENT_DATE = new Date();
 
+// TODO(imballinst): this is "get all".
+// Think about get per expression (since/until/exact) and per category.
 export async function getDirectoriesAndCollections(
   directoryPath = COLLECTIONS
 ) {
@@ -104,7 +106,7 @@ export async function getDirectoriesAndCollections(
     }
   }
 
-  return { collection, date: CURRENT_DATE };
+  return { collection, date: CURRENT_DATE.toISOString() };
 }
 
 // Helper functions.

@@ -5,7 +5,7 @@ import { Layout } from '../components/Layout';
 import { InternalLink } from '../components/Links';
 import {
   COLLECTIONS,
-  DirectoryType,
+  CollectionType,
   getDirectoriesAndCollections
 } from '../lib/collections';
 
@@ -32,10 +32,10 @@ const Home = ({
 
         {
           <Directory
-            cards={Object.keys(directory.folders.since.files).map((file) => ({
-              title: directory.folders.since.files[file].title,
-              text: directory.folders.since.files[file].events[0].description,
-              date: directory.folders.since.files[file].events[0].datetime,
+            cards={Object.keys(directory.collection.files.since).map((file) => ({
+              title: directory.collection.files.since[file].title,
+              text: directory.collection.files.since[file].events[0].description,
+              date: directory.collection.files.since[file].events[0].datetime,
               href: `${file}`
             }))}
           />
@@ -60,10 +60,10 @@ const Home = ({
 
         {
           <Directory
-            cards={Object.keys(directory.folders.until.files).map((file) => ({
-              title: directory.folders.until.files[file].title,
-              text: directory.folders.until.files[file].events[0].description,
-              date: directory.folders.until.files[file].events[0].datetime,
+            cards={Object.keys(directory.collection.files.until).map((file) => ({
+              title: directory.collection.files.until[file].title,
+              text: directory.collection.files.until[file].events[0].description,
+              date: directory.collection.files.until[file].events[0].datetime,
               href: `${file}`
             }))}
           />
@@ -76,7 +76,10 @@ const Home = ({
 export default Home;
 
 export const getServerSideProps: GetServerSideProps<{
-  directory: DirectoryType;
+  directory: {
+    collection: CollectionType;
+    date: string
+  };
 }> = async (_context) => {
   const directory = await getDirectoriesAndCollections(COLLECTIONS);
 
