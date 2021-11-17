@@ -14,8 +14,8 @@
     "test:ci": "jest"
   },
   "dependencies": {
-    "@chakra-ui/icons": "1.0.15",
-    "@chakra-ui/react": "1.6.7",
+    "@chakra-ui/icons": "1.1.1",
+    "@chakra-ui/react": "1.7.1",
     "@emotion/react": "11",
     "@emotion/styled": "11",
     "count-up-down": "0.1.2",

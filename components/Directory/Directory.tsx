@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from '@chakra-ui/icons';
 import { SimpleGrid } from '@chakra-ui/react';
 import { Card, CardProps } from '../Card';
 import { CardButton } from '../CardButton';
@@ -18,7 +19,7 @@ export function Directory({ cards }: DirectoryProps) {
         <Card as="li" key={card.href} {...card} />
       ))}
 
-      <CardButton aria-label="View all" icon={ChevronRightIcon} />
+      <CardButton aria-label="View all" icon={<ChevronRightIcon />} />
     </SimpleGrid>
   );
 }
