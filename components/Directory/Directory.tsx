@@ -1,5 +1,6 @@
 import { SimpleGrid } from '@chakra-ui/react';
 import { Card, CardProps } from '../Card';
+import { CardButton } from '../CardButton';
 
 export interface DirectoryProps {
   cards: CardProps[];
@@ -16,6 +17,8 @@ export function Directory({ cards }: DirectoryProps) {
       {cards.map((card) => (
         <Card as="li" key={card.href} {...card} />
       ))}
+
+      <CardButton aria-label="View all" icon={ChevronRightIcon} />
     </SimpleGrid>
   );
 }

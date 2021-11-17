@@ -10,12 +10,12 @@ export interface TimerProps {
 
 export function Timer({ date }: TimerProps) {
   const [state, setState] = useState(
-    calculate(new Date(date), new Date()).result
+    padAll(calculate(new Date(date), new Date()).result)
   );
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setState(calculate(new Date(date), new Date()).result);
+      setState(padAll(calculate(new Date(date), new Date()).result));
     }, 1000);
 
     return () => {
@@ -67,4 +67,17 @@ export function Timer({ date }: TimerProps) {
       </div>
     </div>
   );
+}
+
+// Helper functions.
+function padAll(input: { [index: string]: number }) {
+  const output: {
+    [index: string]: string;
+  } = {};
+
+  for (const key in input) {
+    output[key] = `${input[key]}`.padStart(2, '0');
+  }
+
+  return output;
 }

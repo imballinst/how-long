@@ -13,7 +13,7 @@ const Home = ({
   directory
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <Layout>
+    <Layout subtitle="Home">
       <Box mb={8}>
         <Box
           display="flex"
@@ -32,12 +32,15 @@ const Home = ({
 
         {
           <Directory
-            cards={Object.keys(directory.collection.files.since).map((file) => ({
-              title: directory.collection.files.since[file].title,
-              text: directory.collection.files.since[file].events[0].description,
-              date: directory.collection.files.since[file].events[0].datetime,
-              href: `${file}`
-            }))}
+            cards={Object.keys(directory.collection.files.since).map(
+              (file) => ({
+                title: directory.collection.files.since[file].title,
+                text: directory.collection.files.since[file].events[0]
+                  .description,
+                date: directory.collection.files.since[file].events[0].datetime,
+                href: `${file}`
+              })
+            )}
           />
         }
       </Box>
@@ -60,12 +63,15 @@ const Home = ({
 
         {
           <Directory
-            cards={Object.keys(directory.collection.files.until).map((file) => ({
-              title: directory.collection.files.until[file].title,
-              text: directory.collection.files.until[file].events[0].description,
-              date: directory.collection.files.until[file].events[0].datetime,
-              href: `${file}`
-            }))}
+            cards={Object.keys(directory.collection.files.until).map(
+              (file) => ({
+                title: directory.collection.files.until[file].title,
+                text: directory.collection.files.until[file].events[0]
+                  .description,
+                date: directory.collection.files.until[file].events[0].datetime,
+                href: `${file}`
+              })
+            )}
           />
         }
       </Box>
@@ -78,7 +84,7 @@ export default Home;
 export const getServerSideProps: GetServerSideProps<{
   directory: {
     collection: CollectionType;
-    date: string
+    date: string;
   };
 }> = async (_context) => {
   const directory = await getDirectoriesAndCollections(COLLECTIONS);

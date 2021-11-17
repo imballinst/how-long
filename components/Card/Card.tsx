@@ -1,5 +1,12 @@
 import { ReactNode, useMemo } from 'react';
-import { Box, Badge, HStack, As, useStyleConfig } from '@chakra-ui/react';
+import {
+  Box,
+  Badge,
+  HStack,
+  As,
+  useStyleConfig,
+  useColorModeValue
+} from '@chakra-ui/react';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import { InternalLink } from '../Links';
 
@@ -15,6 +22,7 @@ export interface CardProps {
 
 export function Card(props: CardProps) {
   const styles = useStyleConfig('Card');
+
   const tags: ReactNode[] = useMemo(() => {
     const tags: ReactNode[] = [];
 
@@ -33,6 +41,10 @@ export function Card(props: CardProps) {
 
   return (
     <Box as={props.as} sx={styles}>
+      <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
+        <InternalLink href={props.href}>{props.title}</InternalLink>
+      </Box>
+
       <Box
         display="flex"
         flexDirection="row"
@@ -40,6 +52,14 @@ export function Card(props: CardProps) {
         alignItems="center"
         mb="1"
       >
+        {props.date !== undefined && (
+          <Box fontSize="sm" color="gray.500">
+            {formatDistanceToNowStrict(new Date(props.date), {
+              addSuffix: true
+            })}
+          </Box>
+        )}
+
         <Box
           color="gray.500"
           fontWeight="semibold"
@@ -49,18 +69,6 @@ export function Card(props: CardProps) {
         >
           {tags}
         </Box>
-
-        {props.date !== undefined && (
-          <Box fontSize="sm">
-            {formatDistanceToNowStrict(new Date(props.date), {
-              addSuffix: true
-            })}
-          </Box>
-        )}
-      </Box>
-
-      <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-        <InternalLink href={props.href}>{props.title}</InternalLink>
       </Box>
 
       <Box d="flex" mt="2" alignItems="center">
