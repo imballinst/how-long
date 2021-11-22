@@ -187,7 +187,9 @@ export default {
   // verbose: undefined,
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
-  watchPathIgnorePatterns: ['<rootDir>/lib/test-collections/collection.json']
+  watchPathIgnorePatterns: [
+    '<rootDir>/lib/collections/server/test-collections/collection.json'
+  ]
 
   // Whether to use watchman for file crawling
   // watchman: true,

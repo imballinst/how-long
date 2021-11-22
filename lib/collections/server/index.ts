@@ -65,10 +65,11 @@ export async function getAllCollections(directoryPath = COLLECTIONS) {
       continue;
     }
 
-    const result = await getCollectionsFromFolder(
+    const result = await getCollectionsFromFolder({
       entry,
-      `${directoryPath}/${entry.name}`
-    );
+      entryPath: `${directoryPath}/${entry.name}`,
+      basePath: directoryPath
+    });
     collections.push(...result);
   }
 
@@ -76,10 +77,15 @@ export async function getAllCollections(directoryPath = COLLECTIONS) {
 }
 
 // Helper functions.
-async function getCollectionsFromFolder(
-  entry: Dirent,
-  entryPath: string
-): Promise<Collection[]> {
+async function getCollectionsFromFolder({
+  entry,
+  entryPath,
+  basePath
+}: {
+  entry: Dirent;
+  entryPath: string;
+  basePath: string;
+}): Promise<Collection[]> {
   const collections: Collection[] = [];
 
   if (entry.isDirectory()) {
@@ -89,10 +95,11 @@ async function getCollectionsFromFolder(
     });
 
     for (const dirEntry of dirEntries) {
-      const result = await getCollectionsFromFolder(
-        dirEntry,
-        `${entryPath}/${dirEntry.name}`
-      );
+      const result = await getCollectionsFromFolder({
+        entry: dirEntry,
+        entryPath: `${entryPath}/${dirEntry.name}`,
+        basePath
+      });
 
       collections.push(...result);
     }
@@ -103,7 +110,7 @@ async function getCollectionsFromFolder(
   const fileContent = await fs.readFile(entryPath, 'utf-8');
   const json: Collection = {
     ...JSON.parse(fileContent),
-    path: trimJsonExtension(entryPath)
+    path: trimJsonExtension(entryPath.slice(basePath.length + 1))
   };
 
   return [json];
@@ -113,7 +120,7 @@ const JSON_EXTENSION = '.json';
 
 function trimJsonExtension(fileName: string) {
   if (fileName.endsWith(JSON_EXTENSION)) {
-    return fileName.slice(0, -JSON_EXTENSION);
+    return fileName.slice(0, -JSON_EXTENSION.length);
   }
 
   return fileName;
