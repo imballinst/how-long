@@ -8,10 +8,8 @@ import { ReactNode } from 'react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 type InternalLinkProps = PropsWithChildren<
-  Omit<NextLinkProps, 'href'> & Omit<ChakraLinkProps, 'as'>
-> & {
-  href?: string;
-};
+  NextLinkProps & Omit<ChakraLinkProps, 'as'>
+>;
 
 export function InternalLink({
   href,
@@ -23,10 +21,6 @@ export function InternalLink({
   children,
   ...chakraProps
 }: InternalLinkProps) {
-  if (href === undefined) {
-    return <>{children}</>;
-  }
-
   return (
     <NextLink
       passHref={true}

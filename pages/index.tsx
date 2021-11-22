@@ -22,7 +22,7 @@ const Home = () => {
       const collection: Collection[] = await response.json();
 
       // In this screen, we don't need to update so often.
-      // setTimedCollection(groupCollectionsByTime(collection, new Date()));
+      setTimedCollection(groupCollectionsByTime(collection, new Date()));
     }
 
     getTimedCollection();
