@@ -21,7 +21,7 @@ export function groupCollectionsByTime(
     }
 
     const collectionDate = new Date(collection.events[0].datetime);
-    const key = collectionDate.valueOf() >= valueOf ? 'since' : 'until';
+    const key = valueOf >= collectionDate.valueOf() ? 'since' : 'until';
     timedCollection[key].push(collection);
   }
 
