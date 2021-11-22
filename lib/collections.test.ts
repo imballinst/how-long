@@ -1,9 +1,9 @@
 import path from 'path';
-import fs from 'fs/promises';
 import {
   getDirectoriesAndCollections,
   CollectionType,
-  generateCollection
+  generateCollection,
+  readCollection
 } from './collections';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, 'test-collections');
@@ -40,9 +40,6 @@ test('getDirectoriesAndCollections', async () => {
 test('generateCollection', async () => {
   await generateCollection(PATH_TO_COLLECTIONS, expectedCollection);
 
-  const resultCollection = await fs.readFile(
-    path.join(PATH_TO_COLLECTIONS, 'collection.json'),
-    'utf-8'
-  );
+  const resultCollection = await readCollection(PATH_TO_COLLECTIONS);
   expect(resultCollection).toBe(JSON.stringify(expectedCollection));
 });

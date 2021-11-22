@@ -56,14 +56,19 @@ export async function generateCollection(
   );
 }
 
+// Read collection.
+export async function readCollection(directoryPath = COLLECTIONS) {
+  return fs.readFile(path.join(directoryPath, 'collection.json'), 'utf-8');
+}
+
 // Create collection.
-const CURRENT_DATE = new Date();
 
 // TODO(imballinst): this is "get all".
 // Think about get per expression (since/until/exact) and per category.
 export async function getDirectoriesAndCollections(
   directoryPath = COLLECTIONS
 ) {
+  const currentDate = new Date();
   const collection: CollectionType = {
     files: {
       since: {},
@@ -86,7 +91,8 @@ export async function getDirectoriesAndCollections(
     const result = await recursivelyPushToCollections(
       entry,
       `${directoryPath}/${entry.name}`,
-      `${entry.name}`
+      `${entry.name}`,
+      currentDate
     );
 
     for (const key in result.folders) {
@@ -106,14 +112,15 @@ export async function getDirectoriesAndCollections(
     }
   }
 
-  return { collection, date: CURRENT_DATE.toISOString() };
+  return { collection, date: currentDate.toISOString() };
 }
 
 // Helper functions.
 async function recursivelyPushToCollections(
   entry: Dirent,
   entryPath: string,
-  parentPath: string
+  parentPath: string,
+  currentDate: Date
 ): Promise<CollectionType> {
   const directory: CollectionType = {
     folders: {},
@@ -144,7 +151,8 @@ async function recursivelyPushToCollections(
       const result = await recursivelyPushToCollections(
         dirEntry,
         `${entryPath}/${dirEntry.name}`,
-        `${parentPath}/${isFolder ? dirEntry.name : ''}`
+        `${parentPath}/${isFolder ? dirEntry.name : ''}`,
+        currentDate
       );
 
       for (const key in result.folders) {
@@ -174,8 +182,8 @@ async function recursivelyPushToCollections(
     const json: Collection = JSON.parse(fileContent);
 
     const lastDate = new Date(json.events[0].datetime);
-    const isDateBefore = isBefore(CURRENT_DATE, lastDate);
-    const isDateAfter = isAfter(CURRENT_DATE, lastDate);
+    const isDateBefore = isBefore(currentDate, lastDate);
+    const isDateAfter = isAfter(currentDate, lastDate);
 
     let key = `${parentPath}${trimJsonExtension(entry.name)}`;
     let status: keyof CollectionDictionary;
