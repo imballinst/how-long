@@ -1,17 +1,23 @@
 import { Box } from '@chakra-ui/react';
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useEffect } from '@storybook/addons';
+import { useState } from 'react';
 import { Directory } from '../components/Directory';
 import { Layout } from '../components/Layout';
 import { InternalLink } from '../components/Links';
-import {
-  COLLECTIONS,
-  CollectionType,
-  getDirectoriesAndCollections
-} from '../lib/collections';
+import { TimedCollection } from '../lib/collections/client';
+import { Collection } from '../lib/collections/types';
 
-const Home = ({
-  directory
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home = () => {
+  const [timedCollection, setTimedCollection] = useState<
+    TimedCollection | undefined
+  >();
+
+  useEffect(() => {
+    async function getTimedCollection() {}
+
+    getTimedCollection();
+  }, []);
+
   return (
     <Layout subtitle="Home">
       <Box mb={8}>
@@ -80,18 +86,3 @@ const Home = ({
 };
 
 export default Home;
-
-export const getServerSideProps: GetServerSideProps<{
-  directory: {
-    collection: CollectionType;
-    date: string;
-  };
-}> = async (_context) => {
-  const directory = await getDirectoriesAndCollections(COLLECTIONS);
-
-  return {
-    props: {
-      directory
-    }
-  };
-};

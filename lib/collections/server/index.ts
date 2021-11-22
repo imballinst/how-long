@@ -13,6 +13,12 @@ export async function generateCollection<TCollectionType>(
   directoryPath: string,
   json: TCollectionType
 ) {
+  const isExists = await doesPathExist(directoryPath);
+
+  if (!isExists) {
+    await fs.mkdir(directoryPath, { recursive: true });
+  }
+
   return fs.writeFile(
     path.join(directoryPath, 'collection.json'),
     JSON.stringify(json),
@@ -114,4 +120,13 @@ function trimJsonExtension(fileName: string) {
   }
 
   return fileName;
+}
+
+async function doesPathExist(path: string) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch (err) {
+    return false;
+  }
 }

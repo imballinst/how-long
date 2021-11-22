@@ -1,6 +1,6 @@
 import { Collection } from '../types';
 
-interface TimedCollection {
+export interface TimedCollection {
   since: Collection[];
   until: Collection[];
 }
