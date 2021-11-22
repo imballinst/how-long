@@ -5,7 +5,7 @@ import {
 } from '../lib/collections/server';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, '../collections');
-const PATH_TO_PUBLIC = path.join(__dirname, '../public/collection.json');
+const PATH_TO_PUBLIC = path.join(__dirname, '../public');
 
 async function main() {
   const result = await getAllCollections(PATH_TO_COLLECTIONS);

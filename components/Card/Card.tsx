@@ -1,18 +1,11 @@
-import { ReactNode, useMemo } from 'react';
-import {
-  Box,
-  Badge,
-  HStack,
-  As,
-  useStyleConfig,
-  useColorModeValue
-} from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import { Box, Badge, As, useStyleConfig } from '@chakra-ui/react';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import { InternalLink } from '../Links';
 
 export interface CardProps {
   as?: As<any> | undefined;
-  href: string;
+  href?: string;
   title: string;
   tags?: string[];
   // ISO8601 date string.
@@ -22,22 +15,6 @@ export interface CardProps {
 
 export function Card(props: CardProps) {
   const styles = useStyleConfig('Card');
-
-  const tags: ReactNode[] = useMemo(() => {
-    const tags: ReactNode[] = [];
-
-    if (props.tags) {
-      for (let i = 0; i < props.tags.length; i++) {
-        tags.push(<Badge>{props.tags[i]}</Badge>);
-
-        if (i + 1 < props.tags.length) {
-          tags.push(<>&bull;</>);
-        }
-      }
-    }
-
-    return tags;
-  }, [props.tags]);
 
   return (
     <Box as={props.as} sx={styles}>
@@ -67,7 +44,7 @@ export function Card(props: CardProps) {
           fontSize="xs"
           textTransform="uppercase"
         >
-          {tags}
+          <Tags tags={props.tags} />
         </Box>
       </Box>
 
@@ -78,4 +55,21 @@ export function Card(props: CardProps) {
       </Box>
     </Box>
   );
+}
+
+// Composing functions.
+function Tags(props: { tags?: string[] }) {
+  const tags: ReactNode[] = [];
+
+  if (props.tags) {
+    for (let i = 0; i < props.tags.length; i++) {
+      tags.push(<Badge>{props.tags[i]}</Badge>);
+
+      if (i + 1 < props.tags.length) {
+        tags.push(<>&bull;</>);
+      }
+    }
+  }
+
+  return <>{tags}</>;
 }

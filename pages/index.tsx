@@ -1,10 +1,14 @@
 import { Box } from '@chakra-ui/react';
-import { useEffect } from '@storybook/addons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import ky from 'ky';
+
 import { Directory } from '../components/Directory';
 import { Layout } from '../components/Layout';
 import { InternalLink } from '../components/Links';
-import { TimedCollection } from '../lib/collections/client';
+import {
+  groupCollectionsByTime,
+  TimedCollection
+} from '../lib/collections/client';
 import { Collection } from '../lib/collections/types';
 
 const Home = () => {
@@ -13,7 +17,13 @@ const Home = () => {
   >();
 
   useEffect(() => {
-    async function getTimedCollection() {}
+    async function getTimedCollection() {
+      const response = await ky('/collection.json');
+      const collection: Collection[] = await response.json();
+
+      // In this screen, we don't need to update so often.
+      // setTimedCollection(groupCollectionsByTime(collection, new Date()));
+    }
 
     getTimedCollection();
   }, []);
@@ -36,19 +46,15 @@ const Home = () => {
 
         <Box as="hr" height={1} mt={2} mb={4} />
 
-        {
-          <Directory
-            cards={Object.keys(directory.collection.files.since).map(
-              (file) => ({
-                title: directory.collection.files.since[file].title,
-                text: directory.collection.files.since[file].events[0]
-                  .description,
-                date: directory.collection.files.since[file].events[0].datetime,
-                href: `${file}`
-              })
-            )}
-          />
-        }
+        <Directory
+          cards={timedCollection?.since.map((file) => ({
+            title: file.title,
+            text: file.events[0].description,
+            date: file.events[0].datetime,
+            href: `${file}`
+          }))}
+          showSkeleton={timedCollection === undefined}
+        />
       </Box>
 
       <Box>
@@ -67,19 +73,15 @@ const Home = () => {
 
         <Box as="hr" height={1} mt={2} mb={4} />
 
-        {
-          <Directory
-            cards={Object.keys(directory.collection.files.until).map(
-              (file) => ({
-                title: directory.collection.files.until[file].title,
-                text: directory.collection.files.until[file].events[0]
-                  .description,
-                date: directory.collection.files.until[file].events[0].datetime,
-                href: `${file}`
-              })
-            )}
-          />
-        }
+        <Directory
+          cards={timedCollection?.until.map((file) => ({
+            title: file.title,
+            text: file.events[0].description,
+            date: file.events[0].datetime,
+            href: `${file}`
+          }))}
+          showSkeleton={timedCollection === undefined}
+        />
       </Box>
     </Layout>
   );
