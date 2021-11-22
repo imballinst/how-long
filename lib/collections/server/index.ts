@@ -4,23 +4,13 @@ import path from 'path';
 
 import { Collection } from '../types';
 
-let ROOT = path.join(__dirname, '..');
-
-// When the environment is development, then the working directory is
-// .next/cache/server.
-if (process.env.NODE_ENV !== 'test') {
-  ROOT = path.join(ROOT, '../..');
-}
-
-export const COLLECTIONS = path.join(ROOT, 'collections');
-
 interface CategorizedCollection {
   [index: string]: Collection[];
 }
 
 // Generate collection.
 export async function generateCollection<TCollectionType>(
-  directoryPath = COLLECTIONS,
+  directoryPath: string,
   json: TCollectionType
 ) {
   return fs.writeFile(
@@ -31,7 +21,7 @@ export async function generateCollection<TCollectionType>(
 }
 
 // Read collection.
-export async function readCollection(directoryPath = COLLECTIONS) {
+export async function readCollection(directoryPath: string) {
   return fs.readFile(path.join(directoryPath, 'collection.json'), 'utf-8');
 }
 
@@ -52,7 +42,7 @@ export function groupCollectionsByName(
   return categorizedCollection;
 }
 
-export async function getAllCollections(directoryPath = COLLECTIONS) {
+export async function getAllCollections(directoryPath: string) {
   const collections: Collection[] = [];
   const entries = await fs.readdir(directoryPath, {
     encoding: 'utf-8',

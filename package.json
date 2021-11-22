@@ -11,7 +11,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest --config ./jest.config.ts --watch",
-    "test:ci": "jest"
+    "test:ci": "jest",
+    "collections:generate": "ts-node scripts/generate-collections.ts"
   },
   "dependencies": {
     "@chakra-ui/icons": "1.1.1",
