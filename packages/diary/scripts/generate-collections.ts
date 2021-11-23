@@ -1,4 +1,5 @@
 import path from 'path';
+// The auto import works because of https://stackoverflow.com/a/68453073.
 import { generateCollection, getAllCollections } from '@how-long/collections';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, '../collections');
