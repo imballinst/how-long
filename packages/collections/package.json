@@ -4,7 +4,7 @@
   "repository": "git@github.com:imballinst/how-long.git",
   "private": true,
   "scripts": {
-    "build": "tsc --project ./tsconfig.build.json",
+    "build": "tsc",
     "test": "jest --watch",
     "test:ci": "jest"
   },
