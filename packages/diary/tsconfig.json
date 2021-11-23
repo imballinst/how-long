@@ -17,11 +17,16 @@
       "@how-long/collections": ["../collections"]
     }
   },
-  "include": ["src/**/*.ts", "scripts/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],
   "references": [
     {
       "path": "../collections"
     }
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
