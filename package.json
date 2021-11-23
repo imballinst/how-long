@@ -1,54 +1,15 @@
 {
-  "name": "how-long-since",
-  "version": "0.1.0",
+  "name": "how-long",
+  "version": "0.0.1",
+  "repository": "git@github.com:imballinst/how-long.git",
+  "author": "Try Ajitiono <ballinst@gmail.com>",
+  "license": "MIT",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "prettify": "prettier --write pages",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "test": "jest --config ./jest.config.ts --watch",
-    "test:ci": "jest",
-    "collections:generate": "ts-node scripts/generate-collections.ts"
-  },
-  "dependencies": {
-    "@chakra-ui/icons": "1.1.1",
-    "@chakra-ui/react": "1.7.1",
-    "@emotion/react": "11",
-    "@emotion/styled": "11",
-    "count-up-down": "0.1.2",
-    "date-fns": "2.24.0",
-    "framer-motion": "4",
-    "ky": "0.28.7",
-    "next": "11.1.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-icons": "4.2.0"
-  },
+  "workspaces": [
+    "packages/collections",
+    "packages/diary"
+  ],
   "devDependencies": {
-    "@babel/core": "7.15.5",
-    "@babel/plugin-proposal-class-properties": "7.14.5",
-    "@babel/plugin-proposal-private-property-in-object": "7.15.4",
-    "@babel/preset-env": "7.15.6",
-    "@babel/preset-typescript": "7.15.0",
-    "@storybook/addon-actions": "6.3.8",
-    "@storybook/addon-essentials": "6.3.8",
-    "@storybook/addon-links": "6.3.8",
-    "@storybook/react": "6.3.8",
-    "@types/jest": "27.0.1",
-    "@types/node": "16.9.1",
-    "@types/react": "17.0.35",
-    "babel-jest": "27.2.0",
-    "babel-loader": "8.2.2",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2",
-    "jest": "27.2.0",
-    "prettier": "2.4.0",
-    "storybook-addon-performance": "0.16.1",
-    "ts-node": "10.2.1",
-    "typescript": "4.5.1-rc"
+    "prettier": "2.4.1"
   }
 }
