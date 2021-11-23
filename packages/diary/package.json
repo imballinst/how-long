@@ -8,9 +8,6 @@
     "build": "astro build",
     "preview": "astro preview"
   },
-  "dependencies": {
-    "@how-long/collections": "0.0.1"
-  },
   "devDependencies": {
     "@types/node": "16.11.9",
     "astro": "0.21.2",
