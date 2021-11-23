@@ -9,8 +9,10 @@
     "preview": "astro preview"
   },
   "devDependencies": {
+    "@types/node": "16.11.9",
     "astro": "0.21.2",
     "autoprefixer": "10.4.0",
-    "tailwindcss": "2.2.19"
+    "tailwindcss": "2.2.19",
+    "ts-node": "10.4.0"
   }
 }

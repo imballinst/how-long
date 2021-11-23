@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "es5",
     "lib": ["esnext"],
     "allowJs": true,
@@ -14,6 +15,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
