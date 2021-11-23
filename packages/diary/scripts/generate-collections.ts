@@ -1,4 +1,5 @@
 import path from 'path';
+import { generateCollection, getAllCollections } from '@how-long/collections';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, '../collections');
 const PATH_TO_PUBLIC = path.join(__dirname, '../public');
