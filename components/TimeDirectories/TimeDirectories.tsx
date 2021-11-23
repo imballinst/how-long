@@ -11,16 +11,16 @@ import {
 } from '../../lib/collections/client';
 import { Collection } from '../../lib/collections/types';
 
-export function TimeDirectories({
-  title,
-  pathname = ''
-}: {
+interface TimedCollectionResponse {
   title: string;
-  pathname?: string;
-}) {
+  collections: Collection[];
+}
+
+export function TimeDirectories({ pathname = '' }: { pathname?: string }) {
   const [timedCollection, setTimedCollection] = useState<
     TimedCollection | undefined
   >();
+  const [title, setTitle] = useState<string | undefined>();
 
   useEffect(() => {
     async function getTimedCollection() {
@@ -29,10 +29,12 @@ export function TimeDirectories({
           ? `${pathname.slice(1).replace(/\//g, '-')}--`
           : '';
       const response = await ky(`/${prefix}collection.json`);
-      const collection: Collection[] = await response.json();
+      const { title, collections }: TimedCollectionResponse =
+        await response.json();
 
       // In this screen, we don't need to update so often.
-      setTimedCollection(groupCollectionsByTime(collection, new Date()));
+      setTimedCollection(groupCollectionsByTime(collections, new Date()));
+      setTitle(title);
     }
 
     getTimedCollection();
@@ -42,6 +44,10 @@ export function TimeDirectories({
 
   if (pathname.slice(1).length > 0) {
     sinceUntilSuffix = `/${pathname.slice(1).split('/').slice(1).join('/')}`;
+  }
+
+  if (title === undefined) {
+    return null;
   }
 
   return (
