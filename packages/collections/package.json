@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "repository": "git@github.com:imballinst/how-long.git",
   "private": true,
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "test": "jest --watch",
