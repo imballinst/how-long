@@ -1,0 +1,10 @@
+{
+  "paths": {
+    "@how-long/collections": [
+      "packages/collections"
+    ],
+    "@how-long/diary": [
+      "packages/diary"
+    ]
+  }
+}
