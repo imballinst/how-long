@@ -7,8 +7,7 @@ import {
 } from '@how-long/collections';
 
 import { Directory } from '../Directory';
-import { Layout } from '../Layout';
-import { InternalLink } from '../Links';
+import { Link } from '../Links';
 
 interface TimedCollectionResponse {
   title: string;
@@ -50,14 +49,12 @@ export function TimeDirectories({ pathname = '' }: { pathname?: string }) {
   }
 
   return (
-    <Layout subtitle={title}>
+    <div>
       <div className="mb-8">
         <div className="flex flex-row justify-center items-center">
           <h2 className="text-2xl font-bold">Since</h2>
 
-          <InternalLink href={`/since${sinceUntilSuffix}`}>
-            View all
-          </InternalLink>
+          <Link href={`/since${sinceUntilSuffix}`}>View all</Link>
         </div>
 
         <hr className="h-4 mt-2 mb-4" />
@@ -77,9 +74,7 @@ export function TimeDirectories({ pathname = '' }: { pathname?: string }) {
         <div className="flex flex-row justify-center items-center">
           <h2 className="text-2xl font-bold">Until</h2>
 
-          <InternalLink href={`/since${sinceUntilSuffix}`}>
-            View all
-          </InternalLink>
+          <Link href={`/since${sinceUntilSuffix}`}>View all</Link>
         </div>
 
         <hr className="h-4 mt-2 mb-4" />
@@ -94,6 +89,6 @@ export function TimeDirectories({ pathname = '' }: { pathname?: string }) {
           showSkeleton={timedCollection === undefined}
         />
       </div>
-    </Layout>
+    </div>
   );
 }

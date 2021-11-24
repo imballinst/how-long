@@ -1,5 +1,4 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
-import { ChevronRightIcon } from '@chakra-ui/icons';
+import { Link } from '../Links';
 
 export interface Page {
   href: string;
@@ -14,12 +13,24 @@ export function BreadcrumbHeader(props: BreadcrumbHeaderProps) {
   const length = props.pages.length;
 
   return (
-    <Breadcrumb spacing="4px" separator={<ChevronRightIcon color="gray.500" />}>
+    <div>
       {props.pages.map((page, idx) => (
-        <BreadcrumbItem key={page.href} isCurrentPage={idx + 1 === length}>
-          <BreadcrumbLink href={page.href}>{page.title}</BreadcrumbLink>
-        </BreadcrumbItem>
+        <div key={page.href}>
+          <Link href={page.href}>{page.title}</Link>
+        </div>
       ))}
-    </Breadcrumb>
+    </div>
+  );
+}
+
+function ChevronRight({ className }: { className?: string }) {
+  return (
+    // Taken from https://chakra-ui.com/docs/media-and-icons/icon.
+    <svg viewBox="0 0 24 24" focusable="false" className={className}>
+      <path
+        fill="currentColor"
+        d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+      ></path>
+    </svg>
   );
 }

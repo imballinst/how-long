@@ -1,6 +1,6 @@
 ---
 // Component Imports
-import Counter from '../components/Counter.tsx'
+import TimeDirectories from '../components/TimeDirectories'
 const someProps = {
   count: 0,
 }
@@ -36,9 +36,7 @@ const someProps = {
   </head>
   <body>
     <main>
-      <Counter {...someProps} client:visible>
-        <h1>Hello, React!</h1>
-      </Counter>
+      <TimeDirectories />
     </main>
   </body>
 </html>

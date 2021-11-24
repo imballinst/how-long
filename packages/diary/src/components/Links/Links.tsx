@@ -20,6 +20,7 @@ export function Link({ href, children, isExternal }: LinkProps) {
     anchorProps.rel = ADDITIONAL_EXTERNAL_PROPS.rel;
 
     additionalChildren = (
+      // Taken from https://chakra-ui.com/docs/media-and-icons/icon.
       <svg viewBox="0 0 24 24" className="ml-4" focusable="false">
         <g
           fill="none"
