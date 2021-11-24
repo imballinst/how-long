@@ -15,7 +15,8 @@
     "astro": "0.21.2",
     "autoprefixer": "10.4.0",
     "tailwindcss": "2.2.19",
-    "ts-node": "10.4.0"
+    "ts-node": "10.4.0",
+    "typescript-plugin-css-modules": "3.4.0"
   },
   "dependencies": {
     "@how-long/collections": "0.0.1",

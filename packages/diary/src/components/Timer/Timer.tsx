@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { calculate } from 'count-up-down';
+import { CountResult } from 'count-up-down/dist/types/common/types';
 
 import styles from './Timer.module.css';
 
@@ -8,8 +9,19 @@ export interface TimerProps {
   date: string;
 }
 
+interface TimeState {
+  years: string;
+  months: string;
+  days: string;
+  hours: string;
+  minutes: string;
+  seconds: string;
+}
+
+type CountKeys = keyof CountResult;
+
 export function Timer({ date }: TimerProps) {
-  const [state, setState] = useState(
+  const [state, setState] = useState<TimeState>(
     padAll(calculate(new Date(date), new Date()).result)
   );
 
@@ -23,59 +35,36 @@ export function Timer({ date }: TimerProps) {
     };
   }, [date]);
 
+  const keys = Object.keys(state) as CountKeys[];
+
   return (
-    <div className={styles.root}>
-      <div className={styles.row}>
-        <div className={styles.wrapper}>
-          <div className={styles.value} id="years">
-            {state.years}
-          </div>
-          <div className={styles.unit}>years</div>
+    <div className="grid grid-cols-3 gap-4">
+      {keys.map((key) => (
+        <div key={key} className={`${styles['time-text']}} text-center`}>
+          <div className="text-5xl">{state[key]}</div>
+          <div className="text-xl">{key}</div>
         </div>
-        <div className={styles.wrapper}>
-          <div className={styles.value} id="months">
-            {state.months}
-          </div>
-          <div className={styles.unit}>months</div>
-        </div>
-        <div className={styles.wrapper}>
-          <div className={styles.value} id="days">
-            {state.days}
-          </div>
-          <div className={styles.unit}>days</div>
-        </div>
-      </div>
-      <div className={styles.row}>
-        <div className={styles.wrapper}>
-          <div className={styles.value} id="hours">
-            {state.hours}
-          </div>
-          <div className={styles.unit}>hours</div>
-        </div>
-        <div className={styles.wrapper}>
-          <div className={styles.value} id="minutes">
-            {state.minutes}
-          </div>
-          <div className={styles.unit}>minutes</div>
-        </div>
-        <div className={styles.wrapper}>
-          <div className={styles.value} id="seconds">
-            {state.seconds}
-          </div>
-          <div className={styles.unit}>seconds</div>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }
 
 // Helper functions.
-function padAll(input: { [index: string]: number }) {
+function padAll(input: CountResult) {
   const output: {
-    [index: string]: string;
-  } = {};
+    [index in CountKeys]: string;
+  } = {
+    years: '',
+    months: '',
+    days: '',
+    hours: '',
+    minutes: '',
+    seconds: ''
+  };
 
-  for (const key in input) {
+  const keys = Object.keys(input) as CountKeys[];
+
+  for (const key of keys) {
     output[key] = `${input[key]}`.padStart(2, '0');
   }
 

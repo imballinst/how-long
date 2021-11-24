@@ -15,7 +15,8 @@
     "jsx": "preserve",
     "paths": {
       "@how-long/collections": ["../collections"]
-    }
+    },
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],
