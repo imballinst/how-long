@@ -1,4 +1,3 @@
-import { SimpleGrid } from '@chakra-ui/react';
 import { Card, CardProps } from '../Card';
 
 export interface DirectoryProps {
@@ -18,15 +17,12 @@ export function Directory({
   showSkeleton
 }: DirectoryProps) {
   return (
-    <SimpleGrid
-      as="ul"
-      listStyleType="none"
-      columns={{ sm: 1, md: 2, lg: 3 }}
-      spacing={2}
-    >
+    <ul className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {cards.map((card) => (
-        <Card as="li" key={card.href} isLoading={showSkeleton} {...card} />
+        <li key={card.href}>
+          <Card isLoading={showSkeleton} {...card} />
+        </li>
       ))}
-    </SimpleGrid>
+    </ul>
   );
 }
