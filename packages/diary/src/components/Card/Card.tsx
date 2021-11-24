@@ -1,17 +1,11 @@
 import { ReactNode } from 'react';
-import {
-  Box,
-  Badge,
-  As,
-  useStyleConfig,
-  Skeleton,
-  SkeletonText
-} from '@chakra-ui/react';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
-import { InternalLink } from '../Links';
+import { Link } from '../Links';
+import { Skeleton, SkeletonText } from '../Skeletons';
+
+import styles from './Card.module.css';
 
 export interface CardProps {
-  as?: As<any> | undefined;
   href: string;
   title: string;
   tags?: string[];
@@ -22,55 +16,39 @@ export interface CardProps {
 }
 
 export function Card(props: CardProps) {
-  const styles = useStyleConfig('Card');
-
   return (
-    <Box as={props.as} sx={styles}>
+    <div className="border rounded-lg border-gray-200 hover:border-teal-500 p-4 transition-colors">
       <Skeleton isLoaded={!props.isLoading}>
-        <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-          <InternalLink href={props.href}>{props.title}</InternalLink>
-        </Box>
+        <h4 className="font-semibold leading-tight truncate">
+          <Link href={props.href}>{props.title}</Link>
+        </h4>
       </Skeleton>
 
       {props.isLoading ? (
-        <SkeletonText noOfLines={1} mt={2} />
+        <SkeletonText numOfLines={3} className="w-full" />
       ) : (
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-          mb="1"
-        >
+        <div className="flex flex-row justify-between items-center mb-1">
           {props.date !== undefined && (
-            <Box fontSize="sm" color="gray.500">
+            <div className="text-sm text-gray-500">
               {formatDistanceToNowStrict(new Date(props.date), {
                 addSuffix: true
               })}
-            </Box>
+            </div>
           )}
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-          >
+          <div className="text-gray-500 font-semibold tracking-wide text-xs uppercase">
             <Tags tags={props.tags} />
-          </Box>
-        </Box>
+          </div>
+        </div>
       )}
 
-      <Box d="flex" mt="2" alignItems="center">
+      <div className="flex mt-2 items-center">
         {props.isLoading ? (
-          <SkeletonText noOfLines={3} width="100%" />
+          <SkeletonText numOfLines={3} className="w-full" />
         ) : (
-          <Box as="span" fontSize="sm" noOfLines={3}>
-            {props.text}
-          </Box>
+          <p className={`text-sm ${styles['card-text']}`}>{props.text}</p>
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }
 
@@ -80,7 +58,7 @@ function Tags(props: { tags?: string[] }) {
 
   if (props.tags) {
     for (let i = 0; i < props.tags.length; i++) {
-      tags.push(<Badge>{props.tags[i]}</Badge>);
+      tags.push(<div className="p-1 uppercase">{props.tags[i]}</div>);
 
       if (i + 1 < props.tags.length) {
         tags.push(<>&bull;</>);

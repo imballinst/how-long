@@ -1,0 +1,3 @@
+.child-hidden > * {
+  visibility: hidden;
+}
