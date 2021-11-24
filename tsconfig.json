@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["esnext"],
+    "lib": ["dom", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "scripts/**/*.ts"],
+  "include": ["src/**/*", "scripts/**/*"],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {

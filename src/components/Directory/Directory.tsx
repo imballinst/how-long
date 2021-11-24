@@ -2,7 +2,6 @@ import { Card, CardProps } from '../Card';
 
 export interface DirectoryProps {
   cards?: CardProps[];
-  showSkeleton?: boolean;
 }
 
 const CARDS_SKELETON_MOCK: CardProps[] = Array.from(new Array(3), (_, idx) => ({
@@ -12,15 +11,12 @@ const CARDS_SKELETON_MOCK: CardProps[] = Array.from(new Array(3), (_, idx) => ({
   href: `/${idx}`
 }));
 
-export function Directory({
-  cards = CARDS_SKELETON_MOCK,
-  showSkeleton
-}: DirectoryProps) {
+export function Directory({ cards = CARDS_SKELETON_MOCK }: DirectoryProps) {
   return (
     <ul className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {cards.map((card) => (
         <li key={card.href}>
-          <Card isLoading={showSkeleton} {...card} />
+          <Card {...card} />
         </li>
       ))}
     </ul>

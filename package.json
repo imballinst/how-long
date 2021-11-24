@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "jest",
+    "test": "jest src scripts",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -33,7 +33,6 @@
   "dependencies": {
     "count-up-down": "0.2.0",
     "date-fns": "2.26.0",
-    "ky": "0.28.7",
     "react": "17.0.2"
   }
 }

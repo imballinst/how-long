@@ -1,8 +1,7 @@
 import fs from 'fs/promises';
 import type { Dirent } from 'fs';
 import path from 'path';
-
-import { Collection } from '../types';
+import { Collection } from '../../src/helpers/collections';
 
 interface CategorizedCollection {
   [index: string]: Collection[];

@@ -1,9 +1,9 @@
 ---
-// Component Imports
-import TimeDirectories from '../components/TimeDirectories'
-const someProps = {
-  count: 0,
-}
+import json from '../static/collection.json';
+import { groupCollectionsByTime } from '../helpers/collections';
+import { TimeDirectories } from '../components/TimeDirectories'
+
+const timedCollection = groupCollectionsByTime(json, new Date());
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -14,29 +14,12 @@ const someProps = {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" type="text/css" href={Astro.resolve("../styles/globals.css")}>
-    
-    <style>
-      :global(:root) {
-        font-family: system-ui;
-        padding: 2em 0;
-      }
-      :global(.counter) {
-        display: grid;
-        font-size: 2em;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        margin-top: 2em;
-        place-items: center;
-      }
-      :global(.children) {
-        display: grid;
-        margin-bottom: 2em;
-        place-items: center;
-      }
-    </style>
   </head>
   <body>
     <main>
-      <TimeDirectories />
+      <!-- <pre>{JSON.stringify(timedCollection, null, 2)}</pre> -->
+
+      <TimeDirectories timedCollection={timedCollection} />
     </main>
   </body>
 </html>
