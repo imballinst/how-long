@@ -1,20 +1,9 @@
-import { Box } from '@chakra-ui/react';
-
 export function NotFound() {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Box as="h2" fontSize={24}>
-        Oops!
-      </Box>
+    <div className="flex flex-col justify-center items-center">
+      <h2 className="text-2xl">Oops!</h2>
 
-      <Box as="p">
-        It seems that the page you are looking for does not exist.
-      </Box>
-    </Box>
+      <p>It seems that the page you are looking for does not exist.</p>
+    </div>
   );
 }
