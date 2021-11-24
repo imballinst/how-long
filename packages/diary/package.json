@@ -11,12 +11,15 @@
   },
   "devDependencies": {
     "@types/node": "16.11.9",
+    "@types/react": "17.0.36",
     "astro": "0.21.2",
     "autoprefixer": "10.4.0",
     "tailwindcss": "2.2.19",
     "ts-node": "10.4.0"
   },
   "dependencies": {
-    "@how-long/collections": "0.0.1"
+    "@how-long/collections": "0.0.1",
+    "count-up-down": "0.2.0",
+    "react": "17.0.2"
   }
 }
