@@ -1,19 +1,25 @@
 {
   "compilerOptions": {
-    "composite": true,
     "target": "es5",
     "lib": ["esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
     "esModuleInterop": true,
-    "module": "ES2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "src/**/*.test.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "scripts/**/*.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }

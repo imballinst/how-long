@@ -5,11 +5,35 @@
   "author": "Try Ajitiono <ballinst@gmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/collections",
-    "packages/diary"
-  ],
+  "scripts": {
+    "test": "jest",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "collections:generate": "ts-node scripts/generate-collections.ts"
+  },
   "devDependencies": {
-    "prettier": "2.4.1"
+    "@babel/core": "7.16.0",
+    "@babel/preset-env": "7.16.4",
+    "@babel/preset-typescript": "7.16.0",
+    "@types/jest": "27.0.3",
+    "@types/node": "16.11.9",
+    "@types/react": "17.0.36",
+    "astro": "0.21.2",
+    "autoprefixer": "10.4.0",
+    "babel-jest": "27.3.1",
+    "jest": "27.3.1",
+    "prettier": "2.4.1",
+    "tailwindcss": "2.2.19",
+    "ts-node": "10.4.0",
+    "typescript": "4.5.2",
+    "typescript-plugin-css-modules": "3.4.0"
+  },
+  "dependencies": {
+    "count-up-down": "0.2.0",
+    "date-fns": "2.26.0",
+    "ky": "0.28.7",
+    "react": "17.0.2"
   }
 }
