@@ -1,15 +1,14 @@
-import { Box } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import ky from 'ky';
+import {
+  Collection,
+  groupCollectionsByTime,
+  TimedCollection
+} from '@how-long/collections';
 
 import { Directory } from '../Directory';
 import { Layout } from '../Layout';
 import { InternalLink } from '../Links';
-import {
-  groupCollectionsByTime,
-  TimedCollection
-} from '../../lib/collections/client';
-import { Collection } from '../../lib/collections/types';
 
 interface TimedCollectionResponse {
   title: string;
@@ -52,23 +51,16 @@ export function TimeDirectories({ pathname = '' }: { pathname?: string }) {
 
   return (
     <Layout subtitle={title}>
-      <Box mb={8}>
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Box as="h1" fontSize="1.5rem" fontWeight={700}>
-            Since
-          </Box>
+      <div className="mb-8">
+        <div className="flex flex-row justify-center items-center">
+          <h2 className="text-2xl font-bold">Since</h2>
 
           <InternalLink href={`/since${sinceUntilSuffix}`}>
             View all
           </InternalLink>
-        </Box>
+        </div>
 
-        <Box as="hr" height={1} mt={2} mb={4} />
+        <hr className="h-4 mt-2 mb-4" />
 
         <Directory
           cards={timedCollection?.since.map((file) => ({
@@ -79,25 +71,18 @@ export function TimeDirectories({ pathname = '' }: { pathname?: string }) {
           }))}
           showSkeleton={timedCollection === undefined}
         />
-      </Box>
+      </div>
 
-      <Box>
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Box as="h1" fontSize="1.5rem" fontWeight={700}>
-            Until
-          </Box>
+      <div>
+        <div className="flex flex-row justify-center items-center">
+          <h2 className="text-2xl font-bold">Until</h2>
 
-          <InternalLink href={`/until${sinceUntilSuffix}`}>
+          <InternalLink href={`/since${sinceUntilSuffix}`}>
             View all
           </InternalLink>
-        </Box>
+        </div>
 
-        <Box as="hr" height={1} mt={2} mb={4} />
+        <hr className="h-4 mt-2 mb-4" />
 
         <Directory
           cards={timedCollection?.until.map((file) => ({
@@ -108,7 +93,7 @@ export function TimeDirectories({ pathname = '' }: { pathname?: string }) {
           }))}
           showSkeleton={timedCollection === undefined}
         />
-      </Box>
+      </div>
     </Layout>
   );
 }
