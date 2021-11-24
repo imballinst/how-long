@@ -7,8 +7,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "dist",
-    "rootDir": "src",
+    "outDir": "./dist",
     "esModuleInterop": true,
     "module": "ES2015",
     "moduleResolution": "node",
@@ -16,6 +15,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "src/**/*.test.ts"]
 }
