@@ -1,14 +1,22 @@
+import { useRef } from 'react';
+
 import { Directory } from '../Directory';
 import { Link } from '../Links';
-import { TimedCollection } from '../../helpers/collections';
+import { Collection, groupCollectionsByTime } from '../../helpers/collections';
 
 export function TimeDirectories({
   pathname = '',
-  timedCollection
+  updateDate,
+  collections
 }: {
   pathname?: string;
-  timedCollection: TimedCollection;
+  updateDate: string;
+  collections: Collection[];
 }) {
+  const date = useRef(new Date(updateDate)).current;
+  const timedCollection = useRef(
+    groupCollectionsByTime(collections, date)
+  ).current;
   let sinceUntilSuffix = '';
 
   if (pathname.slice(1).length > 0) {
@@ -31,7 +39,7 @@ export function TimeDirectories({
             title: file.title,
             text: file.events[0].description,
             date: file.events[0].datetime,
-            href: `${file.path}`
+            href: file.path
           }))}
         />
       </div>
@@ -50,10 +58,12 @@ export function TimeDirectories({
             title: file.title,
             text: file.events[0].description,
             date: file.events[0].datetime,
-            href: `${file}`
+            href: file.path
           }))}
         />
       </div>
+
+      <div>Last updated at {date.toISOString()}</div>
     </div>
   );
 }

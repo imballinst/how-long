@@ -3,10 +3,9 @@ import json from '../static/collection.json';
 import { groupCollectionsByTime } from '../helpers/collections';
 import { TimeDirectories } from '../components/TimeDirectories'
 
-const timedCollection = groupCollectionsByTime(json, new Date());
-
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
+const date = new Date().toISOString();
 ---
 <html lang="en">
   <head>
@@ -17,9 +16,7 @@ const timedCollection = groupCollectionsByTime(json, new Date());
   </head>
   <body>
     <main>
-      <!-- <pre>{JSON.stringify(timedCollection, null, 2)}</pre> -->
-
-      <TimeDirectories timedCollection={timedCollection} />
+      <TimeDirectories updateDate={date} collections={json} client:load />
     </main>
   </body>
 </html>

@@ -38,7 +38,8 @@ export function Link({ href, children, isExternal }: LinkProps) {
 
   return (
     <a {...anchorProps}>
-      {children} {additionalChildren}
+      {children}
+      {additionalChildren}
     </a>
   );
 }

@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const config = require('tailwindcss/defaultConfig');
 
 module.exports = {
   mode: 'jit',
@@ -24,6 +25,11 @@ module.exports = {
         800: '#234E52',
         900: '#1D4044'
       }
+    },
+    transitionDuration: {
+      ...config.theme.transitionDuration,
+      250: '250ms',
+      DEFAULT: '250ms'
     }
   }
 };
