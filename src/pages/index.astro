@@ -1,4 +1,6 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
 import json from '../static/collection.json';
 import { groupCollectionsByTime } from '../helpers/collections';
 import { TimeDirectories } from '../components/TimeDirectories'
@@ -7,16 +9,7 @@ import { TimeDirectories } from '../components/TimeDirectories'
 // https://docs.astro.build/core-concepts/astro-components/
 const date = new Date().toISOString();
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href={Astro.resolve("../styles/globals.css")}>
-  </head>
-  <body>
-    <main>
-      <TimeDirectories updateDate={date} collections={json} client:visible />
-    </main>
-  </body>
-</html>
+<BaseLayout>
+  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
+  <TimeDirectories updateDate={date} collections={json} />
+</BaseLayout>

@@ -1,0 +1,54 @@
+---
+import BaseHead from './base/Head.astro';
+import { Link } from '../components/Links';
+import { GITHUB_LINK } from '../helpers/constants';
+
+const { content = {} } = Astro.props;
+const { title, description, permalink, heroImage } = content;
+
+const pageTitlePrefix = title ? `${title} | ` : '';
+const pageTitle = pageTitlePrefix + "How long";
+---
+
+<html lang={ content.lang || 'en' }>
+  <head>
+    <BaseHead title={pageTitle} description={description} permalink={permalink} heroImage={heroImage} />
+
+    <style>
+      main {
+        height: calc(100vh - 56px);
+        margin-top: 56px;
+      }
+
+      header {
+        height: 56px;
+      }
+    </style>
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <header class="shadow-sm flex flex-row justify-center fixed top-0 w-full z-10">
+      <div class="flex flex-row justify-end items-center px-3 py-2 sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
+        <!-- <button>Toggle dark/light</button> -->
+      </div>
+    </header>
+
+    <main class="flex flex-1 p-4 flex-row justify-center">
+      <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="flex flex-initial flex-row justify-center p-4 w-full">
+      <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
+        <p class="font-bold text-center">
+          Copyright &copy; 2021 Try Ajitiono
+        </p>
+
+        <p class="text-center">
+          Visit the <Link href={GITHUB_LINK}>GitHub project</Link>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -11,7 +11,7 @@ const ADDITIONAL_EXTERNAL_PROPS = { target: '_blank', rel: 'noopener' };
 export function Link({ href, children, isExternal }: LinkProps) {
   const anchorProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
     href,
-    className: 'text-teal-500 hover:text-teal-200 underline transition-colors'
+    className: 'text-teal-500 hover:underline transition-colors'
   };
   let additionalChildren: ReactNode | undefined;
 

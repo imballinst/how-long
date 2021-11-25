@@ -30,6 +30,13 @@ module.exports = {
       ...config.theme.transitionDuration,
       250: '250ms',
       DEFAULT: '250ms'
+    },
+    extend: {
+      width: {
+        wmd: '48rem',
+        wlg: '60rem',
+        wxl: '72rem'
+      }
     }
   }
 };
