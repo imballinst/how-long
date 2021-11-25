@@ -3,8 +3,13 @@ import type { Dirent } from 'fs';
 import path from 'path';
 import { Collection } from '../../src/helpers/collections';
 
+interface CategorizedCollectionItem {
+  category: string;
+  collections: Collection[];
+}
+
 interface CategorizedCollection {
-  [index: string]: Collection[];
+  [index: string]: CategorizedCollectionItem
 }
 
 // Generate collection.
@@ -36,9 +41,13 @@ export function groupCollectionsByName(
 ): CategorizedCollection {
   const categorizedCollection: CategorizedCollection = {};
 
+  const indexCollectionIdx = rawCollections.findIndex(c => c.)
+
   for (const collection of rawCollections) {
     if (categorizedCollection[collection.path] === undefined) {
-      categorizedCollection[collection.path] = [];
+      categorizedCollection[collection.path] = {
+        category:
+      };
     }
 
     categorizedCollection[collection.path].push(collection);
@@ -48,7 +57,10 @@ export function groupCollectionsByName(
 }
 
 export async function getAllCollections(directoryPath: string) {
-  const collections: Collection[] = [];
+  const categorizedCollections: CategorizedCollectionItem = {
+    category: '',
+    collections: []
+  }
   const entries = await fs.readdir(directoryPath, {
     encoding: 'utf-8',
     withFileTypes: true
@@ -65,7 +77,9 @@ export async function getAllCollections(directoryPath: string) {
       entryPath: `${directoryPath}/${entry.name}`,
       basePath: directoryPath
     });
-    collections.push(...result);
+
+    categorizedCollections.category = result.category;
+    categorizedCollections.collections.push(...result.collections);
   }
 
   return collections;
@@ -80,8 +94,11 @@ async function getCollectionsFromFolder({
   entry: Dirent;
   entryPath: string;
   basePath: string;
-}): Promise<Collection[]> {
-  const collections: Collection[] = [];
+}): Promise<CategorizedCollectionItem> {
+  const categorizedCollection: CategorizedCollectionItem = {
+    category: '',
+    collections: []
+  }
 
   if (entry.isDirectory()) {
     const dirEntries = await fs.readdir(entryPath, {
@@ -96,19 +113,29 @@ async function getCollectionsFromFolder({
         basePath
       });
 
-      collections.push(...result);
+      // TODO(imballinst): somehow we need to get the category here.
+
+      categorizedCollection.collections.push(...result.collections);
     }
 
     return collections;
   }
 
   const fileContent = await fs.readFile(entryPath, 'utf-8');
+
+  if (entryPath.endsWith('index.json')) {
+    return {
+      ...JSON.parse(fileContent),
+      collections: []
+    }
+  }
+
   const json: Collection = {
     ...JSON.parse(fileContent),
     path: trimJsonExtension(entryPath.slice(basePath.length + 1))
   };
 
-  return [json];
+  return {category: '', collections: [json]};
 }
 
 const JSON_EXTENSION = '.json';

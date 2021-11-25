@@ -5,7 +5,7 @@ import {
   generateCollection,
   readCollection
 } from '.';
-import { Collection } from '../../src/helpers/collections/types';
+import { Collection } from '../../src/helpers/collections';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, 'test-collections');
 let expectedCollections: Collection[];
