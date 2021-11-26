@@ -14,7 +14,7 @@ test('getAllCollections', async () => {
   expectedCollections = result;
 
   expect(result.length).toBe(1);
-  expect(result[0].category).toBe('Arsenal');
+  expect(result[0].title).toBe('Arsenal');
   expect(result[0].slug).toBe('arsenal');
   expect(result[0].collections.length).toBe(2);
 

@@ -4,13 +4,13 @@ import path from 'path';
 import { Collection } from '../../src/helpers/collections';
 
 export interface CategorizedCollectionItem {
-  category: string;
+  title: string;
   slug: string;
   collections: Collection[];
 }
 
 interface CollectionEntry {
-  category: string;
+  title: string;
 }
 
 // Generate collection.
@@ -69,7 +69,7 @@ async function getCollectionsFromFolder({
   basePath: string;
 }): Promise<CategorizedCollectionItem> {
   const categorizedCollection: CategorizedCollectionItem = {
-    category: '',
+    title: '',
     slug: '',
     collections: []
   };
@@ -87,13 +87,18 @@ async function getCollectionsFromFolder({
     entryFile = dirEntries.splice(entryFileIndex, 1)[0];
   }
 
+  const slug = trimJsonExtension(path.basename(pathToFile));
+  categorizedCollection.slug = trimJsonExtension(path.basename(pathToFile));
+
   // Read entry file.
   if (entryFile) {
     const entryJson: CollectionEntry = await readFileAsJson(
       `${pathToFile}/${entryFile.name}`
     );
-    categorizedCollection.category = entryJson.category;
-    categorizedCollection.slug = trimJsonExtension(path.basename(pathToFile));
+    categorizedCollection.title = entryJson.title;
+  } else {
+    // Fallback to use slug.
+    categorizedCollection.title = slug;
   }
 
   // Read the rest of collections.

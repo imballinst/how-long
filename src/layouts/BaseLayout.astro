@@ -28,7 +28,12 @@ const pageTitle = pageTitlePrefix + "How long";
 
   <body class="flex flex-col min-h-screen">
     <header class="shadow-sm flex flex-row justify-center fixed top-0 w-full z-10">
-      <div class="flex flex-row justify-end items-center px-3 py-2 sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
+      <div class="flex flex-row justify-between items-center px-3 py-2 sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
+        <div class="w-8 h-8">
+          <a href="/">
+            <img alt="How long logo" src="/apple-touch-icon.png" class="w-full" />
+          </a>
+        </div>
         <!-- <button>Toggle dark/light</button> -->
       </div>
     </header>
@@ -39,14 +44,14 @@ const pageTitle = pageTitlePrefix + "How long";
       </div>
     </main>
 
-    <footer class="flex flex-initial flex-row justify-center p-4 w-full">
+    <footer class="flex flex-initial flex-row p-2 justify-center w-full">
       <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
-        <p class="font-bold text-center">
-          Copyright &copy; 2021 Try Ajitiono
+        <p class="font-bold text-center text-xs">
+          &copy; 2021 Try Ajitiono
         </p>
 
-        <p class="text-center">
-          Visit the <Link href={GITHUB_LINK}>GitHub project</Link>
+        <p class="text-center text-xs">
+          If this interests you, kindly pay the <Link href={GITHUB_LINK}>GitHub project</Link> a visit :)
         </p>
       </div>
     </footer>

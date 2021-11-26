@@ -6,15 +6,24 @@ import { groupCollectionsByTime } from '../../helpers/collections';
 import { TimeDirectories } from '../../components/TimeDirectories'
 
 export async function getStaticPaths() {
-  return [
-    { params: { /* required */ }, props: { /* optional */ } }
-    // ...
-  ];
+  return json.map(item => {
+    return {
+      params: {
+        category: item.slug
+      },
+      props: {
+        title: item.title,
+        collections: item.collections
+      }
+    }
+  });
 }
+
+const { title, collections } = Astro.props;
 
 const date = new Date().toISOString();
 ---
 <BaseLayout>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <TimeDirectories updateDate={date} collections={json} />
+  <TimeDirectories updateDate={date} collections={collections} />
 </BaseLayout>

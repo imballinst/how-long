@@ -24,8 +24,8 @@ export function TimeDirectories({
   }
 
   return (
-    <div className="p-4">
-      <div className="mb-8">
+    <div className="p-4 flex flex-col h-full">
+      <div className="flex-0 mb-8">
         <div className="flex flex-row justify-between items-end">
           <h2 className="text-2xl font-bold">Since</h2>
 
@@ -44,7 +44,7 @@ export function TimeDirectories({
         />
       </div>
 
-      <div>
+      <div className="flex-0">
         <div className="flex flex-row justify-between items-end">
           <h2 className="text-2xl font-bold">Until</h2>
 
@@ -63,7 +63,9 @@ export function TimeDirectories({
         />
       </div>
 
-      <div>Last updated at {date.toISOString()}</div>
+      <div className="flex flex-1 flex-col justify-end items-center italic text-sm text-gray-500">
+        Last updated at {date.toISOString()}
+      </div>
     </div>
   );
 }
