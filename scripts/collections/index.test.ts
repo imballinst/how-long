@@ -1,28 +1,28 @@
 import path from 'path';
 import {
   getAllCollections,
-  groupCollectionsByName,
   generateCollection,
-  readCollection
+  readCollection,
+  CategorizedCollectionItem
 } from '.';
-import { Collection } from '../../src/helpers/collections';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, 'test-collections');
-let expectedCollections: Collection[];
+let expectedCollections: CategorizedCollectionItem[];
 
 test('getAllCollections', async () => {
-  const collections = await getAllCollections(PATH_TO_COLLECTIONS);
+  const result = await getAllCollections(PATH_TO_COLLECTIONS);
+  expectedCollections = result;
 
-  expectedCollections = collections;
+  expect(result.length).toBe(1);
+  expect(result[0].category).toBe('Arsenal');
+  expect(result[0].slug).toBe('arsenal');
+  expect(result[0].collections.length).toBe(2);
 
-  expect(collections.length).toBe(2);
-});
+  expect(result[0].collections[0].title).toBe('Arsenal Win Premier League');
+  expect(result[0].collections[0].path).toBe('/arsenal/win-premier-league');
 
-test('groupCollectionsByName', async () => {
-  const grouped = groupCollectionsByName(expectedCollections);
-
-  expect(grouped['arsenal/won-a-match']).toBeDefined();
-  expect(grouped['arsenal/win-premier-league']).toBeDefined();
+  expect(result[0].collections[1].title).toBe('Arsenal Last Won a Match');
+  expect(result[0].collections[1].path).toBe('/arsenal/won-a-match');
 });
 
 test('generateCollection', async () => {

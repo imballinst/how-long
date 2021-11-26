@@ -1,15 +1,16 @@
+import { Dirent } from 'fs';
 import fs from 'fs/promises';
-import type { Dirent } from 'fs';
 import path from 'path';
 import { Collection } from '../../src/helpers/collections';
 
-interface CategorizedCollectionItem {
+export interface CategorizedCollectionItem {
   category: string;
+  slug: string;
   collections: Collection[];
 }
 
-interface CategorizedCollection {
-  [index: string]: CategorizedCollectionItem
+interface CollectionEntry {
+  category: string;
 }
 
 // Generate collection.
@@ -36,31 +37,8 @@ export async function readCollection(directoryPath: string) {
 }
 
 // Create collection.
-export function groupCollectionsByName(
-  rawCollections: Collection[]
-): CategorizedCollection {
-  const categorizedCollection: CategorizedCollection = {};
-
-  const indexCollectionIdx = rawCollections.findIndex(c => c.)
-
-  for (const collection of rawCollections) {
-    if (categorizedCollection[collection.path] === undefined) {
-      categorizedCollection[collection.path] = {
-        category:
-      };
-    }
-
-    categorizedCollection[collection.path].push(collection);
-  }
-
-  return categorizedCollection;
-}
-
 export async function getAllCollections(directoryPath: string) {
-  const categorizedCollections: CategorizedCollectionItem = {
-    category: '',
-    collections: []
-  }
+  const categorizedCollections: CategorizedCollectionItem[] = [];
   const entries = await fs.readdir(directoryPath, {
     encoding: 'utf-8',
     withFileTypes: true
@@ -73,69 +51,64 @@ export async function getAllCollections(directoryPath: string) {
     }
 
     const result = await getCollectionsFromFolder({
-      entry,
-      entryPath: `${directoryPath}/${entry.name}`,
+      pathToFile: `${directoryPath}/${entry.name}`,
       basePath: directoryPath
     });
-
-    categorizedCollections.category = result.category;
-    categorizedCollections.collections.push(...result.collections);
+    categorizedCollections.push(result);
   }
 
-  return collections;
+  return categorizedCollections;
 }
 
 // Helper functions.
 async function getCollectionsFromFolder({
-  entry,
-  entryPath,
+  pathToFile,
   basePath
 }: {
-  entry: Dirent;
-  entryPath: string;
+  pathToFile: string;
   basePath: string;
 }): Promise<CategorizedCollectionItem> {
   const categorizedCollection: CategorizedCollectionItem = {
     category: '',
+    slug: '',
     collections: []
-  }
-
-  if (entry.isDirectory()) {
-    const dirEntries = await fs.readdir(entryPath, {
-      encoding: 'utf-8',
-      withFileTypes: true
-    });
-
-    for (const dirEntry of dirEntries) {
-      const result = await getCollectionsFromFolder({
-        entry: dirEntry,
-        entryPath: `${entryPath}/${dirEntry.name}`,
-        basePath
-      });
-
-      // TODO(imballinst): somehow we need to get the category here.
-
-      categorizedCollection.collections.push(...result.collections);
-    }
-
-    return collections;
-  }
-
-  const fileContent = await fs.readFile(entryPath, 'utf-8');
-
-  if (entryPath.endsWith('index.json')) {
-    return {
-      ...JSON.parse(fileContent),
-      collections: []
-    }
-  }
-
-  const json: Collection = {
-    ...JSON.parse(fileContent),
-    path: trimJsonExtension(entryPath.slice(basePath.length + 1))
   };
+  const dirEntries = await fs.readdir(pathToFile, {
+    encoding: 'utf-8',
+    withFileTypes: true
+  });
 
-  return {category: '', collections: [json]};
+  const entryFileIndex = dirEntries.findIndex((e) =>
+    e.name.endsWith('index.json')
+  );
+  let entryFile: Dirent | undefined;
+
+  if (entryFileIndex !== -1) {
+    entryFile = dirEntries.splice(entryFileIndex, 1)[0];
+  }
+
+  // Read entry file.
+  if (entryFile) {
+    const entryJson: CollectionEntry = await readFileAsJson(
+      `${pathToFile}/${entryFile.name}`
+    );
+    categorizedCollection.category = entryJson.category;
+    categorizedCollection.slug = trimJsonExtension(path.basename(pathToFile));
+  }
+
+  // Read the rest of collections.
+  const collections = await Promise.all(
+    dirEntries.map((e) => {
+      const fullPath = `${pathToFile}/${e.name}`;
+      return readFileAsCollection(
+        fullPath,
+        trimJsonExtension(fullPath.slice(basePath.length))
+      );
+    })
+  );
+  categorizedCollection.collections = collections;
+
+  return categorizedCollection;
 }
 
 const JSON_EXTENSION = '.json';
@@ -155,4 +128,16 @@ async function doesPathExist(path: string) {
   } catch (err) {
     return false;
   }
+}
+
+async function readFileAsJson(path: string) {
+  const content = await fs.readFile(path, 'utf-8');
+  return JSON.parse(content);
+}
+
+async function readFileAsCollection(path: string, route: string) {
+  const json: Collection = await readFileAsJson(path);
+  json.path = route;
+
+  return json;
 }
