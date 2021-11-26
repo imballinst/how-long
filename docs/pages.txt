@@ -1,0 +1,6 @@
+[x] index --> times
+[ ] list categories --> categories
+  [ ] category --> times
+[ ] since/until --> categories
+  [ ] category --> times
+    [ ] title --> events

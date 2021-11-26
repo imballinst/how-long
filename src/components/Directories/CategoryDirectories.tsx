@@ -1,17 +1,19 @@
 import { useRef } from 'react';
 
-import { Directory } from '../Directory';
+import { Directory } from './Directory';
 import { Link } from '../Links';
 import { Collection, groupCollectionsByTime } from '../../helpers/collections';
 
-export function TimeDirectories({
+export function CategoryDirectories({
   pathname = '',
   updateDate,
-  collections
+  collections,
+  title
 }: {
   pathname?: string;
   updateDate: string;
   collections: Collection[];
+  title?: string;
 }) {
   const date = useRef(new Date(updateDate)).current;
   const timedCollection = useRef(
@@ -27,7 +29,7 @@ export function TimeDirectories({
     <div className="p-4 flex flex-col h-full">
       <div className="flex-0 mb-8">
         <div className="flex flex-row justify-between items-end">
-          <h2 className="text-2xl font-bold">Since</h2>
+          <h2 className="text-2xl font-bold">{title}</h2>
 
           <Link href={`/since${sinceUntilSuffix}`}>View all</Link>
         </div>
@@ -36,25 +38,6 @@ export function TimeDirectories({
 
         <Directory
           cards={timedCollection.since.map((file) => ({
-            title: file.title,
-            text: file.events[0].description,
-            date: file.events[0].datetime,
-            href: file.path
-          }))}
-        />
-      </div>
-
-      <div className="flex-0">
-        <div className="flex flex-row justify-between items-end">
-          <h2 className="text-2xl font-bold">Until</h2>
-
-          <Link href={`/since${sinceUntilSuffix}`}>View all</Link>
-        </div>
-
-        <hr className="h-4 mt-2 mb-4" />
-
-        <Directory
-          cards={timedCollection.until.map((file) => ({
             title: file.title,
             text: file.events[0].description,
             date: file.events[0].datetime,
