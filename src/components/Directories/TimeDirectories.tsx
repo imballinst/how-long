@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Collection, groupCollectionsByTime } from '../../helpers/collections';
 import { DirectorySegment } from '.';
 
-export function TimeDirectories({
+export function TimeDirectory({
   pathname = '',
   updateDate,
   collections
@@ -22,7 +22,8 @@ export function TimeDirectories({
       <div className="flex-0 mb-8">
         <DirectorySegment
           collections={timedCollection.since}
-          title="Since"
+          title="Since "
+          linkPrefix="since"
           numOfCards={3}
           pathname={pathname}
         />
@@ -31,7 +32,8 @@ export function TimeDirectories({
       <div className="flex-0">
         <DirectorySegment
           collections={timedCollection.until}
-          title="Until"
+          title="Until "
+          linkPrefix="until"
           numOfCards={3}
           pathname={pathname}
         />

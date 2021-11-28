@@ -9,6 +9,12 @@ export interface Collection {
   }>;
 }
 
+export interface CategorizedCollectionItem {
+  title: string;
+  slug: string;
+  collections: Collection[];
+}
+
 export interface TimedCollection {
   since: Collection[];
   until: Collection[];

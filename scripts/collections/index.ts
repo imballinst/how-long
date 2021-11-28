@@ -1,13 +1,10 @@
 import { Dirent } from 'fs';
 import fs from 'fs/promises';
 import path from 'path';
-import { Collection } from '../../src/helpers/collections';
-
-export interface CategorizedCollectionItem {
-  title: string;
-  slug: string;
-  collections: Collection[];
-}
+import {
+  CategorizedCollectionItem,
+  Collection
+} from '../../src/helpers/collections';
 
 interface CollectionEntry {
   title: string;

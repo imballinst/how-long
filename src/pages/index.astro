@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 import json from '../static/collection.json';
 import { groupCollectionsByTime } from '../helpers/collections';
-import { TimeDirectories } from '../components/Directories'
+import { TimeDirectory } from '../components/Directories'
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -12,5 +12,5 @@ const collections = json.map(item => item.collections).flat();
 ---
 <BaseLayout>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <TimeDirectories updateDate={date} collections={collections} />
+  <TimeDirectory updateDate={date} collections={collections} />
 </BaseLayout>

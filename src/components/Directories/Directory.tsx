@@ -31,12 +31,12 @@ export function Directory({ cards = CARDS_SKELETON_MOCK }: DirectoryProps) {
 export function DirectorySegment({
   pathname = '',
   title,
-  cardTitlePrefix = '',
+  linkPrefix = '',
   numOfCards,
   collections
 }: {
   pathname?: string;
-  cardTitlePrefix?: string;
+  linkPrefix?: string;
   numOfCards?: number;
   title: string;
   collections: Collection[];
@@ -55,8 +55,8 @@ export function DirectorySegment({
       <div className="flex flex-row justify-between items-end">
         <h2 className="text-2xl font-bold">{title}</h2>
 
-        {numOfCards === undefined && (
-          <Link href={`/since${sinceUntilSuffix}`}>View all</Link>
+        {numOfCards !== undefined && (
+          <Link href={`/${linkPrefix}${sinceUntilSuffix}`}>View all</Link>
         )}
       </div>
 
@@ -64,7 +64,7 @@ export function DirectorySegment({
 
       <Directory
         cards={shownCollections.current.map((file) => ({
-          title: `${cardTitlePrefix}${file.title}`,
+          title: `${title}${file.title}`,
           text: file.events[0].description,
           date: file.events[0].datetime,
           href: file.path
