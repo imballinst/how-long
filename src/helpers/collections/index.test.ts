@@ -1,12 +1,13 @@
 import { addYears } from 'date-fns';
 import {
   CategorizedCollectionItem,
+  Collection,
   filterCategorizedCollectionsByTime,
   groupCollectionsByTime
 } from '.';
 
 const DATE = new Date();
-const COLLECTIONS = [
+const COLLECTIONS: Collection[] = [
   {
     title: 'Arsenal Win Premier League',
     events: [
@@ -16,7 +17,7 @@ const COLLECTIONS = [
         datetime: addYears(DATE, 1).toISOString()
       }
     ],
-    path: 'arsenal/win-premier-league'
+    slug: 'win-premier-league'
   },
   {
     title: 'Arsenal Last Won a Match',
@@ -27,15 +28,24 @@ const COLLECTIONS = [
         datetime: '2021-09-11T16:00:00.000Z'
       }
     ],
-    path: 'arsenal/won-a-match'
+    slug: 'won-a-match'
   }
 ];
 
 test('groupCollectionsByTime', () => {
-  const grouped = groupCollectionsByTime(COLLECTIONS, DATE);
+  const grouped = groupCollectionsByTime({
+    rawCollections: COLLECTIONS,
+    currentDate: DATE
+  });
 
-  expect(grouped.since[0]).toBe(COLLECTIONS[1]);
-  expect(grouped.until[0]).toBe(COLLECTIONS[0]);
+  expect(grouped.since[0]).toEqual({
+    ...COLLECTIONS[1],
+    expression: 'since'
+  });
+  expect(grouped.until[0]).toEqual({
+    ...COLLECTIONS[0],
+    expression: 'until'
+  });
 });
 
 test('filterCategorizedCollectionsByTime', () => {
@@ -57,7 +67,12 @@ test('filterCategorizedCollectionsByTime', () => {
     {
       slug: 'arsenal',
       title: 'Arsenal',
-      collections: [COLLECTIONS[1]]
+      collections: [
+        {
+          ...COLLECTIONS[1],
+          expression: 'since'
+        }
+      ]
     }
   ]);
   expect(
@@ -70,7 +85,12 @@ test('filterCategorizedCollectionsByTime', () => {
     {
       slug: 'arsenal',
       title: 'Arsenal',
-      collections: [COLLECTIONS[0]]
+      collections: [
+        {
+          ...COLLECTIONS[0],
+          expression: 'until'
+        }
+      ]
     }
   ]);
 });
