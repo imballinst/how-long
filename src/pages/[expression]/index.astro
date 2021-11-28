@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+import json from '../../static/collection.json';
+import { filterCategorizedCollectionsByTime } from '../../helpers/collections';
+import { CategoryDirectories } from '../../components/Directories';
+
+export async function getStaticPaths() {
+  const expressions = ['since', 'until'];
+  const paths = [];
+
+  for (const expression of expressions) {
+    // TODO(imballinst): this is still bugged.
+    const collectionsByTime = filterCategorizedCollectionsByTime(json, new Date(), expression);
+
+    for (const item of json) {
+      paths.push({
+        params: {
+          expression
+        },
+        props: {
+          pathname: `/${expression}`,
+          title: expression === 'since' ? 'Collections by Time: Since' : 'Collections by Time: Until',
+          collections: collectionsByTime
+        }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { title, pathname, collections } = Astro.props;
+const date = new Date().toISOString();
+---
+<BaseLayout>
+  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
+  <CategoryDirectories updateDate={date} items={collections} pathname={pathname} title={title} />
+</BaseLayout>

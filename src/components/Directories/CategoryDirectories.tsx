@@ -21,7 +21,7 @@ export function CategoryDirectories({
 
   return (
     <div className="p-4 flex flex-col h-full">
-      <h2 className="text-2xl font-bold">{title}</h2>
+      <h2 className="text-2xl font-bold mb-4">{title}</h2>
 
       {items.map((item) => (
         <div className="flex-0 mb-8" key={item.slug}>
