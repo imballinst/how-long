@@ -63,7 +63,7 @@ export function filterCategorizedCollectionsByTime(
 
     for (let i = 0, length = collections.length; i < length; i += 1) {
       const collection = collections[i];
-      const newCollection = { ...collection };
+      const newCollection: Collection = { ...collection, expression: key };
       const newEvents: Collection['events'] = [];
 
       for (const event of collection.events) {

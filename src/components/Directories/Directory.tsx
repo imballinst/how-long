@@ -78,7 +78,7 @@ export function DirectorySegment({
             title: `${titleCardPrefix}${file.title}`,
             text: file.events[0].description,
             date: file.events[0].datetime,
-            href: `${hrefPrefix}/${file.slug}`
+            href: `${file.expression}/${file.category}/${file.slug}`
           };
         })}
       />
