@@ -85,7 +85,7 @@ async function getCollectionsFromFolder({
   }
 
   const slug = trimJsonExtension(path.basename(pathToFile));
-  categorizedCollection.slug = trimJsonExtension(path.basename(pathToFile));
+  categorizedCollection.slug = slug;
 
   // Read entry file.
   if (entryFile) {
@@ -102,10 +102,11 @@ async function getCollectionsFromFolder({
   const collections = await Promise.all(
     dirEntries.map((e) => {
       const fullPath = `${pathToFile}/${e.name}`;
-      return readFileAsCollection(
-        fullPath,
-        trimJsonExtension(fullPath.slice(basePath.length))
-      );
+      return readFileAsCollection({
+        filePath: fullPath,
+        route: trimJsonExtension(fullPath.slice(basePath.length)),
+        category: slug
+      });
     })
   );
   categorizedCollection.collections = collections;
@@ -123,23 +124,32 @@ function trimJsonExtension(fileName: string) {
   return fileName;
 }
 
-async function doesPathExist(path: string) {
+async function doesPathExist(filePath: string) {
   try {
-    await fs.access(path);
+    await fs.access(filePath);
     return true;
   } catch (err) {
     return false;
   }
 }
 
-async function readFileAsJson(path: string) {
-  const content = await fs.readFile(path, 'utf-8');
+async function readFileAsJson(filePath: string) {
+  const content = await fs.readFile(filePath, 'utf-8');
   return JSON.parse(content);
 }
 
-async function readFileAsCollection(path: string, route: string) {
-  const json: Collection = await readFileAsJson(path);
-  json.path = route;
+async function readFileAsCollection({
+  filePath,
+  route,
+  category
+}: {
+  filePath: string;
+  route: string;
+  category: string;
+}) {
+  const json: Collection = await readFileAsJson(filePath);
+  json.slug = path.basename(route);
+  json.category = category;
 
   return json;
 }

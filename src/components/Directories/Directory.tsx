@@ -28,47 +28,59 @@ export function Directory({ cards = CARDS_SKELETON_MOCK }: DirectoryProps) {
 
 // Directory segment.
 // This is used when a view contains multiple segments, e.g. list of categories.
-export function DirectorySegment({
-  pathname = '',
-  title,
-  linkPrefix = '',
-  numOfCards,
-  collections
-}: {
-  pathname?: string;
-  linkPrefix?: string;
+export interface DirectorySegmentProps {
+  titleCardPrefix?: string;
+  slug?: string;
   numOfCards?: number;
   title: string;
   collections: Collection[];
-}) {
+  cardLinkIncludedProperties?: {
+    expression?: boolean;
+    category?: string;
+  };
+}
+
+export function DirectorySegment({
+  title,
+  titleCardPrefix = '',
+  slug = '',
+  numOfCards,
+  collections,
+  cardLinkIncludedProperties
+}: DirectorySegmentProps) {
   const shownCollections = useRef(
     numOfCards ? collections.slice(0, numOfCards) : collections
   );
-  let sinceUntilSuffix = '';
-
-  if (pathname.slice(1).length > 0) {
-    sinceUntilSuffix = `/${pathname.slice(1).split('/').slice(1).join('/')}`;
-  }
 
   return (
     <>
       <div className="flex flex-row justify-between items-end">
-        <h2 className="text-2xl font-bold">{title}</h2>
+        <h3 className="text-xl font-bold">{title}</h3>
 
-        {numOfCards !== undefined && (
-          <Link href={`/${linkPrefix}${sinceUntilSuffix}`}>View all</Link>
-        )}
+        {numOfCards !== undefined && <Link href={slug}>View all</Link>}
       </div>
 
-      <hr className="h-4 mt-2 mb-4" />
+      <hr className="h-1 mt-2 mb-4" />
 
       <Directory
-        cards={shownCollections.current.map((file) => ({
-          title: `${title}${file.title}`,
-          text: file.events[0].description,
-          date: file.events[0].datetime,
-          href: file.path
-        }))}
+        cards={shownCollections.current.map((file) => {
+          let hrefPrefix = '';
+
+          if (cardLinkIncludedProperties?.expression) {
+            hrefPrefix = `${file.expression}`;
+          }
+
+          if (cardLinkIncludedProperties?.category) {
+            hrefPrefix = `${hrefPrefix}/${file.category}`;
+          }
+
+          return {
+            title: `${titleCardPrefix}${file.title}`,
+            text: file.events[0].description,
+            date: file.events[0].datetime,
+            href: `${hrefPrefix}/${file.slug}`
+          };
+        })}
       />
     </>
   );

@@ -1,6 +1,8 @@
 export interface Collection {
   format?: string;
-  path: string;
+  slug: string;
+  expression?: 'since' | 'until';
+  category?: string;
   title: string;
   events: Array<{
     description: string;
@@ -20,10 +22,13 @@ export interface TimedCollection {
   until: Collection[];
 }
 
-export function groupCollectionsByTime(
-  rawCollections: Collection[],
-  currentDate: Date
-): TimedCollection {
+export function groupCollectionsByTime({
+  rawCollections,
+  currentDate
+}: {
+  rawCollections: Collection[];
+  currentDate: Date;
+}): TimedCollection {
   const valueOf = currentDate.valueOf();
   const timedCollection: TimedCollection = {
     since: [],
@@ -37,7 +42,8 @@ export function groupCollectionsByTime(
 
     const collectionDate = new Date(collection.events[0].datetime);
     const key = valueOf >= collectionDate.valueOf() ? 'since' : 'until';
-    timedCollection[key].push(collection);
+
+    timedCollection[key].push({ ...collection, expression: key });
   }
 
   return timedCollection;

@@ -15,10 +15,10 @@ test('getAllCollections', async () => {
   expect(result[0].collections.length).toBe(2);
 
   expect(result[0].collections[0].title).toBe('Arsenal Win Premier League');
-  expect(result[0].collections[0].path).toBe('/arsenal/win-premier-league');
+  expect(result[0].collections[0].slug).toBe('win-premier-league');
 
   expect(result[0].collections[1].title).toBe('Arsenal Last Won a Match');
-  expect(result[0].collections[1].path).toBe('/arsenal/won-a-match');
+  expect(result[0].collections[1].slug).toBe('won-a-match');
 });
 
 test('generateCollection', async () => {

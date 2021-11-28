@@ -1,20 +1,23 @@
 import { useRef } from 'react';
 
 import { Collection, groupCollectionsByTime } from '../../helpers/collections';
-import { DirectorySegment } from '.';
+import { DirectorySegment, DirectorySegmentProps } from '.';
 
 export function TimeDirectory({
-  pathname = '',
   updateDate,
-  collections
+  collections,
+  cardLinkIncludedProperties
 }: {
-  pathname?: string;
   updateDate: string;
   collections: Collection[];
+  cardLinkIncludedProperties: DirectorySegmentProps['cardLinkIncludedProperties'];
 }) {
   const date = useRef(new Date(updateDate)).current;
   const timedCollection = useRef(
-    groupCollectionsByTime(collections, date)
+    groupCollectionsByTime({
+      rawCollections: collections,
+      currentDate: date
+    })
   ).current;
 
   return (
@@ -22,20 +25,22 @@ export function TimeDirectory({
       <div className="flex-0 mb-8">
         <DirectorySegment
           collections={timedCollection.since}
-          title="Since "
-          linkPrefix="since"
+          title="Since"
+          titleCardPrefix="Since "
+          slug="since"
           numOfCards={3}
-          pathname={pathname}
+          cardLinkIncludedProperties={cardLinkIncludedProperties}
         />
       </div>
 
       <div className="flex-0">
         <DirectorySegment
           collections={timedCollection.until}
-          title="Until "
-          linkPrefix="until"
+          title="Until"
+          titleCardPrefix="Until "
+          slug="until"
           numOfCards={3}
-          pathname={pathname}
+          cardLinkIncludedProperties={cardLinkIncludedProperties}
         />
       </div>
 

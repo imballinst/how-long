@@ -9,8 +9,10 @@ import { TimeDirectory } from '../components/Directories'
 // https://docs.astro.build/core-concepts/astro-components/
 const date = new Date().toISOString();
 const collections = json.map(item => item.collections).flat();
+
+const cardLinkIncludedProperties = { category: true, expression: true };
 ---
 <BaseLayout>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <TimeDirectory updateDate={date} collections={collections} />
+  <TimeDirectory updateDate={date} collections={collections} cardLinkIncludedProperties={cardLinkIncludedProperties} />
 </BaseLayout>
