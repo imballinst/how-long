@@ -1,5 +1,9 @@
 import { addYears } from 'date-fns';
-import { groupCollectionsByTime } from '.';
+import {
+  CategorizedCollectionItem,
+  filterCategorizedCollectionsByTime,
+  groupCollectionsByTime
+} from '.';
 
 const DATE = new Date();
 const COLLECTIONS = [
@@ -32,4 +36,41 @@ test('groupCollectionsByTime', () => {
 
   expect(grouped.since[0]).toBe(COLLECTIONS[1]);
   expect(grouped.until[0]).toBe(COLLECTIONS[0]);
+});
+
+test('filterCategorizedCollectionsByTime', () => {
+  const categorizedCollectionItems: CategorizedCollectionItem[] = [
+    {
+      slug: 'arsenal',
+      title: 'Arsenal',
+      collections: COLLECTIONS
+    }
+  ];
+
+  expect(
+    filterCategorizedCollectionsByTime(
+      categorizedCollectionItems,
+      new Date(),
+      'since'
+    )
+  ).toEqual([
+    {
+      slug: 'arsenal',
+      title: 'Arsenal',
+      collections: [COLLECTIONS[1]]
+    }
+  ]);
+  expect(
+    filterCategorizedCollectionsByTime(
+      categorizedCollectionItems,
+      new Date(),
+      'until'
+    )
+  ).toEqual([
+    {
+      slug: 'arsenal',
+      title: 'Arsenal',
+      collections: [COLLECTIONS[0]]
+    }
+  ]);
 });

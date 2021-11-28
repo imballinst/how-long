@@ -1,10 +1,6 @@
 import path from 'path';
-import {
-  getAllCollections,
-  generateCollection,
-  readCollection,
-  CategorizedCollectionItem
-} from '.';
+import { getAllCollections, generateCollection, readCollection } from '.';
+import { CategorizedCollectionItem } from '../../src/helpers/collections';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, 'test-collections');
 let expectedCollections: CategorizedCollectionItem[];

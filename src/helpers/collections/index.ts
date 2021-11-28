@@ -52,9 +52,11 @@ export function filterCategorizedCollectionsByTime(
   const filtered: CategorizedCollectionItem[] = [];
 
   for (const item of rawCollections) {
-    const collections = [...item.collections];
+    const collections = item.collections;
+    const newCollections: Collection[] = [];
 
-    for (const collection of collections) {
+    for (let i = 0, length = collections.length; i < length; i += 1) {
+      const collection = collections[i];
       const newCollection = { ...collection };
       const newEvents: Collection['events'] = [];
 
@@ -70,13 +72,18 @@ export function filterCategorizedCollectionsByTime(
         }
       }
 
-      newCollection.events = newEvents;
+      if (newEvents.length > 0) {
+        newCollection.events = newEvents;
+        newCollections.push(newCollection);
+      }
     }
 
-    filtered.push({
-      ...item,
-      collections
-    });
+    if (newCollections.length > 0) {
+      filtered.push({
+        ...item,
+        collections: newCollections
+      });
+    }
   }
 
   return filtered;
