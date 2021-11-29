@@ -21,7 +21,12 @@ export function Link({ href, children, isExternal }: LinkProps) {
 
     additionalChildren = (
       // Taken from https://chakra-ui.com/docs/media-and-icons/icon.
-      <svg viewBox="0 0 24 24" className="ml-4" focusable="false">
+      <svg
+        viewBox="0 0 24 24"
+        className="ml-4"
+        focusable="false"
+        aria-hidden={true}
+      >
         <g
           fill="none"
           stroke="currentColor"

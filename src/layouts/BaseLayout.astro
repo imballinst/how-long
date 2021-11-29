@@ -1,9 +1,10 @@
 ---
 import BaseHead from './base/Head.astro';
 import { Link } from '../components/Links';
+import { BreadcrumbHeader } from '../components/BreadcrumbHeader';
 import { GITHUB_LINK } from '../helpers/constants';
 
-const { content = {} } = Astro.props;
+const { content = {}, pages = [] } = Astro.props;
 const { title, description, permalink, heroImage } = content;
 
 const pageTitlePrefix = title ? `${title} | ` : '';
@@ -40,11 +41,15 @@ const pageTitle = pageTitlePrefix + "How long";
 
     <main class="flex flex-1 p-4 flex-row justify-center">
       <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
+        <div class="pl-4 mb-4">
+          <BreadcrumbHeader pages={pages} />
+        </div>
+
         <slot />
       </div>
     </main>
 
-    <footer class="flex flex-initial flex-row p-2 justify-center w-full">
+    <footer class="flex flex-initial flex-row p-2 mt-4 justify-center w-full">
       <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
         <p class="font-bold text-center text-xs">
           &copy; 2021 Try Ajitiono

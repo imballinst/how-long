@@ -12,7 +12,7 @@ const collections = json.map(item => item.collections).flat();
 
 const cardLinkIncludedProperties = { category: true, expression: true };
 ---
-<BaseLayout>
+<BaseLayout pages={[{ href: '/', title: 'Home' }]}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <TimeDirectory updateDate={date} collections={collections} cardLinkIncludedProperties={cardLinkIncludedProperties} />
 </BaseLayout>

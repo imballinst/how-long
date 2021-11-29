@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 const { title, expression, collections } = Astro.props;
 const date = new Date().toISOString();
 ---
-<BaseLayout>
+<BaseLayout pages={[{ href: '/', title: 'Home' }, { href: `/${expression}`, title }]}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <CategoryDirectories updateDate={date} items={collections} title={title} viewAllSlugPrefix={expression} />
 </BaseLayout>
