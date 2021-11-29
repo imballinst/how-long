@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import { Link } from '../Links';
 
@@ -7,9 +6,8 @@ import styles from './Card.module.css';
 export interface CardProps {
   href: string;
   title: string;
-  tags?: string[];
   // ISO8601 date string.
-  date?: string;
+  date: string;
   text: string;
 }
 
@@ -20,17 +18,10 @@ export function Card(props: CardProps) {
         <Link href={props.href}>{props.title}</Link>
       </h4>
 
-      <div className="flex flex-row justify-between items-center mb-1">
-        {props.date !== undefined && (
-          <div className="text-sm text-gray-500">
-            {formatDistanceToNowStrict(new Date(props.date), {
-              addSuffix: true
-            })}
-          </div>
-        )}
-        <div className="text-gray-500 font-semibold tracking-wide text-xs uppercase">
-          <Tags tags={props.tags} />
-        </div>
+      <div className="flex flex-row items-center mb-1 text-xs text-gray-500">
+        {formatDistanceToNowStrict(new Date(props.date), {
+          addSuffix: true
+        })}
       </div>
 
       <div className="flex mt-2 items-center">
@@ -38,21 +29,4 @@ export function Card(props: CardProps) {
       </div>
     </div>
   );
-}
-
-// Composing functions.
-function Tags(props: { tags?: string[] }) {
-  const tags: ReactNode[] = [];
-
-  if (props.tags) {
-    for (let i = 0; i < props.tags.length; i++) {
-      tags.push(<div className="p-1 uppercase">{props.tags[i]}</div>);
-
-      if (i + 1 < props.tags.length) {
-        tags.push(<>&bull;</>);
-      }
-    }
-  }
-
-  return <>{tags}</>;
 }

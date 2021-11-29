@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+import json from '../../static/collection.json';
+import { appendExpressionToCategorizedCollection } from '../../helpers/collections';
+import { CategoryDirectories } from '../../components/Directories';
+
+const collections = appendExpressionToCategorizedCollection(json, new Date());
+const date = new Date().toISOString();
+---
+<BaseLayout>
+  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
+  <CategoryDirectories
+    updateDate={date} 
+    items={collections} 
+    title="Categories"
+    viewAllSlugPrefix="categories" 
+  />
+</BaseLayout>

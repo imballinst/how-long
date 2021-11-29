@@ -49,6 +49,35 @@ export function groupCollectionsByTime({
   return timedCollection;
 }
 
+export function appendExpressionToCategorizedCollection(
+  rawCollections: CategorizedCollectionItem[],
+  currentDate: Date
+): CategorizedCollectionItem[] {
+  const currentValueOf = currentDate.valueOf();
+  const filtered: CategorizedCollectionItem[] = [];
+
+  for (const item of rawCollections) {
+    const collections = item.collections;
+    const newCollections: Collection[] = [];
+
+    for (let i = 0, length = collections.length; i < length; i += 1) {
+      const collection = collections[i];
+      const firstEventDate = new Date(collection.events[0].datetime);
+      const firstEventMs = firstEventDate.valueOf();
+      const expression = currentValueOf >= firstEventMs ? 'since' : 'until';
+
+      newCollections.push({ ...collection, expression });
+    }
+
+    filtered.push({
+      ...item,
+      collections: newCollections
+    });
+  }
+
+  return filtered;
+}
+
 export function filterCategorizedCollectionsByTime(
   rawCollections: CategorizedCollectionItem[],
   currentDate: Date,

@@ -35,5 +35,5 @@ const date = new Date().toISOString();
 ---
 <BaseLayout>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <CategoryDirectories updateDate={date} items={collections} title={title} expression={expression} />
+  <CategoryDirectories updateDate={date} items={collections} title={title} viewAllSlugPrefix={expression} />
 </BaseLayout>

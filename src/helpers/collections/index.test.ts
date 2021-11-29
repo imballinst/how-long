@@ -1,5 +1,6 @@
 import { addYears } from 'date-fns';
 import {
+  appendExpressionToCategorizedCollection,
   CategorizedCollectionItem,
   Collection,
   filterCategorizedCollectionsByTime,
@@ -46,6 +47,38 @@ test('groupCollectionsByTime', () => {
     ...COLLECTIONS[0],
     expression: 'until'
   });
+});
+
+test('appendExpressionToCategorizedCollection', () => {
+  const categorizedCollectionItems: CategorizedCollectionItem[] = [
+    {
+      slug: 'arsenal',
+      title: 'Arsenal',
+      collections: COLLECTIONS
+    }
+  ];
+
+  expect(
+    appendExpressionToCategorizedCollection(
+      categorizedCollectionItems,
+      new Date()
+    )
+  ).toEqual([
+    {
+      slug: 'arsenal',
+      title: 'Arsenal',
+      collections: [
+        {
+          ...COLLECTIONS[0],
+          expression: 'until'
+        },
+        {
+          ...COLLECTIONS[1],
+          expression: 'since'
+        }
+      ]
+    }
+  ]);
 });
 
 test('filterCategorizedCollectionsByTime', () => {

@@ -2,12 +2,12 @@ import { CategorizedCollectionItem } from '../../helpers/collections';
 import { DirectorySegment } from '.';
 
 export function CategoryDirectories({
-  expression = '',
+  viewAllSlugPrefix = '',
   updateDate,
   items,
   title
 }: {
-  expression?: string;
+  viewAllSlugPrefix?: string;
   updateDate: string;
   items: CategorizedCollectionItem[];
   title?: string;
@@ -21,7 +21,7 @@ export function CategoryDirectories({
           <DirectorySegment
             collections={item.collections}
             title={item.title}
-            slug={`${expression}/${item.slug}`}
+            slug={`${viewAllSlugPrefix}/${item.slug}`}
             numOfCards={3}
           />
         </div>

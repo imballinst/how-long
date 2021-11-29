@@ -4,17 +4,10 @@ import { Card, CardProps } from '../Card';
 import { Link } from '../Links';
 
 export interface DirectoryProps {
-  cards?: CardProps[];
+  cards: CardProps[];
 }
 
-const CARDS_SKELETON_MOCK: CardProps[] = Array.from(new Array(3), (_, idx) => ({
-  title: 'Sample text',
-  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  date: '2021-11-22T12:46:18.655Z',
-  href: `/${idx}`
-}));
-
-export function Directory({ cards = CARDS_SKELETON_MOCK }: DirectoryProps) {
+export function Directory({ cards }: DirectoryProps) {
   return (
     <ul className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {cards.map((card) => (
@@ -34,10 +27,6 @@ export interface DirectorySegmentProps {
   numOfCards?: number;
   title: string;
   collections: Collection[];
-  cardLinkIncludedProperties?: {
-    expression?: boolean;
-    category?: string;
-  };
 }
 
 export function DirectorySegment({
@@ -45,8 +34,7 @@ export function DirectorySegment({
   titleCardPrefix = '',
   slug = '',
   numOfCards,
-  collections,
-  cardLinkIncludedProperties
+  collections
 }: DirectorySegmentProps) {
   const shownCollections = useRef(
     numOfCards ? collections.slice(0, numOfCards) : collections
@@ -63,24 +51,12 @@ export function DirectorySegment({
       <hr className="h-1 mt-2 mb-4" />
 
       <Directory
-        cards={shownCollections.current.map((file) => {
-          let hrefPrefix = '';
-
-          if (cardLinkIncludedProperties?.expression) {
-            hrefPrefix = `${file.expression}`;
-          }
-
-          if (cardLinkIncludedProperties?.category) {
-            hrefPrefix = `${hrefPrefix}/${file.category}`;
-          }
-
-          return {
-            title: `${titleCardPrefix}${file.title}`,
-            text: file.events[0].description,
-            date: file.events[0].datetime,
-            href: `${file.expression}/${file.category}/${file.slug}`
-          };
-        })}
+        cards={shownCollections.current.map((file) => ({
+          title: `${titleCardPrefix}${file.title}`,
+          text: file.events[0].description,
+          date: file.events[0].datetime,
+          href: `${file.expression}/${file.category}/${file.slug}`
+        }))}
       />
     </>
   );
