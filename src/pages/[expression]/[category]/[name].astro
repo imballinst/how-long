@@ -3,7 +3,11 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 import json from '../../../static/collection.json';
 import { Timer } from '../../../components/Timer';
-import { HOME_SINCE_BREADCRUMBS, HOME_UNTIL_BREADCRUMBS, appendBreadcrumbs } from '../../../helpers/paths';
+import {
+  HOME_SINCE_BREADCRUMBS,
+  HOME_UNTIL_BREADCRUMBS,
+  appendBreadcrumbs
+} from '../../../helpers/paths';
 
 export async function getStaticPaths() {
   const expressions = ['since', 'until'];
@@ -11,12 +15,17 @@ export async function getStaticPaths() {
 
   for (const expression of expressions) {
     const isSince = expression === 'since';
-    const baseBreadcrumbs = isSince ? HOME_SINCE_BREADCRUMBS : HOME_UNTIL_BREADCRUMBS;
+    const baseBreadcrumbs = isSince
+      ? HOME_SINCE_BREADCRUMBS
+      : HOME_UNTIL_BREADCRUMBS;
 
     for (const item of json) {
       const { title, slug } = item;
-      const collectionsBreadcrumbs = appendBreadcrumbs(baseBreadcrumbs, { href: `/${slug}`, title })
-      
+      const collectionsBreadcrumbs = appendBreadcrumbs(baseBreadcrumbs, {
+        href: `/${slug}`,
+        title
+      });
+
       for (const collection of item.collections) {
         if (collection.events.length === 0) {
           // Skip generating page for collections with 0 events.
@@ -24,7 +33,7 @@ export async function getStaticPaths() {
         }
 
         const collectionBreadcrumbs = appendBreadcrumbs(
-          collectionsBreadcrumbs, 
+          collectionsBreadcrumbs,
           { href: `/${collection.category}`, title: collection.title }
         );
 
@@ -41,7 +50,6 @@ export async function getStaticPaths() {
           }
         });
       }
-
     }
   }
 
@@ -51,6 +59,7 @@ export async function getStaticPaths() {
 const { expression, collection, breadcrumbs } = Astro.props;
 const date = collection.events[0].datetime;
 ---
+
 <BaseLayout pages={breadcrumbs}>
-  <Timer date={date} expression={expression} collection={collection} client:load />
+  <Timer {date} {expression} {collection} client:load />
 </BaseLayout>

@@ -4,7 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import json from '../../static/collection.json';
 import { filterCategorizedCollectionsByTime } from '../../helpers/collections';
 import { CategoryDirectories } from '../../components/Directories';
-import { HOME_SINCE_BREADCRUMBS, HOME_UNTIL_BREADCRUMBS } from '../../helpers/paths'
+import {
+  HOME_SINCE_BREADCRUMBS,
+  HOME_UNTIL_BREADCRUMBS
+} from '../../helpers/paths';
 
 export async function getStaticPaths() {
   const expressions = ['since', 'until'];
@@ -12,7 +15,11 @@ export async function getStaticPaths() {
 
   for (const expression of expressions) {
     // TODO(imballinst): this is still bugged.
-    const collectionsByTime = filterCategorizedCollectionsByTime(json, new Date(), expression);
+    const collectionsByTime = filterCategorizedCollectionsByTime(
+      json,
+      new Date(),
+      expression
+    );
     const isSince = expression === 'since';
 
     for (const item of json) {
@@ -22,8 +29,12 @@ export async function getStaticPaths() {
         },
         props: {
           expression,
-          breadcrumbs: isSince ? HOME_SINCE_BREADCRUMBS : HOME_UNTIL_BREADCRUMBS,
-          title: isSince ? 'Collections by Time: Since' : 'Collections by Time: Until',
+          breadcrumbs: isSince
+            ? HOME_SINCE_BREADCRUMBS
+            : HOME_UNTIL_BREADCRUMBS,
+          title: isSince
+            ? 'Collections by Time: Since'
+            : 'Collections by Time: Until',
           collections: collectionsByTime
         }
       });
@@ -38,12 +49,13 @@ const date = new Date().toISOString();
 
 const TITLE_CARD_PREFIXES = { expression: true, parentTitle: true };
 ---
+
 <BaseLayout pages={breadcrumbs}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <CategoryDirectories 
+  <CategoryDirectories
     updateDate={date}
     items={collections}
-    title={title}
+    {title}
     viewAllSlugPrefix={expression}
     titleCardPrefixes={TITLE_CARD_PREFIXES}
   />

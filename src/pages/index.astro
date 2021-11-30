@@ -9,16 +9,17 @@ import { HOME_BREADCRUMBS } from '../helpers/paths';
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 const date = new Date().toISOString();
-const collections = json.map(item => item.collections).flat();
+const collections = json.map((item) => item.collections).flat();
 
 const SINCE_TITLE_CARD_PREFIXES = { expression: 'Since', parentTitle: true };
 const UNTIL_TITLE_CARD_PREFIXES = { expression: 'Until', parentTitle: true };
 ---
+
 <BaseLayout pages={HOME_BREADCRUMBS}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <TimeDirectory
     updateDate={date}
-    collections={collections}
+    {collections}
     sinceTitleCardPrefixes={SINCE_TITLE_CARD_PREFIXES}
     untilTitleCardPrefixes={UNTIL_TITLE_CARD_PREFIXES}
   />

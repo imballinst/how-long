@@ -4,7 +4,11 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import json from '../../../static/collection.json';
 import { filterCategorizedCollectionsByTime } from '../../../helpers/collections';
 import { CategoryDirectories } from '../../../components/Directories';
-import { HOME_SINCE_BREADCRUMBS, HOME_UNTIL_BREADCRUMBS, appendBreadcrumbs } from '../../../helpers/paths';
+import {
+  HOME_SINCE_BREADCRUMBS,
+  HOME_UNTIL_BREADCRUMBS,
+  appendBreadcrumbs
+} from '../../../helpers/paths';
 
 export async function getStaticPaths() {
   const expressions = ['since', 'until'];
@@ -12,9 +16,15 @@ export async function getStaticPaths() {
 
   for (const expression of expressions) {
     // TODO(imballinst): this is still bugged.
-    const collectionsByTime = filterCategorizedCollectionsByTime(json, new Date(), expression);
+    const collectionsByTime = filterCategorizedCollectionsByTime(
+      json,
+      new Date(),
+      expression
+    );
     const isSince = expression === 'since';
-    const baseBreadcrumbs = isSince ? HOME_SINCE_BREADCRUMBS : HOME_UNTIL_BREADCRUMBS;
+    const baseBreadcrumbs = isSince
+      ? HOME_SINCE_BREADCRUMBS
+      : HOME_UNTIL_BREADCRUMBS;
 
     for (const item of collectionsByTime) {
       const { title, slug } = item;
@@ -26,7 +36,10 @@ export async function getStaticPaths() {
         },
         props: {
           expression,
-          breadcrumbs: appendBreadcrumbs(baseBreadcrumbs, { href: `/${slug}`, title }),
+          breadcrumbs: appendBreadcrumbs(baseBreadcrumbs, {
+            href: `/${slug}`,
+            title
+          }),
           title: isSince ? `Since ${title}...` : `Until ${title}...`,
           collections: collectionsByTime
         }
@@ -40,7 +53,14 @@ export async function getStaticPaths() {
 const { title, expression, collections, breadcrumbs } = Astro.props;
 const date = new Date().toISOString();
 ---
+
 <BaseLayout pages={breadcrumbs}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <CategoryDirectories updateDate={date} items={collections} title={title} viewAllSlugPrefix={expression} numOfCards={0} />
+  <CategoryDirectories
+    updateDate={date}
+    items={collections}
+    {title}
+    viewAllSlugPrefix={expression}
+    numOfCards={0}
+  />
 </BaseLayout>

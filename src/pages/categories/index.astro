@@ -10,13 +10,14 @@ const collections = appendExpressionToCategorizedCollection(json, new Date());
 const date = new Date().toISOString();
 const titleCardPrefixes = { parentTitle: true, expression: true };
 ---
+
 <BaseLayout pages={HOME_CATEGORIES_BREADCRUMBS}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <CategoryDirectories
-    updateDate={date} 
-    items={collections} 
+    updateDate={date}
+    items={collections}
     title="Categories"
-    titleCardPrefixes={titleCardPrefixes}
-    viewAllSlugPrefix="categories" 
+    {titleCardPrefixes}
+    viewAllSlugPrefix="categories"
   />
 </BaseLayout>

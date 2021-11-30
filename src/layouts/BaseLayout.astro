@@ -8,12 +8,14 @@ const { content = {}, pages = [] } = Astro.props;
 const { title, description, permalink, heroImage } = content;
 
 const pageTitlePrefix = title ? `${title} | ` : '';
-const pageTitle = pageTitlePrefix + "How long";
+const pageTitle = pageTitlePrefix + 'How long';
+
+// TODO(imballinst): add toggle format.
 ---
 
-<html lang={ content.lang || 'en' }>
+<html lang={content.lang || 'en'}>
   <head>
-    <BaseHead title={pageTitle} description={description} permalink={permalink} heroImage={heroImage} />
+    <BaseHead title={pageTitle} {description} {permalink} {heroImage} />
 
     <style>
       main {
@@ -28,12 +30,20 @@ const pageTitle = pageTitlePrefix + "How long";
   </head>
 
   <body class="flex flex-col min-h-screen">
-    <header class="shadow-sm flex flex-row justify-center fixed top-0 w-full z-10">
-      <div class="flex flex-row justify-between items-center px-3 py-2 sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
+    <header
+      class="shadow-sm flex flex-row justify-center fixed top-0 w-full z-10"
+    >
+      <div
+        class="flex flex-row justify-between items-center px-3 py-2 sm:w-full md:w-wmd lg:w-wlg xl:w-wxl"
+      >
         <div class="flex flex-row">
           <a href="/">
             <div class="p-2 rounded-full hover:bg-gray-200 transition-colors">
-              <img alt="How long logo" src="/apple-touch-icon.png" class="w-6 h-6" />
+              <img
+                alt="How long logo"
+                src="/apple-touch-icon.png"
+                class="w-6 h-6"
+              />
             </div>
           </a>
 
@@ -43,14 +53,13 @@ const pageTitle = pageTitlePrefix + "How long";
             </div>
           </a>
         </div>
-        <!-- <button>Toggle dark/light</button> -->
       </div>
     </header>
 
     <main class="flex flex-1 p-4 flex-row justify-center">
       <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl flex flex-col">
         <div class="pl-4 mb-4 flex-0">
-          <BreadcrumbHeader pages={pages} />
+          <BreadcrumbHeader {pages} />
         </div>
 
         <div class="flex-1">
@@ -61,12 +70,12 @@ const pageTitle = pageTitlePrefix + "How long";
 
     <footer class="flex flex-initial flex-row p-2 mt-4 justify-center w-full">
       <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl text-gray-500">
-        <p class="font-bold text-center text-xs">
-          &copy; 2021 Try Ajitiono
-        </p>
+        <p class="font-bold text-center text-xs">&copy; 2021 Try Ajitiono</p>
 
         <p class="text-center text-xs">
-          If this interests you, kindly pay the <Link href={GITHUB_LINK}>GitHub project</Link> a visit :)
+          If this interests you, kindly pay the <Link href={GITHUB_LINK}
+            >GitHub project</Link
+          > a visit :)
         </p>
       </div>
     </footer>
