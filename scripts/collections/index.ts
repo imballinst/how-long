@@ -105,6 +105,7 @@ async function getCollectionsFromFolder({
       return readFileAsCollection({
         filePath: fullPath,
         route: trimJsonExtension(fullPath.slice(basePath.length)),
+        parentTitle: categorizedCollection.title,
         category: slug
       });
     })
@@ -141,15 +142,18 @@ async function readFileAsJson(filePath: string) {
 async function readFileAsCollection({
   filePath,
   route,
-  category
+  category,
+  parentTitle
 }: {
   filePath: string;
   route: string;
   category: string;
+  parentTitle: string;
 }) {
   const json: Collection = await readFileAsJson(filePath);
   json.slug = path.basename(route);
   json.category = category;
+  json.parentTitle = parentTitle;
 
   return json;
 }

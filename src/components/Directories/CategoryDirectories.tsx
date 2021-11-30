@@ -1,16 +1,20 @@
 import { CategorizedCollectionItem } from '../../helpers/collections';
-import { DirectorySegment } from '.';
+import { DirectorySegment, DirectorySegmentProps } from '.';
 
 export function CategoryDirectories({
   viewAllSlugPrefix = '',
   updateDate,
   items,
-  title
+  title,
+  numOfCards = 3,
+  titleCardPrefixes
 }: {
   viewAllSlugPrefix?: string;
   updateDate: string;
   items: CategorizedCollectionItem[];
   title?: string;
+  numOfCards?: number;
+  titleCardPrefixes: DirectorySegmentProps['titleCardPrefixes'];
 }) {
   return (
     <div className="p-4 flex flex-col h-full">
@@ -22,7 +26,8 @@ export function CategoryDirectories({
             collections={item.collections}
             title={item.title}
             slug={`${viewAllSlugPrefix}/${item.slug}`}
-            numOfCards={3}
+            numOfCards={numOfCards}
+            titleCardPrefixes={titleCardPrefixes}
           />
         </div>
       ))}

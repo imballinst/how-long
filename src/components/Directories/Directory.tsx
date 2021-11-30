@@ -22,37 +22,44 @@ export function Directory({ cards }: DirectoryProps) {
 // Directory segment.
 // This is used when a view contains multiple segments, e.g. list of categories.
 export interface DirectorySegmentProps {
-  titleCardPrefix?: string;
+  titleCardPrefixes?: {
+    parentTitle?: boolean;
+    expression?: boolean | string;
+  };
   slug?: string;
-  numOfCards?: number;
+  numOfCards: number;
   title: string;
   collections: Collection[];
 }
 
 export function DirectorySegment({
   title,
-  titleCardPrefix = '',
+  titleCardPrefixes,
   slug = '',
   numOfCards,
   collections
 }: DirectorySegmentProps) {
   const shownCollections = useRef(
-    numOfCards ? collections.slice(0, numOfCards) : collections
+    numOfCards > 0 ? collections.slice(0, numOfCards) : collections
   );
 
   return (
     <>
-      <div className="flex flex-row justify-between items-end">
-        <h3 className="text-xl font-bold">{title}</h3>
+      {numOfCards > 0 && (
+        <>
+          <div className="flex flex-row justify-between items-end">
+            <h3 className="text-xl font-bold">{title}</h3>
 
-        {numOfCards !== undefined && <Link href={slug}>View all</Link>}
-      </div>
+            <Link href={slug}>View all</Link>
+          </div>
 
-      <hr className="h-1 mt-2 mb-4" />
+          <hr className="h-1 mt-2 mb-4" />
+        </>
+      )}
 
       <Directory
         cards={shownCollections.current.map((file) => ({
-          title: `${titleCardPrefix}${file.title}`,
+          title: getCardTitle(file, titleCardPrefixes),
           text: file.events[0].description,
           date: file.events[0].datetime,
           href: `${file.expression}/${file.category}/${file.slug}`
@@ -60,4 +67,37 @@ export function DirectorySegment({
       />
     </>
   );
+}
+
+function getCardTitle(
+  file: Collection,
+  prefixes: DirectorySegmentProps['titleCardPrefixes']
+) {
+  const { title, parentTitle, events } = file;
+  const event = events[0];
+  const eventValueOf = new Date(event.datetime).valueOf();
+  const currentValueOf = new Date().valueOf();
+
+  const newPrefixes: string[] = [];
+
+  if (prefixes?.expression) {
+    let expressionText: string;
+
+    if (typeof prefixes?.expression === 'boolean') {
+      // boolean.
+      expressionText = currentValueOf >= eventValueOf ? 'Since' : 'Until';
+    } else {
+      // string.
+      expressionText = prefixes?.expression;
+    }
+
+    newPrefixes.push(expressionText);
+  }
+
+  if (prefixes?.parentTitle) {
+    newPrefixes.push(parentTitle);
+  }
+
+  const prefix = newPrefixes.length > 0 ? `${newPrefixes.join(' ')} ` : '';
+  return `${prefix}${title}`;
 }

@@ -1,10 +1,6 @@
 import { Fragment } from 'react';
 import { Link } from '../Links';
-
-export interface Page {
-  href: string;
-  title: string;
-}
+import { Page } from '../../helpers/paths';
 
 export interface BreadcrumbHeaderProps {
   pages: Page[];

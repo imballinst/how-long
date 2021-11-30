@@ -3,16 +3,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 import json from '../static/collection.json';
 import { groupCollectionsByTime } from '../helpers/collections';
-import { TimeDirectory } from '../components/Directories'
+import { TimeDirectory } from '../components/Directories';
+import { HOME_BREADCRUMBS } from '../helpers/paths';
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 const date = new Date().toISOString();
 const collections = json.map(item => item.collections).flat();
 
-const cardLinkIncludedProperties = { category: true, expression: true };
+const SINCE_TITLE_CARD_PREFIXES = { expression: 'Since', parentTitle: true };
+const UNTIL_TITLE_CARD_PREFIXES = { expression: 'Until', parentTitle: true };
 ---
-<BaseLayout pages={[{ href: '/', title: 'Home' }]}>
+<BaseLayout pages={HOME_BREADCRUMBS}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <TimeDirectory updateDate={date} collections={collections} cardLinkIncludedProperties={cardLinkIncludedProperties} />
+  <TimeDirectory
+    updateDate={date}
+    collections={collections}
+    sinceTitleCardPrefixes={SINCE_TITLE_CARD_PREFIXES}
+    untilTitleCardPrefixes={UNTIL_TITLE_CARD_PREFIXES}
+  />
 </BaseLayout>

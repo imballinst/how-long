@@ -11,6 +11,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "c:g": "ts-node scripts/generate-collections.ts",
     "collections:generate": "ts-node scripts/generate-collections.ts"
   },
   "devDependencies": {

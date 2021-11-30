@@ -4,6 +4,7 @@ export interface Collection {
   expression?: 'since' | 'until';
   category?: string;
   title: string;
+  parentTitle: string;
   events: Array<{
     description: string;
     // This is ISO8601 string.

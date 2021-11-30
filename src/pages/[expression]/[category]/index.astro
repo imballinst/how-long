@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+import json from '../../../static/collection.json';
+import { filterCategorizedCollectionsByTime } from '../../../helpers/collections';
+import { CategoryDirectories } from '../../../components/Directories';
+import { HOME_SINCE_BREADCRUMBS, HOME_UNTIL_BREADCRUMBS, appendBreadcrumbs } from '../../../helpers/paths';
+
+export async function getStaticPaths() {
+  const expressions = ['since', 'until'];
+  const paths = [];
+
+  for (const expression of expressions) {
+    // TODO(imballinst): this is still bugged.
+    const collectionsByTime = filterCategorizedCollectionsByTime(json, new Date(), expression);
+    const isSince = expression === 'since';
+    const baseBreadcrumbs = isSince ? HOME_SINCE_BREADCRUMBS : HOME_UNTIL_BREADCRUMBS;
+
+    for (const item of json) {
+      const { title, slug } = item;
+
+      paths.push({
+        params: {
+          expression,
+          category: slug
+        },
+        props: {
+          expression,
+          breadcrumbs: appendBreadcrumbs(baseBreadcrumbs, { href: `/${slug}`, title }),
+          title: isSince ? `Since ${title}...` : `Until ${title}...`,
+          collections: collectionsByTime
+        }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { title, expression, collections, breadcrumbs } = Astro.props;
+const date = new Date().toISOString();
+---
+<BaseLayout pages={breadcrumbs}>
+  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
+  <CategoryDirectories updateDate={date} items={collections} title={title} viewAllSlugPrefix={expression} numOfCards={0} />
+</BaseLayout>
