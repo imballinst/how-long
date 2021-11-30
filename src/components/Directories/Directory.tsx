@@ -50,7 +50,7 @@ export function DirectorySegment({
           <div className="flex flex-row justify-between items-end">
             <h3 className="text-xl font-bold">{title}</h3>
 
-            <Link href={slug}>View all</Link>
+            <Link href={`/${slug}`}>View all</Link>
           </div>
 
           <hr className="h-1 mt-2 mb-4" />

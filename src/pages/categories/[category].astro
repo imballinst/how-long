@@ -34,7 +34,11 @@ const breadcrumbs = appendBreadcrumbs(HOME_CATEGORIES_BREADCRUMBS, {
 const titleCardPrefixes = { parentTitle: true, expression: true };
 ---
 
-<BaseLayout pages={breadcrumbs}>
+<BaseLayout
+  pages={breadcrumbs}
+  {title}
+  description={`The ${title} category page in imballinst's events tracker site.`}
+>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <TimeDirectory
     updateDate={date}

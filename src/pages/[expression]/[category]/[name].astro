@@ -60,6 +60,10 @@ const { expression, collection, breadcrumbs } = Astro.props;
 const date = collection.events[0].datetime;
 ---
 
-<BaseLayout pages={breadcrumbs}>
+<BaseLayout
+  pages={breadcrumbs}
+  title={collection.title}
+  description={`The ${collection.title} page with ${expression} filter in imballinst's events tracker site.`}
+>
   <Timer {date} {expression} {collection} client:load />
 </BaseLayout>

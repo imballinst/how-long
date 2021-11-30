@@ -15,7 +15,11 @@ const SINCE_TITLE_CARD_PREFIXES = { expression: 'Since', parentTitle: true };
 const UNTIL_TITLE_CARD_PREFIXES = { expression: 'Until', parentTitle: true };
 ---
 
-<BaseLayout pages={HOME_BREADCRUMBS}>
+<BaseLayout
+  pages={HOME_BREADCRUMBS}
+  title="Home"
+  description="Home page of imballinst's events tracker"
+>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <TimeDirectory
     updateDate={date}
