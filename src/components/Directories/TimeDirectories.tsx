@@ -24,25 +24,29 @@ export function TimeDirectory({
 
   return (
     <div className="p-4 flex flex-col h-full">
-      <div className="flex-0 mb-8">
-        <DirectorySegment
-          collections={timedCollection.since}
-          title="Since"
-          titleCardPrefixes={sinceTitleCardPrefixes}
-          slug="since"
-          numOfCards={3}
-        />
-      </div>
+      {timedCollection.since.length > 0 && (
+        <div className="flex-0 mb-8">
+          <DirectorySegment
+            collections={timedCollection.since}
+            title="Since"
+            titleCardPrefixes={sinceTitleCardPrefixes}
+            slug="since"
+            numOfCards={3}
+          />
+        </div>
+      )}
 
-      <div className="flex-0">
-        <DirectorySegment
-          collections={timedCollection.until}
-          title="Until"
-          titleCardPrefixes={untilTitleCardPrefixes}
-          slug="until"
-          numOfCards={3}
-        />
-      </div>
+      {timedCollection.until.length > 0 && (
+        <div className="flex-0">
+          <DirectorySegment
+            collections={timedCollection.until}
+            title="Until"
+            titleCardPrefixes={untilTitleCardPrefixes}
+            slug="until"
+            numOfCards={3}
+          />
+        </div>
+      )}
 
       <div className="flex flex-1 flex-col justify-end items-center italic text-sm text-gray-500">
         Last updated at {date.toISOString()}

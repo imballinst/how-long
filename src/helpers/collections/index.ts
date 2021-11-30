@@ -6,6 +6,8 @@ export interface Collection {
   title: string;
   parentTitle: string;
   events: Array<{
+    // This is mostly used when displaying "Previous events".
+    title: string;
     description: string;
     // This is ISO8601 string.
     datetime: string;

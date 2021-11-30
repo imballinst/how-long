@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import json from '../../static/collection.json';
 import { groupCollectionsByTime } from '../../helpers/collections';
 import { TimeDirectory } from '../../components/Directories/TimeDirectories';
+import { HOME_CATEGORIES_BREADCRUMBS, appendBreadcrumbs } from '../../helpers/paths';
 
 export async function getStaticPaths() {
   return json.map(item => {
@@ -13,17 +14,25 @@ export async function getStaticPaths() {
       },
       props: {
         title: item.title,
+        slug: item.slug,
         collections: item.collections
       }
     }
   });
 }
 
-const { title, collections } = Astro.props;
+const { title, slug, collections } = Astro.props;
 
 const date = new Date().toISOString();
+const breadcrumbs = appendBreadcrumbs(HOME_CATEGORIES_BREADCRUMBS, { href: `/${slug}`, title });
+const titleCardPrefixes = { parentTitle: true, expression: true };
 ---
-<BaseLayout>
+<BaseLayout pages={breadcrumbs}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <TimeDirectory updateDate={date} collections={collections} />
+  <TimeDirectory
+    updateDate={date}
+    collections={collections}
+    sinceTitleCardPrefixes={titleCardPrefixes}
+    untilTitleCardPrefixes={titleCardPrefixes}
+  />
 </BaseLayout>

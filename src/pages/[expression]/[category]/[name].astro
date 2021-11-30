@@ -18,6 +18,11 @@ export async function getStaticPaths() {
       const collectionsBreadcrumbs = appendBreadcrumbs(baseBreadcrumbs, { href: `/${slug}`, title })
       
       for (const collection of item.collections) {
+        if (collection.events.length === 0) {
+          // Skip generating page for collections with 0 events.
+          continue;
+        }
+
         const collectionBreadcrumbs = appendBreadcrumbs(
           collectionsBreadcrumbs, 
           { href: `/${collection.category}`, title: collection.title }
@@ -32,7 +37,6 @@ export async function getStaticPaths() {
           props: {
             expression,
             breadcrumbs: collectionBreadcrumbs,
-            title: collection.title,
             collection
           }
         });
@@ -44,9 +48,9 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { title, expression, collection, breadcrumbs } = Astro.props;
+const { expression, collection, breadcrumbs } = Astro.props;
 const date = collection.events[0].datetime;
 ---
 <BaseLayout pages={breadcrumbs}>
-  <Timer date={date} client:visible />
+  <Timer date={date} expression={expression} collection={collection} client:load />
 </BaseLayout>

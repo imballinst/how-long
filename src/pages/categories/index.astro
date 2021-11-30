@@ -8,6 +8,7 @@ import { HOME_CATEGORIES_BREADCRUMBS } from '../../helpers/paths';
 
 const collections = appendExpressionToCategorizedCollection(json, new Date());
 const date = new Date().toISOString();
+const titleCardPrefixes = { parentTitle: true, expression: true };
 ---
 <BaseLayout pages={HOME_CATEGORIES_BREADCRUMBS}>
   <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
@@ -15,6 +16,7 @@ const date = new Date().toISOString();
     updateDate={date} 
     items={collections} 
     title="Categories"
+    titleCardPrefixes={titleCardPrefixes}
     viewAllSlugPrefix="categories" 
   />
 </BaseLayout>

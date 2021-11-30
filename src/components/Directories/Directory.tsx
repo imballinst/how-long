@@ -10,8 +10,8 @@ export interface DirectoryProps {
 export function Directory({ cards }: DirectoryProps) {
   return (
     <ul className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {cards.map((card) => (
-        <li key={card.href}>
+      {cards.map((card, idx) => (
+        <li key={idx}>
           <Card {...card} />
         </li>
       ))}
@@ -62,7 +62,7 @@ export function DirectorySegment({
           title: getCardTitle(file, titleCardPrefixes),
           text: file.events[0].description,
           date: file.events[0].datetime,
-          href: `${file.expression}/${file.category}/${file.slug}`
+          href: `/${file.expression}/${file.category}/${file.slug}`
         }))}
       />
     </>
