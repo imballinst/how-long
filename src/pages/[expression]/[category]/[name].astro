@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+import json from '../../../static/collection.json';
+import { Timer } from '../../../components/Timer';
+import { HOME_SINCE_BREADCRUMBS, HOME_UNTIL_BREADCRUMBS, appendBreadcrumbs } from '../../../helpers/paths';
+
+export async function getStaticPaths() {
+  const expressions = ['since', 'until'];
+  const paths = [];
+
+  for (const expression of expressions) {
+    const isSince = expression === 'since';
+    const baseBreadcrumbs = isSince ? HOME_SINCE_BREADCRUMBS : HOME_UNTIL_BREADCRUMBS;
+
+    for (const item of json) {
+      const { title, slug } = item;
+      const collectionsBreadcrumbs = appendBreadcrumbs(baseBreadcrumbs, { href: `/${slug}`, title })
+      
+      for (const collection of item.collections) {
+        const collectionBreadcrumbs = appendBreadcrumbs(
+          collectionsBreadcrumbs, 
+          { href: `/${collection.category}`, title: collection.title }
+        );
+
+        paths.push({
+          params: {
+            expression,
+            category: slug,
+            name: collection.slug
+          },
+          props: {
+            expression,
+            breadcrumbs: collectionBreadcrumbs,
+            title: collection.title,
+            collection
+          }
+        });
+      }
+
+    }
+  }
+
+  return paths;
+}
+
+const { title, expression, collection, breadcrumbs } = Astro.props;
+const date = new Date().toISOString();
+---
+<BaseLayout pages={breadcrumbs}>
+  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
+  <Timer date={date} />
+</BaseLayout>

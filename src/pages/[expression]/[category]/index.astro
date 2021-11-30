@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     const isSince = expression === 'since';
     const baseBreadcrumbs = isSince ? HOME_SINCE_BREADCRUMBS : HOME_UNTIL_BREADCRUMBS;
 
-    for (const item of json) {
+    for (const item of collectionsByTime) {
       const { title, slug } = item;
 
       paths.push({
