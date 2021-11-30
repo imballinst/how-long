@@ -40,17 +40,19 @@ const pageTitle = pageTitlePrefix + "How long";
     </header>
 
     <main class="flex flex-1 p-4 flex-row justify-center">
-      <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
-        <div class="pl-4 mb-4">
+      <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl flex flex-col">
+        <div class="pl-4 mb-4 flex-0">
           <BreadcrumbHeader pages={pages} />
         </div>
 
-        <slot />
+        <div class="flex-1">
+          <slot />
+        </div>
       </div>
     </main>
 
     <footer class="flex flex-initial flex-row p-2 mt-4 justify-center w-full">
-      <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl">
+      <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl text-gray-500">
         <p class="font-bold text-center text-xs">
           &copy; 2021 Try Ajitiono
         </p>

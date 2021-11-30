@@ -38,13 +38,15 @@ export function Timer({ date }: TimerProps) {
   const keys = Object.keys(state) as CountKeys[];
 
   return (
-    <div className="grid grid-cols-3 gap-4">
-      {keys.map((key) => (
-        <div key={key} className={`${styles['time-text']}} text-center`}>
-          <div className="text-5xl">{state[key]}</div>
-          <div className="text-xl">{key}</div>
-        </div>
-      ))}
+    <div className="h-full flex flex-col justify-center">
+      <div className="grid grid-cols-3 gap-4">
+        {keys.map((key) => (
+          <div key={key} className={`${styles['time-text']}} text-center`}>
+            <div className="text-5xl">{state[key]}</div>
+            <div className="text-xl">{key}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

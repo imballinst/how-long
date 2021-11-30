@@ -4,7 +4,7 @@ export interface Page {
 }
 
 // Static paths.
-const HOME_BREADCRUMB: Page = { title: 'Home', href: '/' };
+const HOME_BREADCRUMB: Page = { title: 'How Long', href: '/' };
 const CATEGORIES_BREADCRUMB: Page = {
   title: 'All Categories',
   href: '/categories'
@@ -35,7 +35,6 @@ export const HOME_CATEGORIES_BREADCRUMBS: Page[] = [
 export function appendBreadcrumbs(pages: Page[], added: Page | Page[]) {
   const newPages = [...pages];
   const length = newPages.length - 1;
-  console.log(added);
 
   if (Array.isArray(added)) {
     for (let i = 0; i < added.length; i++) {
