@@ -45,9 +45,8 @@ export async function getStaticPaths() {
 }
 
 const { title, expression, collection, breadcrumbs } = Astro.props;
-const date = new Date().toISOString();
+const date = collection.events[0].datetime;
 ---
 <BaseLayout pages={breadcrumbs}>
-  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
-  <Timer date={date} />
+  <Timer date={date} client:visible />
 </BaseLayout>
