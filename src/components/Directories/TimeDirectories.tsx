@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import { Collection, groupCollectionsByTime } from '../../helpers/collections';
-import { DirectorySegment, DirectorySegmentProps } from '.';
+import { DirectorySegment, DirectorySegmentProps } from './Directory';
 
 export function TimeDirectory({
   updateDate,
