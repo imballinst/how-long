@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Collection } from '../../helpers/collections';
 import { Card, CardProps } from '../Card';
 import { Link } from '../Links';
+import { Text } from '../Typography';
 
 export interface DirectoryProps {
   cards: CardProps[];
@@ -48,7 +49,9 @@ export function DirectorySegment({
       {numOfCards > 0 && (
         <>
           <div className="flex flex-row justify-between items-end">
-            <h3 className="text-xl font-bold dark:text-gray-200">{title}</h3>
+            <Text as="h3" className="text-xl font-bold">
+              {title}
+            </Text>
 
             <Link href={`/${slug}`}>View all</Link>
           </div>

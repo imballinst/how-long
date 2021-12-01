@@ -5,6 +5,7 @@ import { CountResult } from 'count-up-down/dist/types/common/types';
 import styles from './Timer.module.css';
 import { Collection } from '../../helpers/collections';
 import { Directory } from '../Directories';
+import { Text } from '../Typography';
 
 export interface TimerProps {
   // This should be ISO8601 string.
@@ -62,12 +63,13 @@ export function Timer({ date, expression, collection }: TimerProps) {
 
   return (
     <div className="h-full flex flex-col pl-4">
-      <h2 className="text-2xl text-center font-bold my-8 dark:text-gray-200">
+      <Text as="h2" className="text-2xl text-center font-bold my-8">
         {headingTitle}
-      </h2>
+      </Text>
 
-      <div
-        className={`grid grid-cols-3 gap-4 ${styles['time-text']} dark:text-gray-200`}
+      <Text
+        as="div"
+        className={`grid grid-cols-3 gap-4 ${styles['time-text']}`}
       >
         {keys.map((key) => (
           <div key={key} className="text-center">
@@ -75,16 +77,21 @@ export function Timer({ date, expression, collection }: TimerProps) {
             <div className="text-xl">{key}</div>
           </div>
         ))}
-      </div>
+      </Text>
 
-      <p className="mt-8 text-sm text-center border px-2 py-4 rounded-lg dark:text-gray-200">
+      <Text
+        as="p"
+        className="mt-8 text-base text-center border px-2 py-4 rounded-lg"
+      >
         <span className="font-bold">{formatter.format(new Date(date))}</span>
         <span> -- </span>
         {collection.events[0].description}
-      </p>
+      </Text>
 
       <div className="mt-8">
-        <h3 className="mb-2 dark:text-gray-200">Previous events</h3>
+        <Text as="h3" className="mb-2 text-xl">
+          Previous events
+        </Text>
 
         <Directory
           cards={collection.events.slice(1).map((event) => ({

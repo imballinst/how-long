@@ -10,13 +10,13 @@ export function BreadcrumbHeader(props: BreadcrumbHeaderProps) {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ul className="list-style-none flex">
+      <ul className="list-style-none flex font-semibold">
         {props.pages.map((page, idx) => (
           <li key={page.href} className="flex flex-row items-center">
             <Link href={page.href}>{page.title}</Link>
 
             {idx + 1 < length && (
-              <ChevronRight className="w-4 h-4 mx-1 text-gray-500" />
+              <ChevronRight className="w-4 h-4 mx-1 text-gray-500 dark:text-gray-200" />
             )}
           </li>
         ))}

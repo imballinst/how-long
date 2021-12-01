@@ -1,6 +1,8 @@
 ---
 import BaseHead from './base/Head.astro';
 import { Link } from '../components/Links';
+import { Text } from '../components/Typography';
+import { DarkModeToggler } from '../components/Layout';
 import { BreadcrumbHeader } from '../components/BreadcrumbHeader';
 import { GITHUB_LINK } from '../helpers/constants';
 
@@ -67,7 +69,7 @@ const pageTitle = pageTitlePrefix + 'How long';
       <div
         class="flex flex-row justify-between items-center px-3 py-2 sm:w-full md:w-wmd lg:w-wlg xl:w-wxl"
       >
-        <div class="flex flex-row">
+        <div class="flex flex-row font-semibold">
           <Link href="/">
             <div
               class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors"
@@ -88,7 +90,7 @@ const pageTitle = pageTitlePrefix + 'How long';
         </div>
 
         <div>
-          <button id="toggle-dark-mode">Toggle</button>
+          <DarkModeToggler client:visible />
         </div>
       </div>
     </header>
@@ -106,8 +108,10 @@ const pageTitle = pageTitlePrefix + 'How long';
     </main>
 
     <footer class="flex flex-initial flex-row p-2 mt-4 justify-center w-full">
-      <div
-        class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl text-gray-500 dark:text-gray-200"
+      <Text
+        as="div"
+        colorScheme="gray"
+        class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl"
       >
         <p class="font-bold text-center text-sm">&copy; 2021 Try Ajitiono</p>
 
@@ -117,24 +121,7 @@ const pageTitle = pageTitlePrefix + 'How long';
             isExternal>GitHub project</Link
           > a visit :)
         </p>
-      </div>
+      </Text>
     </footer>
-
-    <script>
-      const btn = document.getElementById('toggle-dark-mode');
-
-      btn.addEventListener('click', () => {
-        const btn = document.getElementById('toggle-dark-mode');
-        const html = document.documentElement;
-
-        if (html.classList.contains('dark')) {
-          html.classList.remove('dark');
-          localStorage.theme = 'light';
-        } else {
-          html.classList.add('dark');
-          localStorage.theme = 'dark';
-        }
-      });
-    </script>
   </body>
 </html>

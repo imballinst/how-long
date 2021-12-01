@@ -1,5 +1,6 @@
 import { CategorizedCollectionItem } from '../../helpers/collections';
 import { DirectorySegment, DirectorySegmentProps } from '.';
+import { Text } from '../Typography';
 
 export function CategoryDirectories({
   viewAllSlugPrefix = '',
@@ -32,9 +33,12 @@ export function CategoryDirectories({
         </div>
       ))}
 
-      <div className="flex flex-1 flex-col justify-end items-center italic text-sm text-gray-500 dark:text-gray-200">
+      <Text
+        colorScheme="gray"
+        className="flex flex-1 flex-col justify-end items-center italic text-sm"
+      >
         Last updated at {updateDate}
-      </div>
+      </Text>
     </div>
   );
 }

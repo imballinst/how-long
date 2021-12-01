@@ -12,13 +12,14 @@ export function Link({ href, children, isExternal }: LinkProps) {
   const anchorProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
     href,
     className:
-      'text-teal-500 dark:text-teal-300 hover:underline transition-colors inline-flex'
+      'text-teal-500 dark:text-teal-300 hover:underline transition-colors'
   };
   let additionalChildren: ReactNode | undefined;
 
   if (isExternal) {
     anchorProps.target = ADDITIONAL_EXTERNAL_PROPS.target;
     anchorProps.rel = ADDITIONAL_EXTERNAL_PROPS.rel;
+    anchorProps.className = `${anchorProps.className} inline-flex`;
 
     additionalChildren = (
       // Taken from https://chakra-ui.com/docs/media-and-icons/icon.
@@ -40,6 +41,8 @@ export function Link({ href, children, isExternal }: LinkProps) {
         </g>
       </svg>
     );
+  } else {
+    anchorProps.className = `${anchorProps.className} flex`;
   }
 
   return (
