@@ -125,11 +125,11 @@ const pageTitle = pageTitlePrefix + 'How long';
 
       btn.addEventListener('click', () => {
         const btn = document.getElementById('toggle-dark-mode');
-        const html = document.getElementsByTagName('html')[0];
+        const html = document.documentElement;
 
         if (html.classList.contains('dark')) {
           html.classList.remove('dark');
-          localStorage.theme = undefined;
+          localStorage.theme = 'light';
         } else {
           html.classList.add('dark');
           localStorage.theme = 'dark';

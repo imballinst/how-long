@@ -62,7 +62,7 @@ export function Timer({ date, expression, collection }: TimerProps) {
 
   return (
     <div className="h-full flex flex-col pl-4">
-      <h2 className="text-2xl text-center font-bold mb-8 dark:text-gray-200">
+      <h2 className="text-2xl text-center font-bold my-8 dark:text-gray-200">
         {headingTitle}
       </h2>
 
