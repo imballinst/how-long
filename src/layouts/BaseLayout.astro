@@ -32,6 +32,11 @@ const pageTitle = pageTitlePrefix + 'How long';
     />
 
     <style>
+      html,
+      body {
+        font-family: 'Lora', serif;
+      }
+
       main {
         height: calc(100vh - 56px);
         margin-top: 56px;
@@ -41,9 +46,21 @@ const pageTitle = pageTitlePrefix + 'How long';
         height: 56px;
       }
     </style>
+
+    <script>
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen dark:bg-gray-800 transition-colors">
     <header
       class="shadow-sm flex flex-row justify-center fixed top-0 w-full z-10"
     >
@@ -51,21 +68,27 @@ const pageTitle = pageTitlePrefix + 'How long';
         class="flex flex-row justify-between items-center px-3 py-2 sm:w-full md:w-wmd lg:w-wlg xl:w-wxl"
       >
         <div class="flex flex-row">
-          <a href="/">
-            <div class="p-2 rounded-full hover:bg-gray-200 transition-colors">
+          <Link href="/">
+            <div
+              class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors"
+            >
               <img
                 alt="How long logo"
                 src="/apple-touch-icon.png"
                 class="w-6 h-6"
               />
             </div>
-          </a>
+          </Link>
 
-          <a href="/categories">
-            <div class="p-2 rounded-lg hover:text-gray-700 transition-colors">
+          <Link href="/categories">
+            <div class="p-2 rounded-lg">
               <span>Categories</span>
             </div>
-          </a>
+          </Link>
+        </div>
+
+        <div>
+          <button id="toggle-dark-mode">Toggle</button>
         </div>
       </div>
     </header>
@@ -83,15 +106,35 @@ const pageTitle = pageTitlePrefix + 'How long';
     </main>
 
     <footer class="flex flex-initial flex-row p-2 mt-4 justify-center w-full">
-      <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl text-gray-500">
-        <p class="font-bold text-center text-xs">&copy; 2021 Try Ajitiono</p>
+      <div
+        class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl text-gray-500 dark:text-gray-200"
+      >
+        <p class="font-bold text-center text-sm">&copy; 2021 Try Ajitiono</p>
 
-        <p class="text-center text-xs">
-          If this interests you, kindly pay the <Link href={GITHUB_LINK}
-            >GitHub project</Link
+        <p class="text-center text-sm">
+          If this interests you, kindly pay the <Link
+            href={GITHUB_LINK}
+            isExternal>GitHub project</Link
           > a visit :)
         </p>
       </div>
     </footer>
+
+    <script>
+      const btn = document.getElementById('toggle-dark-mode');
+
+      btn.addEventListener('click', () => {
+        const btn = document.getElementById('toggle-dark-mode');
+        const html = document.getElementsByTagName('html')[0];
+
+        if (html.classList.contains('dark')) {
+          html.classList.remove('dark');
+          localStorage.theme = undefined;
+        } else {
+          html.classList.add('dark');
+          localStorage.theme = 'dark';
+        }
+      });
+    </script>
   </body>
 </html>

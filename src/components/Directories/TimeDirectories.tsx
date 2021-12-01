@@ -48,7 +48,7 @@ export function TimeDirectory({
         </div>
       )}
 
-      <div className="flex flex-1 flex-col justify-end items-center italic text-sm text-gray-500">
+      <div className="flex flex-1 flex-col justify-end items-center italic text-sm text-gray-500 dark:text-gray-200">
         Last updated at {date.toISOString()}
       </div>
     </div>

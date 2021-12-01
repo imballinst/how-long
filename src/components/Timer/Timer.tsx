@@ -62,25 +62,29 @@ export function Timer({ date, expression, collection }: TimerProps) {
 
   return (
     <div className="h-full flex flex-col pl-4">
-      <h2 className="text-2xl text-center font-bold mb-8">{headingTitle}</h2>
+      <h2 className="text-2xl text-center font-bold mb-8 dark:text-gray-200">
+        {headingTitle}
+      </h2>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div
+        className={`grid grid-cols-3 gap-4 ${styles['time-text']} dark:text-gray-200`}
+      >
         {keys.map((key) => (
-          <div key={key} className={`${styles['time-text']}} text-center`}>
+          <div key={key} className="text-center">
             <div className="text-5xl">{state[key]}</div>
             <div className="text-xl">{key}</div>
           </div>
         ))}
       </div>
 
-      <p className="mt-8 text-sm text-center border px-2 py-4 rounded-lg">
+      <p className="mt-8 text-sm text-center border px-2 py-4 rounded-lg dark:text-gray-200">
         <span className="font-bold">{formatter.format(new Date(date))}</span>
         <span> -- </span>
         {collection.events[0].description}
       </p>
 
       <div className="mt-8">
-        <h3 className="font- mb-2">Previous events</h3>
+        <h3 className="mb-2 dark:text-gray-200">Previous events</h3>
 
         <Directory
           cards={collection.events.slice(1).map((event) => ({
@@ -90,8 +94,6 @@ export function Timer({ date, expression, collection }: TimerProps) {
           }))}
         />
       </div>
-      {/* {collection.events.length > 1 && (
-      )} */}
     </div>
   );
 }

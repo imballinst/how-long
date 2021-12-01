@@ -48,7 +48,7 @@ export function DirectorySegment({
       {numOfCards > 0 && (
         <>
           <div className="flex flex-row justify-between items-end">
-            <h3 className="text-xl font-bold">{title}</h3>
+            <h3 className="text-xl font-bold dark:text-gray-200">{title}</h3>
 
             <Link href={`/${slug}`}>View all</Link>
           </div>

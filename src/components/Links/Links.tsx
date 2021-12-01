@@ -11,7 +11,8 @@ const ADDITIONAL_EXTERNAL_PROPS = { target: '_blank', rel: 'noopener' };
 export function Link({ href, children, isExternal }: LinkProps) {
   const anchorProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
     href,
-    className: 'text-teal-500 hover:underline transition-colors'
+    className:
+      'text-teal-500 dark:text-teal-300 hover:underline transition-colors inline-flex'
   };
   let additionalChildren: ReactNode | undefined;
 
@@ -23,7 +24,7 @@ export function Link({ href, children, isExternal }: LinkProps) {
       // Taken from https://chakra-ui.com/docs/media-and-icons/icon.
       <svg
         viewBox="0 0 24 24"
-        className="ml-4"
+        className="ml-0.5 h-3 w-3"
         focusable="false"
         aria-hidden={true}
       >
