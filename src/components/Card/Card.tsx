@@ -38,15 +38,19 @@ function CardHeading({
   href?: string;
   children: ReactNode;
 }) {
-  const title = (
+  if (href) {
+    return (
+      <Link href={href}>
+        <h4 className="font-semibold leading-tight truncate text-lg">
+          {children}
+        </h4>
+      </Link>
+    );
+  }
+
+  return (
     <Text className="font-semibold leading-tight truncate text-lg" as="h4">
       {children}
     </Text>
   );
-
-  if (href) {
-    return <Link href={href}>{title}</Link>;
-  }
-
-  return title;
 }
