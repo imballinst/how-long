@@ -1,8 +1,7 @@
 export interface Collection {
-  format?: string;
   slug: string;
   expression?: 'since' | 'until';
-  category?: string;
+  category: string;
   title: string;
   parentTitle: string;
   events: Array<{

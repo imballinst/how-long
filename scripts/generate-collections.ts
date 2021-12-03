@@ -1,5 +1,6 @@
 import path from 'path';
-import { generateCollection, getAllCollections } from './collections';
+
+import { generateCollection, getAllCollections } from './collections/json';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, '../collections');
 const PATH_TO_STATIC = path.join(__dirname, '../src/static');

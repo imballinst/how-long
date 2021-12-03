@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "c:g": "ts-node scripts/generate-collections.ts",
     "collections:generate": "ts-node scripts/generate-collections.ts",
-    "format": "yarn prettier -w src scripts"
+    "format": "yarn prettier -w src scripts",
+    "md": "ts-node ./collections-md/arsenal/test.mjs"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
@@ -28,10 +29,15 @@
     "jest": "27.3.1",
     "prettier": "2.4.1",
     "prettier-plugin-astro": "0.0.11",
+    "rehype-react": "7.0.3",
+    "remark-gfm": "3.0.1",
+    "remark-parse": "10.0.1",
+    "remark-rehype": "10.0.1",
     "tailwindcss": "2.2.19",
     "ts-node": "10.4.0",
     "typescript": "4.5.2",
-    "typescript-plugin-css-modules": "3.4.0"
+    "typescript-plugin-css-modules": "3.4.0",
+    "unified": "10.1.1"
   },
   "dependencies": {
     "count-up-down": "0.2.0",
