@@ -6,10 +6,6 @@ import {
   Collection
 } from '../../src/helpers/collections';
 
-interface CollectionEntry {
-  title: string;
-}
-
 // Generate collection.
 export async function generateCollection<TCollectionType>(
   directoryPath: string,
@@ -86,17 +82,6 @@ async function getCollectionsFromFolder({
 
   const slug = trimJsonExtension(path.basename(pathToFile));
   categorizedCollection.slug = slug;
-
-  // Read entry file.
-  if (entryFile) {
-    const entryJson: CollectionEntry = await readFileAsJson(
-      `${pathToFile}/${entryFile.name}`
-    );
-    categorizedCollection.title = entryJson.title;
-  } else {
-    // Fallback to use slug.
-    categorizedCollection.title = slug;
-  }
 
   // Read the rest of collections.
   const collections = await Promise.all(

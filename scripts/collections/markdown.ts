@@ -111,10 +111,12 @@ async function convertMarkdownToJson({
       });
     } else if (line.startsWith('<!-- ')) {
       // Event frontmatters.
-      events[eventIdx].datetime = line
-        .replace('<!--', '')
-        .replace('-->', '')
-        .trim();
+      const trimmed = line.replace('<!--', '').replace('-->', '').trim();
+      const matter = readFrontmatterLine(trimmed);
+
+      // TODO(imballinst): we might need to revisit this later if we have more
+      //                   collection-based frontmatters.
+      events[eventIdx].datetime = matter[1];
     } else if (line !== '') {
       events[eventIdx].description += await unified()
         .use(remarkParse)
@@ -128,7 +130,7 @@ async function convertMarkdownToJson({
   return {
     events,
     parentTitle,
-    slug: `${category}/${path.basename(filePath, '.json')}`,
+    slug: `${category}/${path.basename(filePath, '.md')}`,
     title: frontmatterObj.title,
     category
   };
