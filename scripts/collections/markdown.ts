@@ -50,11 +50,13 @@ export async function convertMarkdownsInDirectoryToJson({
     const parentTitle = mainFrontmatter.title;
 
     for (const entry of categoryEntries) {
+      // This is the category folder, containing all markdowns (collections).
       const entryPath = path.join(categoryPath, entry.name);
 
       collections.push(
         await convertMarkdownToJson({
           filePath: entryPath,
+          category: dirEntry,
           parentTitle
         })
       );
@@ -67,14 +69,13 @@ export async function convertMarkdownsInDirectoryToJson({
 // Helper functions.
 async function convertMarkdownToJson({
   filePath,
+  category,
   parentTitle
 }: {
   filePath: string;
+  category: string;
   parentTitle: string;
 }): Promise<Collection> {
-  const directory = path.basename(filePath);
-  const category = path.basename(directory);
-
   const file = await fs.readFile(filePath, 'utf-8');
   const [_, frontmatter, content] = file.split('---\n');
 
