@@ -1,24 +1,43 @@
 import path from 'path';
-import { getAllCollections, generateCollection, readCollection } from './json';
+import fs from 'fs/promises';
+import {
+  readCollection,
+  categorizeCollections,
+  generateCollection
+} from './json';
 import { CategorizedCollectionItem } from '../../src/helpers/collections';
 
 const PATH_TO_COLLECTIONS = path.join(__dirname, 'test-collections');
 let expectedCollections: CategorizedCollectionItem[];
 
 test('getAllCollections', async () => {
-  const result = await getAllCollections(PATH_TO_COLLECTIONS);
-  expectedCollections = result;
+  const lastWonAMatch = await fs.readFile(
+    path.join(PATH_TO_COLLECTIONS, 'arsenal/last-won-a-match.json'),
+    'utf-8'
+  );
+  const winPremierLeague = await fs.readFile(
+    path.join(PATH_TO_COLLECTIONS, 'arsenal/win-premier-league.json'),
+    'utf-8'
+  );
 
-  expect(result.length).toBe(1);
-  expect(result[0].title).toBe('Arsenal');
-  expect(result[0].slug).toBe('arsenal');
-  expect(result[0].collections.length).toBe(2);
+  const lastWonAMatchJson = JSON.parse(lastWonAMatch);
+  const winPremierLeagueJson = JSON.parse(winPremierLeague);
 
-  expect(result[0].collections[0].title).toBe('Arsenal Win Premier League');
-  expect(result[0].collections[0].slug).toBe('win-premier-league');
+  const categorized = categorizeCollections([
+    lastWonAMatchJson,
+    winPremierLeagueJson
+  ]);
+  expectedCollections = categorized;
 
-  expect(result[0].collections[1].title).toBe('Arsenal Last Won a Match');
-  expect(result[0].collections[1].slug).toBe('won-a-match');
+  expect(categorized.length).toBe(1);
+  expect(categorized[0].title).toBe('Arsenal');
+  expect(categorized[0].slug).toBe('arsenal');
+  expect(categorized[0].collections.length).toBe(2);
+
+  expect(categorized[0].collections[0].title).toBe('Last Won a Match');
+  expect(categorized[0].collections[0].slug).toBe('arsenal/last-won-a-match');
+  expect(categorized[0].collections[1].title).toBe('Win Premier League');
+  expect(categorized[0].collections[1].slug).toBe('arsenal/win-premier-league');
 });
 
 test('generateCollection', async () => {
