@@ -129,8 +129,7 @@ async function convertMarkdownToJson({
     parentTitle,
     slug: `${category}/${path.basename(filePath, '.json')}`,
     title: frontmatterObj.title,
-    category,
-    expression: 'since'
+    category
   };
 }
 
