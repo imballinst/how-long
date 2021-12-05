@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "private": "true",
+  "type": "module",
   "scripts": {
+    "c:g": "yarn collections:generate",
     "collections:generate": "node --loader ts-node/esm src/generate-collections.ts",
     "format": "yarn prettier src"
   }

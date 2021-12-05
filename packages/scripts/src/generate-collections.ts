@@ -1,13 +1,11 @@
-import path from 'node:path';
-
 import {
   generateCollection,
   categorizeCollections
 } from './collections/json.js';
 import { convertMarkdownsInDirectoryToJson } from './collections/markdown.js';
 
-const PATH_TO_COLLECTIONS = new URL('../collections', import.meta.url);
-const PATH_TO_STATIC = new URL('../src/static', import.meta.url);
+const PATH_TO_COLLECTIONS = new URL('../../../collections', import.meta.url);
+const PATH_TO_STATIC = new URL('../../app/src/static', import.meta.url);
 
 async function main() {
   const collections = await convertMarkdownsInDirectoryToJson({
