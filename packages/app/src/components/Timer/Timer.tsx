@@ -62,9 +62,9 @@ export function Timer({ date, expression, collection }: TimerProps) {
   }, [date]);
 
   const keys = Object.keys(state) as CountKeys[];
-  const headingTitle = `How Long ${titleCase(expression)} ${titleCase(
-    collection.category!
-  )} ${collection.title}?`;
+  const headingTitle = `How Long ${titleCase(expression)} ${
+    collection.parentTitle
+  } ${collection.title}?`;
 
   const description = htmlToReact(currentEvent.description);
   const firstParagraph = Array.isArray(description) ? description[0] : null;

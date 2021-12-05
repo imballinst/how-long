@@ -4,11 +4,14 @@ import { Fragment } from 'react';
 import { Link } from '../../components/Links';
 import { Text } from '../../components/Typography';
 
-export function htmlToReact(text: string) {
+export function htmlToReact(text: string, makeFirstChildInline = true) {
   return parse(text, {
     replace: (domNodeArg) => {
       const domNode = domNodeArg as any;
-      const firstChild = domNode.prev === null && domNode.parent === null;
+      const firstChild =
+        domNode.prev === null &&
+        domNode.parent === null &&
+        makeFirstChildInline;
 
       if (domNode.children && domNode.children.length > 1) {
         return (

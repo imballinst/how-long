@@ -16,7 +16,7 @@ export interface CardProps {
 }
 
 export function Card(props: CardProps) {
-  const children = htmlToReact(props.text);
+  const children = htmlToReact(props.text, false);
 
   return (
     <div className="border rounded-lg border-gray-200 hover:border-teal-500 dark:hover:border-teal-200 p-4 transition-colors">
