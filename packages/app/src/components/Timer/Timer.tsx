@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { calculate } from 'count-up-down';
 import { CountResult } from 'count-up-down/dist/types/common/types';
 
@@ -50,10 +50,10 @@ export function Timer({ date, expression, collection }: TimerProps) {
   );
 
   useEffect(() => {
-    setState(getNewState(date));
+    setState(padAll(calculate(new Date(date), new Date()).result));
 
     const interval = setInterval(() => {
-      setState(getNewState(date));
+      setState(padAll(calculate(new Date(date), new Date()).result));
     }, 1000);
 
     return () => {
@@ -144,18 +144,4 @@ function padAll(input: CountResult) {
 
 function titleCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function getNewState(date: string) {
-  const comparedDate = new Date();
-  const anchorDate = new Date(date);
-
-  // We need to subtract because dates parsed with ISO8601 string is treated
-  // as UTC instead of local time.
-  const differenceInMs = anchorDate.getTimezoneOffset() * 60 * 1000;
-
-  return padAll(
-    calculate(new Date(anchorDate.getTime() + differenceInMs), comparedDate)
-      .result
-  );
 }
