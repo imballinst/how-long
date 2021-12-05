@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { calculate } from 'count-up-down';
 import { CountResult } from 'count-up-down/dist/types/common/types';
 
@@ -6,6 +6,7 @@ import styles from './Timer.module.css';
 import { Collection } from '../../helpers/collections';
 import { Directory } from '../Directories';
 import { Text } from '../Typography';
+import { htmlToReact } from '../../helpers/collections/markdown';
 
 export interface TimerProps {
   // This should be ISO8601 string.
@@ -43,6 +44,10 @@ export function Timer({ date, expression, collection }: TimerProps) {
     minutes: '00',
     seconds: '00'
   });
+  const [currentEvent, previousEvents] = useMemo(
+    () => [collection.events[0], collection.events.slice(1)],
+    [collection]
+  );
 
   useEffect(() => {
     setState(padAll(calculate(new Date(date), new Date()).result));
@@ -60,6 +65,12 @@ export function Timer({ date, expression, collection }: TimerProps) {
   const headingTitle = `How Long ${titleCase(expression)} ${titleCase(
     collection.category!
   )} ${collection.title}?`;
+
+  const description = htmlToReact(currentEvent.description);
+  const firstParagraph = Array.isArray(description) ? description[0] : null;
+  const restOfParagraphs = Array.isArray(description)
+    ? description.slice(1)
+    : description;
 
   return (
     <div className="h-full flex flex-col pl-4">
@@ -79,28 +90,32 @@ export function Timer({ date, expression, collection }: TimerProps) {
         ))}
       </Text>
 
-      <Text
-        as="p"
-        className="mt-8 text-base text-center border px-2 py-4 rounded-lg"
+      <div
+        className={`mt-8 text-base border p-4 rounded-lg ${styles['paragraphs']}`}
       >
-        <span className="font-bold">{formatter.format(new Date(date))}</span>
-        <span> -- </span>
-        {collection.events[0].description}
-      </Text>
-
-      <div className="mt-8">
-        <Text as="h3" className="mb-2 text-xl">
-          Previous events
+        <Text as="span" className="font-bold">
+          {`${formatter.format(new Date(date))} ― `}
         </Text>
 
-        <Directory
-          cards={collection.events.slice(1).map((event) => ({
-            date: event.datetime,
-            title: event.title,
-            text: event.description
-          }))}
-        />
+        {firstParagraph}
+        {restOfParagraphs}
       </div>
+
+      {previousEvents.length > 0 && (
+        <div className="mt-8">
+          <Text as="h3" className="mb-2 text-xl">
+            Previous events
+          </Text>
+
+          <Directory
+            cards={previousEvents.map((event) => ({
+              date: event.datetime,
+              title: event.title,
+              text: event.description
+            }))}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import { ReactNode } from 'react';
+
 import { Link } from '../Links';
 import { Text } from '../Typography';
 
 import styles from './Card.module.css';
+import { htmlToReact } from '../../helpers/collections/markdown';
 
 export interface CardProps {
   href?: string;
@@ -14,6 +16,8 @@ export interface CardProps {
 }
 
 export function Card(props: CardProps) {
+  const children = htmlToReact(props.text);
+
   return (
     <div className="border rounded-lg border-gray-200 hover:border-teal-500 dark:hover:border-teal-200 p-4 transition-colors">
       <CardHeading href={props.href}>{props.title}</CardHeading>
@@ -24,8 +28,8 @@ export function Card(props: CardProps) {
         })}
       </div>
 
-      <div className="flex mt-2 items-center">
-        <Text className={styles['card-text']}>{props.text}</Text>
+      <div className={`flex mt-2 items-center flex-col ${styles['card-text']}`}>
+        {Array.isArray(children) ? children[0] : children}
       </div>
     </div>
   );

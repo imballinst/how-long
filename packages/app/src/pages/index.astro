@@ -11,8 +11,8 @@ import { HOME_BREADCRUMBS } from '../helpers/paths';
 const date = new Date().toISOString();
 const collections = json.map((item) => item.collections).flat();
 
-const SINCE_TITLE_CARD_PREFIXES = { expression: 'Since', parentTitle: true };
-const UNTIL_TITLE_CARD_PREFIXES = { expression: 'Until', parentTitle: true };
+const SINCE_TITLE_CARD_PREFIXES = { parentTitle: true };
+const UNTIL_TITLE_CARD_PREFIXES = { parentTitle: true };
 ---
 
 <BaseLayout

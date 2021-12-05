@@ -49,7 +49,7 @@ export function DirectorySegment({
       {numOfCards > 0 && (
         <>
           <div className="flex flex-row justify-between items-end">
-            <Text as="h3" className="text-xl font-bold">
+            <Text as="h3" className="text-xl font-bold w-1/2">
               {title}
             </Text>
 

@@ -17,5 +17,9 @@ export function Text({
     classNames = 'text-gray-500 dark:text-gray-200';
   }
 
-  return <Element className={`${classNames} ${className}`}>{children}</Element>;
+  return (
+    <Element className={`${classNames} ${className} w-full`}>
+      {children}
+    </Element>
+  );
 }
