@@ -10,13 +10,14 @@
   ],
   "scripts": {
     "test": "jest",
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "c:g": "yarn collections:generate",
-    "collections:generate": "node --loader ts-node/esm scripts/generate-collections.ts",
-    "format": "yarn prettier -w src scripts"
+    "dev": "yarn workspace @how-long/app dev",
+    "start": "yarn workspace @how-long/app dev",
+    "prebuild": "yarn workspace @how-long/scripts c:g",
+    "build": "yarn workspace @how-long/app build",
+    "postbuild": "rm -rf dist && mv packages/app/dist .",
+    "preview": "yarn workspace @how-long/app preview",
+    "c:g": "yarn workspace @how-long/scripts collections:generate",
+    "format": "yarn prettier -w packages/app/src packages/scripts/src"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",

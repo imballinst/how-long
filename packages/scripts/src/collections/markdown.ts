@@ -130,7 +130,7 @@ async function convertMarkdownToJson({
   return {
     events,
     parentTitle,
-    slug: `${category}/${path.basename(filePath, '.md')}`,
+    slug: path.basename(filePath, '.md'),
     title: frontmatterObj.title,
     category
   };
