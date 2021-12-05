@@ -18,7 +18,7 @@ export function CategoryDirectories({
   titleCardPrefixes: DirectorySegmentProps['titleCardPrefixes'];
 }) {
   return (
-    <div className="sm:p-4 flex flex-col h-full">
+    <div className="md:p-4 flex flex-col h-full">
       <h2 className="text-2xl font-bold mb-4 dark:text-gray-200">{title}</h2>
 
       {items.map((item) => (
