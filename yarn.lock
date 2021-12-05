@@ -2350,10 +2350,10 @@ cosmiconfig@^7.0.1:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-count-up-down@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/count-up-down/-/count-up-down-0.2.0.tgz#19088e38417fc72020174f561ca24cc2a9a1d4b4"
-  integrity sha512-rqqCh+T+qUUf8OEeS11ngaLPsHY52PHkmJj8OGuhO6y8y+Q02p2xhKhGEkxB03Vz5wgUiMl1dzQ+D+4yjTMRfQ==
+count-up-down@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/count-up-down/-/count-up-down-0.2.1.tgz#214f361af874254241a8d8629607d1ad0fca9685"
+  integrity sha512-YUCLnJgPU1V04BidDqwUSb3GBaSZNV3tNONvm21Iwg/y58MU67c+mKtg43VHm1zvQVixHDw51/9qDoMkfeKCXg==
 
 create-require@^1.1.0:
   version "1.1.1"

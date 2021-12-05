@@ -50,10 +50,10 @@ export function Timer({ date, expression, collection }: TimerProps) {
   );
 
   useEffect(() => {
-    setState(padAll(calculate(new Date(date), new Date()).result));
+    setState(getNewState(date));
 
     const interval = setInterval(() => {
-      setState(padAll(calculate(new Date(date), new Date()).result));
+      setState(getNewState(date));
     }, 1000);
 
     return () => {
@@ -144,4 +144,18 @@ function padAll(input: CountResult) {
 
 function titleCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function getNewState(date: string) {
+  const comparedDate = new Date();
+  const anchorDate = new Date(date);
+
+  // We need to subtract because dates parsed with ISO8601 string is treated
+  // as UTC instead of local time.
+  const differenceInMs = anchorDate.getTimezoneOffset() * 60 * 1000;
+
+  return padAll(
+    calculate(new Date(anchorDate.getTime() + differenceInMs), comparedDate)
+      .result
+  );
 }
