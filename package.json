@@ -11,10 +11,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "c:g": "ts-node scripts/generate-collections.ts",
+    "c:g": "yarn collections:generate",
     "collections:generate": "ts-node scripts/generate-collections.ts",
-    "format": "yarn prettier -w src scripts",
-    "md": "ts-node ./collections-md/arsenal/test.mjs"
+    "format": "yarn prettier -w src scripts"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
