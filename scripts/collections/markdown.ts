@@ -1,5 +1,5 @@
-import fs from 'fs/promises';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
@@ -8,7 +8,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 
 import { Dictionary } from '../../src/helpers/types';
-import { Collection } from '../../src/helpers/collections';
+import { Collection } from '../../src/helpers/collections/index.js';
 
 export async function convertMarkdownsInDirectoryToJson({
   directory

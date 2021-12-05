@@ -12,7 +12,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "c:g": "yarn collections:generate",
-    "collections:generate": "ts-node scripts/generate-collections.ts",
+    "collections:generate": "node --loader ts-node/esm scripts/generate-collections.ts",
     "format": "yarn prettier -w src scripts"
   },
   "devDependencies": {
