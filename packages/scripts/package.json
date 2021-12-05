@@ -1,0 +1,11 @@
+{
+  "name": "@how-long/scripts",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "private": "true",
+  "scripts": {
+    "collections:generate": "node --loader ts-node/esm src/generate-collections.ts",
+    "format": "yarn prettier src"
+  }
+}

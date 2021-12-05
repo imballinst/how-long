@@ -3,8 +3,8 @@ import path from 'path';
 import {
   CategorizedCollectionItem,
   Collection
-} from '../../src/helpers/collections';
-import { Dictionary } from '../../src/helpers/types';
+} from '../../app/src/helpers/collections';
+import { Dictionary } from '../../app/src/helpers/types';
 
 // Generate collection.
 export async function generateCollection<TCollectionType>(

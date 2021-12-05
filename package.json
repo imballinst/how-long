@@ -5,8 +5,11 @@
   "author": "Try Ajitiono <ballinst@gmail.com>",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "test": "jest src scripts",
+    "test": "jest",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",

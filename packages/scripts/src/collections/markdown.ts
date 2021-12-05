@@ -7,8 +7,8 @@ import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 
-import { Dictionary } from '../../src/helpers/types';
-import { Collection } from '../../src/helpers/collections/index.js';
+import { Dictionary } from '../../../app/src/helpers/types';
+import { Collection } from '../../../app/src/helpers/collections/index.js';
 
 export async function convertMarkdownsInDirectoryToJson({
   directory

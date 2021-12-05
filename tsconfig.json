@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": ["src/**/*", "scripts/**/*"],
+  "include": ["packages/app/src/**/*", "packages/scripts/**/*"],
   "exclude": ["node_modules"]
 }
