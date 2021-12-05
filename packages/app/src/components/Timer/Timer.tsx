@@ -73,8 +73,8 @@ export function Timer({ date, expression, collection }: TimerProps) {
     : description;
 
   return (
-    <div className="h-full flex flex-col pl-4">
-      <Text as="h2" className="text-2xl text-center font-bold my-8">
+    <div className="h-full flex flex-col">
+      <Text as="h2" className="text-2xl text-center font-bold mt-6 mb-8">
         {headingTitle}
       </Text>
 
@@ -91,7 +91,7 @@ export function Timer({ date, expression, collection }: TimerProps) {
       </Text>
 
       <div
-        className={`mt-8 text-base border p-4 rounded-lg ${styles['paragraphs']}`}
+        className={`mt-8 text-base sm:border sm:p-4 sm:rounded-lg ${styles['paragraphs']}`}
       >
         <Text as="span" className="font-bold">
           {`${formatter.format(new Date(date))} ― `}

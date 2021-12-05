@@ -26,7 +26,7 @@ export function TimeDirectory({
   ).current;
 
   return (
-    <div className="p-4 flex flex-col h-full">
+    <div className="sm:p-4 flex flex-col h-full">
       {timedCollection.since.length > 0 && (
         <div className="flex-0 mb-8">
           <DirectorySegment

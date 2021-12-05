@@ -10,7 +10,7 @@ export function BreadcrumbHeader(props: BreadcrumbHeaderProps) {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ul className="list-style-none flex font-semibold">
+      <ul className="list-style-none flex font-semibold flex-wrap">
         {props.pages.map((page, idx) => (
           <li key={page.href} className="flex flex-row items-center">
             <Link href={page.href}>{page.title}</Link>

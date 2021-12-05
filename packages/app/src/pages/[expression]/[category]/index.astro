@@ -28,6 +28,7 @@ export async function getStaticPaths() {
 
     for (const item of collectionsByTime) {
       const { title, slug } = item;
+      const collections = collectionsByTime.filter((c) => c.slug === slug);
 
       paths.push({
         params: {
@@ -41,7 +42,7 @@ export async function getStaticPaths() {
             title
           }),
           title: isSince ? `Since ${title}...` : `Until ${title}...`,
-          collections: collectionsByTime
+          collections
         }
       });
     }

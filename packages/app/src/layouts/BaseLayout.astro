@@ -33,22 +33,6 @@ const pageTitle = pageTitlePrefix + 'How long';
       {heroImage}
     />
 
-    <style>
-      html,
-      body {
-        font-family: 'Lora', serif;
-      }
-
-      main {
-        height: calc(100vh - 56px);
-        margin-top: 56px;
-      }
-
-      header {
-        height: 56px;
-      }
-    </style>
-
     <script>
       if (
         localStorage.theme === 'dark' ||
@@ -64,10 +48,10 @@ const pageTitle = pageTitlePrefix + 'How long';
 
   <body class="flex flex-col min-h-screen dark:bg-gray-800 transition-colors">
     <header
-      class="shadow-sm flex flex-row justify-center fixed top-0 w-full z-10"
+      class="shadow-sm flex flex-row justify-center fixed top-0 w-full z-10 bg-white dark:bg-gray-800"
     >
       <div
-        class="flex flex-row justify-between items-center px-3 py-2 sm:w-full md:w-wmd lg:w-wlg xl:w-wxl"
+        class="flex flex-row justify-between items-center px-3 py-2 w-full md:w-wmd lg:w-wlg xl:w-wxl"
       >
         <div class="flex flex-row font-semibold">
           <Link href="/">
@@ -96,8 +80,8 @@ const pageTitle = pageTitlePrefix + 'How long';
     </header>
 
     <main class="flex flex-1 p-4 flex-row justify-center">
-      <div class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl flex flex-col">
-        <div class="pl-4 mb-4 flex-0">
+      <div class="w-full md:w-wmd lg:w-wlg xl:w-wxl flex flex-col">
+        <div class="mb-4 flex-0">
           <BreadcrumbHeader {pages} />
         </div>
 

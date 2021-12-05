@@ -5,7 +5,3 @@
 .paragraphs > p:not(:first-of-type) {
   margin-top: 0.75rem;
 }
-
-.paragraphs > p:first-of-type {
-  display: inline;
-}
