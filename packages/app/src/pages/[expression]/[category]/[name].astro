@@ -10,6 +10,7 @@ import {
 } from '../../../helpers/paths';
 
 export async function getStaticPaths() {
+  const currentTimeValueOf = new Date().valueOf();
   const expressions = ['since', 'until'];
   const paths = [];
 
@@ -29,6 +30,13 @@ export async function getStaticPaths() {
       for (const collection of item.collections) {
         if (collection.events.length === 0) {
           // Skip generating page for collections with 0 events.
+          continue;
+        }
+
+        const latestEventDate = collection.events[0].datetime;
+        const latestEventValueOf = new Date(latestEventDate).valueOf();
+
+        if (expression === 'until' && latestEventValueOf < currentTimeValueOf) {
           continue;
         }
 
