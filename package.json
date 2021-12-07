@@ -23,6 +23,7 @@
     "@babel/core": "7.16.0",
     "@babel/preset-env": "7.16.4",
     "@babel/preset-typescript": "7.16.0",
+    "@types/gtag.js": "^0.0.8",
     "@types/jest": "27.0.3",
     "@types/node": "16.11.9",
     "@types/react": "17.0.36",
