@@ -12,7 +12,7 @@ import {
 export async function getStaticPaths() {
   const { items, date } = json;
 
-  return json.items.map((item) => {
+  return items.map((item) => {
     return {
       params: {
         category: item.slug
