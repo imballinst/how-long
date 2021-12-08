@@ -9,8 +9,6 @@ import {
   HOME_UNTIL_BREADCRUMBS
 } from '../../helpers/paths';
 
-const { items, date } = json;
-
 export async function getStaticPaths() {
   const { items, date } = json;
   const expressions = ['since', 'until'];
