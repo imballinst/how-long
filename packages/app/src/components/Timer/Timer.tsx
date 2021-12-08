@@ -82,6 +82,7 @@ export function Timer({ date, expression, collection, children }: TimerProps) {
 
       <Text
         as="div"
+        colorScheme="gray"
         className={`grid grid-cols-3 gap-4 ${styles['time-text']}`}
       >
         {keys.map((key) => (
@@ -93,7 +94,7 @@ export function Timer({ date, expression, collection, children }: TimerProps) {
       </Text>
 
       <div
-        className={`mt-8 text-base sm:border sm:p-4 sm:rounded ${styles['paragraphs']}`}
+        className={`mt-8 text-base border-t border-b py-4 border-gray-400 md:border-gray-500 md:border md:p-4 md:rounded ${styles['paragraphs']}`}
       >
         <Text as="span" className="font-bold">
           {`${formatter.format(new Date(date))} ― `}

@@ -77,7 +77,7 @@ export function DirectoryFooter({ updateDate }: { updateDate: string }) {
   return (
     <Text
       colorScheme="gray"
-      className="flex flex-1 flex-col justify-end items-center italic text-sm mt-4"
+      className="flex flex-1 flex-col justify-end items-center italic text-sm mt-8"
     >
       This page was last updated on {formatLastDirectoryUpdate(updateDate)}.
     </Text>

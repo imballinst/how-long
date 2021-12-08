@@ -14,7 +14,7 @@ export function Text({
   let classNames = 'text-black dark:text-gray-200';
 
   if (colorScheme === 'gray') {
-    classNames = 'text-gray-500 dark:text-gray-200';
+    classNames = 'text-gray-500 dark:text-gray-400';
   }
 
   return (
