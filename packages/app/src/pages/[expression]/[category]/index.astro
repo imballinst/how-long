@@ -61,7 +61,6 @@ const { title, expression, collections, breadcrumbs, date } = Astro.props;
   {title}
   description={`The ${title} category page with ${expression} filter in imballinst's events tracker site.`}
 >
-  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <CategoryDirectories
     updateDate={date}
     items={collections}
