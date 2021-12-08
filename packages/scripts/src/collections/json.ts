@@ -18,15 +18,18 @@ export async function generateCollection<TCollectionType>(
   }
 
   return fs.writeFile(
-    path.join(directoryPath, 'collection.json'),
-    JSON.stringify(json),
+    path.join(directoryPath, 'items.json'),
+    JSON.stringify({
+      date: new Date().toISOString(),
+      items: json
+    }),
     'utf-8'
   );
 }
 
 // Read collection.
 export async function readCollection(directoryPath: string) {
-  return fs.readFile(path.join(directoryPath, 'collection.json'), 'utf-8');
+  return fs.readFile(path.join(directoryPath, 'items.json'), 'utf-8');
 }
 
 // Categorize collection.

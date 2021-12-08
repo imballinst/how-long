@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-import json from '../static/collection.json';
+import json from '../static/items.json';
 import { groupCollectionsByTime } from '../helpers/collections';
 import { TimeDirectory } from '../components/Directories';
 import { HOME_BREADCRUMBS } from '../helpers/paths';
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
-const date = new Date().toISOString();
-const collections = json.map((item) => item.collections).flat();
+const { items, date } = json;
+const collections = items.map((item) => item.collections).flat();
 
 const SINCE_TITLE_CARD_PREFIXES = { parentTitle: true };
 const UNTIL_TITLE_CARD_PREFIXES = { parentTitle: true };

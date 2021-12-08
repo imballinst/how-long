@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-import json from '../../static/collection.json';
+import json from '../../static/items.json';
 import { filterCategorizedCollectionsByTime } from '../../helpers/collections';
 import { CategoryDirectories } from '../../components/Directories';
 import {
@@ -9,20 +9,21 @@ import {
   HOME_UNTIL_BREADCRUMBS
 } from '../../helpers/paths';
 
+const { items, date } = json;
+
 export async function getStaticPaths() {
   const expressions = ['since', 'until'];
   const paths = [];
 
   for (const expression of expressions) {
-    // TODO(imballinst): this is still bugged.
     const collectionsByTime = filterCategorizedCollectionsByTime(
-      json,
+      items,
       new Date(),
       expression
     );
     const isSince = expression === 'since';
 
-    for (const item of json) {
+    for (const item of collectionsByTime) {
       paths.push({
         params: {
           expression
@@ -45,8 +46,6 @@ export async function getStaticPaths() {
 }
 
 const { title, expression, collections, breadcrumbs } = Astro.props;
-const date = new Date().toISOString();
-
 const TITLE_CARD_PREFIXES = { expression: true, parentTitle: true };
 ---
 

@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-import json from '../../static/collection.json';
+import json from '../../static/items.json';
 import { appendExpressionToCategorizedCollection } from '../../helpers/collections';
 import { CategoryDirectories } from '../../components/Directories';
 import { HOME_CATEGORIES_BREADCRUMBS } from '../../helpers/paths';
 
-const collections = appendExpressionToCategorizedCollection(json, new Date());
-const date = new Date().toISOString();
+const { items, date } = json;
+
+const collections = appendExpressionToCategorizedCollection(items, new Date());
 const titleCardPrefixes = { parentTitle: true, expression: true };
 ---
 

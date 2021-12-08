@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-import json from '../../../static/collection.json';
+import json from '../../../static/items.json';
 import { Timer } from '../../../components/Timer';
 import {
   HOME_SINCE_BREADCRUMBS,
@@ -10,7 +10,9 @@ import {
 } from '../../../helpers/paths';
 
 export async function getStaticPaths() {
-  const currentTimeValueOf = new Date().valueOf();
+  const { items, date } = json;
+
+  const currentTimeValueOf = date.valueOf();
   const expressions = ['since', 'until'];
   const paths = [];
 
@@ -20,7 +22,7 @@ export async function getStaticPaths() {
       ? HOME_SINCE_BREADCRUMBS
       : HOME_UNTIL_BREADCRUMBS;
 
-    for (const item of json) {
+    for (const item of items) {
       const { title, slug } = item;
       const collectionsBreadcrumbs = appendBreadcrumbs(baseBreadcrumbs, {
         href: `/${slug}`,
