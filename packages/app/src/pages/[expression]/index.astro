@@ -12,13 +12,14 @@ import {
 const { items, date } = json;
 
 export async function getStaticPaths() {
+  const { items, date } = json;
   const expressions = ['since', 'until'];
   const paths = [];
 
   for (const expression of expressions) {
     const collectionsByTime = filterCategorizedCollectionsByTime(
       items,
-      new Date(),
+      new Date(date),
       expression
     );
     const isSince = expression === 'since';
@@ -36,7 +37,8 @@ export async function getStaticPaths() {
           title: isSince
             ? 'Collections by Time: Since'
             : 'Collections by Time: Until',
-          collections: collectionsByTime
+          collections: collectionsByTime,
+          date
         }
       });
     }
@@ -45,7 +47,7 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { title, expression, collections, breadcrumbs } = Astro.props;
+const { title, expression, collections, breadcrumbs, date } = Astro.props;
 const TITLE_CARD_PREFIXES = { expression: true, parentTitle: true };
 ---
 
@@ -54,7 +56,6 @@ const TITLE_CARD_PREFIXES = { expression: true, parentTitle: true };
   {title}
   description={`The ${title} time category page in imballinst's events tracker site.`}
 >
-  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <CategoryDirectories
     updateDate={date}
     items={collections}

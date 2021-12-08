@@ -9,10 +9,10 @@ import {
   appendBreadcrumbs
 } from '../../helpers/paths';
 
-const { items, date } = json;
-
 export async function getStaticPaths() {
-  return items.map((item) => {
+  const { items, date } = json;
+
+  return json.items.map((item) => {
     return {
       params: {
         category: item.slug
@@ -20,13 +20,14 @@ export async function getStaticPaths() {
       props: {
         title: item.title,
         slug: item.slug,
-        collections: item.collections
+        collections: item.collections,
+        date
       }
     };
   });
 }
 
-const { title, slug, collections } = Astro.props;
+const { title, date, slug, collections } = Astro.props;
 
 const breadcrumbs = appendBreadcrumbs(HOME_CATEGORIES_BREADCRUMBS, {
   href: `/${slug}`,
@@ -40,7 +41,6 @@ const titleCardPrefixes = { parentTitle: true, expression: true };
   {title}
   description={`The ${title} category page in imballinst's events tracker site.`}
 >
-  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <TimeDirectory
     updateDate={date}
     {collections}

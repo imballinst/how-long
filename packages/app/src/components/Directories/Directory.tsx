@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { Collection } from '../../helpers/collections';
+import { formatLastDirectoryUpdate } from '../../helpers/date';
 import { Card, CardProps } from '../Card';
 import { Link } from '../Links';
 import { Text } from '../Typography';
@@ -72,6 +73,18 @@ export function DirectorySegment({
   );
 }
 
+export function DirectoryFooter({ updateDate }: { updateDate: string }) {
+  return (
+    <Text
+      colorScheme="gray"
+      className="flex flex-1 flex-col justify-end items-center italic text-sm mt-4"
+    >
+      This page was last updated on {formatLastDirectoryUpdate(updateDate)}.
+    </Text>
+  );
+}
+
+// Helper functions.
 function getCardTitle(
   file: Collection,
   prefixes: DirectorySegmentProps['titleCardPrefixes']
