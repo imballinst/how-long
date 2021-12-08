@@ -9,10 +9,8 @@ import {
   appendBreadcrumbs
 } from '../../helpers/paths';
 
-const { items, date } = json;
-
 export async function getStaticPaths() {
-  return items.map((item) => {
+  return json.items.map((item) => {
     return {
       params: {
         category: item.slug
@@ -40,9 +38,8 @@ const titleCardPrefixes = { parentTitle: true, expression: true };
   {title}
   description={`The ${title} category page in imballinst's events tracker site.`}
 >
-  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <TimeDirectory
-    updateDate={date}
+    updateDate={json.date}
     {collections}
     slugSuffix={`/${slug}`}
     sinceTitleCardPrefixes={titleCardPrefixes}

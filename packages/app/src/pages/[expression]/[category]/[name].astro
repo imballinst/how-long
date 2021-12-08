@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 import json from '../../../static/items.json';
 import { Timer } from '../../../components/Timer';
+import { DirectoryFooter } from '../../../components/Directories';
 import {
   HOME_SINCE_BREADCRUMBS,
   HOME_UNTIL_BREADCRUMBS,
@@ -75,5 +76,7 @@ const date = collection.events[0].datetime;
   title={collection.title}
   description={`The ${collection.title} page with ${expression} filter in imballinst's events tracker site.`}
 >
-  <Timer {date} {expression} {collection} client:load />
+  <Timer {date} {expression} {collection} client:load>
+    <DirectoryFooter updateDate={date} />
+  </Timer>
 </BaseLayout>

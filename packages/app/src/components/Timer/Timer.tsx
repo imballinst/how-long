@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { calculate } from 'count-up-down';
 import { CountResult } from 'count-up-down/dist/types/common/types';
 
@@ -13,6 +13,7 @@ export interface TimerProps {
   date: string;
   collection: Collection;
   expression: 'since' | 'until';
+  children: ReactNode;
 }
 
 interface TimeState {
@@ -31,7 +32,7 @@ const formatter = new Intl.DateTimeFormat('en-US', {
   day: '2-digit'
 });
 
-export function Timer({ date, expression, collection }: TimerProps) {
+export function Timer({ date, expression, collection, children }: TimerProps) {
   // TODO(imballinst): if we are using `padAll(...)` here,
   // at the time of writing, it will cause dev server issues.
   // Also, probably jumping from 0s is better than jumping from non-0s.
@@ -116,6 +117,8 @@ export function Timer({ date, expression, collection }: TimerProps) {
           />
         </div>
       )}
+
+      {children}
     </div>
   );
 }
