@@ -107,7 +107,10 @@ async function convertMarkdownToJson({
       events.push({
         title: line.replace(/##/g, '').trim(),
         datetime: '',
-        description: ''
+        description: '',
+        meta: {
+          description: ''
+        }
       });
     } else if (line.startsWith('<!-- ')) {
       // Event frontmatters.
@@ -125,6 +128,19 @@ async function convertMarkdownToJson({
         .use(rehypeStringify)
         .process(line);
     }
+  }
+
+  // Process the meta tags (for SEO).
+  for (const event of events) {
+    // Perhaps the `p` tag open not always at 0 because maybe later
+    // we want to add the image support.
+    const firstPTagOpen = event.description.indexOf('<p>');
+    const firstPTagClose = event.description.indexOf('</p>');
+
+    event.meta.description = event.description.slice(
+      firstPTagOpen + '<p>'.length,
+      firstPTagClose
+    );
   }
 
   return {

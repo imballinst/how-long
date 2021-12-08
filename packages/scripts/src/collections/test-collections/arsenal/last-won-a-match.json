@@ -4,12 +4,18 @@
     {
       "title": "Arsenal 2-0 Newcastle United",
       "description": "<p>Arsenal won 2-0 against Newcastle United in a Premier League match as Bukayo Saka and Gabriel Martinelli scored.</p>",
-      "datetime": "2021-11-27T12:30:00.000Z"
+      "datetime": "2021-11-27T12:30:00.000Z",
+      "meta": {
+        "description": "Arsenal won 2-0 against Newcastle United in a Premier League match as Bukayo Saka and Gabriel Martinelli scored."
+      }
     },
     {
       "title": "Arsenal 1-0 Norwich City",
       "description": "<p>Arsenal won 1-0 against Norwich City in a Premier League match, with Pierre-Emerick Aubameyang scoring the only goal.</p>",
-      "datetime": "2021-09-11T16:00:00.000Z"
+      "datetime": "2021-09-11T16:00:00.000Z",
+      "meta": {
+        "description": "Arsenal won 1-0 against Norwich City in a Premier League match, with Pierre-Emerick Aubameyang scoring the only goal."
+      }
     }
   ],
   "parentTitle": "Arsenal",

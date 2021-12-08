@@ -7,6 +7,7 @@ import { Collection } from '../../helpers/collections';
 import { Directory } from '../Directories';
 import { Text } from '../Typography';
 import { htmlToReact } from '../../helpers/collections/markdown';
+import { titleCase } from '../../helpers/formatter';
 
 export interface TimerProps {
   // This should be ISO8601 string.
@@ -143,8 +144,4 @@ function padAll(input: CountResult) {
   }
 
   return output;
-}
-
-function titleCase(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
 }

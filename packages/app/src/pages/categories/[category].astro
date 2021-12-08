@@ -10,7 +10,9 @@ import {
 } from '../../helpers/paths';
 
 export async function getStaticPaths() {
-  return json.items.map((item) => {
+  const { items, date } = json;
+
+  return items.map((item) => {
     return {
       params: {
         category: item.slug
@@ -18,13 +20,14 @@ export async function getStaticPaths() {
       props: {
         title: item.title,
         slug: item.slug,
-        collections: item.collections
+        collections: item.collections,
+        date
       }
     };
   });
 }
 
-const { title, slug, collections } = Astro.props;
+const { title, date, slug, collections } = Astro.props;
 
 const breadcrumbs = appendBreadcrumbs(HOME_CATEGORIES_BREADCRUMBS, {
   href: `/${slug}`,
@@ -39,7 +42,7 @@ const titleCardPrefixes = { parentTitle: true, expression: true };
   description={`The ${title} category page in imballinst's events tracker site.`}
 >
   <TimeDirectory
-    updateDate={json.date}
+    updateDate={date}
     {collections}
     slugSuffix={`/${slug}`}
     sinceTitleCardPrefixes={titleCardPrefixes}

@@ -9,6 +9,7 @@ import {
   HOME_UNTIL_BREADCRUMBS,
   appendBreadcrumbs
 } from '../../../helpers/paths';
+import { titleCase } from '../../../helpers/formatter';
 
 export async function getStaticPaths() {
   const { items, date } = json;
@@ -73,8 +74,10 @@ const date = collection.events[0].datetime;
 
 <BaseLayout
   pages={breadcrumbs}
-  title={collection.title}
-  description={`The ${collection.title} page with ${expression} filter in imballinst's events tracker site.`}
+  title={`${titleCase(expression)} ${collection.parentTitle} ${
+    collection.title
+  }`}
+  description={collection.events[0].meta.description}
 >
   <Timer {date} {expression} {collection} client:load>
     <DirectoryFooter updateDate={date} />

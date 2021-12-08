@@ -22,7 +22,7 @@ export async function getStaticPaths() {
     );
     const isSince = expression === 'since';
 
-    for (const item of items) {
+    for (const item of collectionsByTime) {
       paths.push({
         params: {
           expression

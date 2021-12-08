@@ -10,6 +10,9 @@ export interface Collection {
     description: string;
     // This is ISO8601 string.
     datetime: string;
+    meta: {
+      description: string;
+    };
   }>;
 }
 
