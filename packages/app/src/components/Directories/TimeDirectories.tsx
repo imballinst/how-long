@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
 import { Collection, groupCollectionsByTime } from '../../helpers/collections';
+import { formatLastDirectoryUpdate } from '../../helpers/date';
 import { Text } from '../Typography';
 import { DirectorySegment, DirectorySegmentProps } from './Directory';
 
@@ -55,7 +56,7 @@ export function TimeDirectory({
         colorScheme="gray"
         className="flex flex-1 flex-col justify-end items-center italic text-sm"
       >
-        Last updated at {date.toISOString()}
+        Last updated at {formatLastDirectoryUpdate(updateDate)}
       </Text>
     </div>
   );

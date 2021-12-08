@@ -1,6 +1,7 @@
 import { CategorizedCollectionItem } from '../../helpers/collections';
 import { DirectorySegment, DirectorySegmentProps } from '.';
 import { Text } from '../Typography';
+import { formatLastDirectoryUpdate } from '../../helpers/date';
 
 export function CategoryDirectories({
   viewAllSlugPrefix = '',
@@ -37,7 +38,7 @@ export function CategoryDirectories({
         colorScheme="gray"
         className="flex flex-1 flex-col justify-end items-center italic text-sm"
       >
-        Last updated at {updateDate}
+        Last updated at {formatLastDirectoryUpdate(updateDate)}
       </Text>
     </div>
   );
