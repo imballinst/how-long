@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useAnalytics } from '../../helpers/analytics';
 
 export function DarkModeToggler() {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const { sendEvent } = useAnalytics();
 
   useEffect(() => {
     setMode(
@@ -52,6 +54,7 @@ export function DarkModeToggler() {
     }
 
     setMode(localStorage.theme);
+    sendEvent('toggle_dark_mode', { value: localStorage.theme });
   }
 
   return (
