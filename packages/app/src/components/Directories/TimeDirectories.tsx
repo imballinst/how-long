@@ -1,8 +1,11 @@
 import { useRef } from 'react';
 
 import { Collection, groupCollectionsByTime } from '../../helpers/collections';
-import { Text } from '../Typography';
-import { DirectorySegment, DirectorySegmentProps } from './Directory';
+import {
+  DirectorySegment,
+  DirectorySegmentProps,
+  DirectoryFooter
+} from './Directory';
 
 export function TimeDirectory({
   updateDate,
@@ -51,12 +54,7 @@ export function TimeDirectory({
         </div>
       )}
 
-      <Text
-        colorScheme="gray"
-        className="flex flex-1 flex-col justify-end items-center italic text-sm"
-      >
-        Last updated at {date.toISOString()}
-      </Text>
+      <DirectoryFooter updateDate={updateDate} />
     </div>
   );
 }

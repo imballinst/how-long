@@ -1,4 +1,3 @@
-import { addYears } from 'date-fns';
 import {
   appendExpressionToCategorizedCollection,
   CategorizedCollectionItem,
@@ -8,27 +7,36 @@ import {
 } from '.';
 
 const DATE = new Date();
+const NEXT_YEAR = new Date(DATE);
+NEXT_YEAR.setFullYear(DATE.getFullYear() + 1);
+
 const COLLECTIONS: Collection[] = [
   {
-    title: 'Arsenal Win Premier League',
+    title: 'Win Premier League',
     events: [
       {
+        title: 'Not defined',
         description:
           "It's not predictable when Arsenal will win the Premier League. Perhaps when they can do more as a team and get their DNA back.",
-        datetime: addYears(DATE, 1).toISOString()
+        datetime: NEXT_YEAR.toISOString()
       }
     ],
+    category: 'arsenal',
+    parentTitle: 'Arsenal',
     slug: 'win-premier-league'
   },
   {
-    title: 'Arsenal Last Won a Match',
+    title: 'Last Won a Match',
     events: [
       {
+        title: 'Arsenal 1-0 Norwich City',
         description:
           'Arsenal won 1-0 against Norwich City in a Premier League match, with Pierre-Emerick Aubameyang scoring the only goal.',
         datetime: '2021-09-11T16:00:00.000Z'
       }
     ],
+    category: 'arsenal',
+    parentTitle: 'Arsenal',
     slug: 'won-a-match'
   }
 ];

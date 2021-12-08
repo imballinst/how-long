@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-import json from '../../../static/collection.json';
+import json from '../../../static/items.json';
 import { filterCategorizedCollectionsByTime } from '../../../helpers/collections';
 import { CategoryDirectories } from '../../../components/Directories';
 import {
@@ -11,14 +11,15 @@ import {
 } from '../../../helpers/paths';
 
 export async function getStaticPaths() {
+  const { items, date } = json;
   const expressions = ['since', 'until'];
   const paths = [];
 
   for (const expression of expressions) {
     // TODO(imballinst): this is still bugged.
     const collectionsByTime = filterCategorizedCollectionsByTime(
-      json,
-      new Date(),
+      items,
+      new Date(date),
       expression
     );
     const isSince = expression === 'since';
@@ -42,7 +43,8 @@ export async function getStaticPaths() {
             title
           }),
           title: isSince ? `Since ${title}...` : `Until ${title}...`,
-          collections
+          collections,
+          date
         }
       });
     }
@@ -51,8 +53,7 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { title, expression, collections, breadcrumbs } = Astro.props;
-const date = new Date().toISOString();
+const { title, expression, collections, breadcrumbs, date } = Astro.props;
 ---
 
 <BaseLayout
@@ -60,7 +61,6 @@ const date = new Date().toISOString();
   {title}
   description={`The ${title} category page with ${expression} filter in imballinst's events tracker site.`}
 >
-  <!-- TODO(imballinst): add client:visible because we're using React hooks. Not possible atm with the Date bug. -->
   <CategoryDirectories
     updateDate={date}
     items={collections}
