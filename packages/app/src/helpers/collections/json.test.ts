@@ -3,7 +3,8 @@ import {
   CategorizedCollectionItem,
   Collection,
   filterCategorizedCollectionsByTime,
-  groupCollectionsByTime
+  groupCollectionsByTime,
+  sortCollections
 } from '.';
 
 const DATE = new Date();
@@ -17,8 +18,12 @@ const COLLECTIONS: Collection[] = [
       {
         title: 'Not defined',
         description:
-          "It's not predictable when Arsenal will win the Premier League. Perhaps when they can do more as a team and get their DNA back.",
-        datetime: NEXT_YEAR.toISOString()
+          "<p>It's not predictable when Arsenal will win the Premier League. Perhaps when they can do more as a team and get their DNA back.</p>",
+        datetime: NEXT_YEAR.toISOString(),
+        meta: {
+          description:
+            "It's not predictable when Arsenal will win the Premier League. Perhaps when they can do more as a team and get their DNA back."
+        }
       }
     ],
     category: 'arsenal',
@@ -31,13 +36,17 @@ const COLLECTIONS: Collection[] = [
       {
         title: 'Arsenal 1-0 Norwich City',
         description:
-          'Arsenal won 1-0 against Norwich City in a Premier League match, with Pierre-Emerick Aubameyang scoring the only goal.',
-        datetime: '2021-09-11T16:00:00.000Z'
+          '<p>Arsenal won 1-0 against Norwich City in a Premier League match, with Pierre-Emerick Aubameyang scoring the only goal.</p>',
+        datetime: '2021-09-11T16:00:00.000Z',
+        meta: {
+          description:
+            'Arsenal won 1-0 against Norwich City in a Premier League match, with Pierre-Emerick Aubameyang scoring the only goal.'
+        }
       }
     ],
     category: 'arsenal',
     parentTitle: 'Arsenal',
-    slug: 'won-a-match'
+    slug: 'last-won-a-match'
   }
 ];
 
@@ -134,4 +143,20 @@ test('filterCategorizedCollectionsByTime', () => {
       ]
     }
   ]);
+});
+
+test('sortCollections', () => {
+  const sortedAsc = sortCollections(COLLECTIONS, 'asc');
+
+  expect(sortedAsc[0].title).toBe('Last Won a Match');
+  expect(sortedAsc[0].slug).toBe('last-won-a-match');
+  expect(sortedAsc[1].title).toBe('Win Premier League');
+  expect(sortedAsc[1].slug).toBe('win-premier-league');
+
+  const sortedDesc = sortCollections(COLLECTIONS, 'desc');
+
+  expect(sortedDesc[1].title).toBe('Last Won a Match');
+  expect(sortedDesc[1].slug).toBe('last-won-a-match');
+  expect(sortedDesc[0].title).toBe('Win Premier League');
+  expect(sortedDesc[0].slug).toBe('win-premier-league');
 });
