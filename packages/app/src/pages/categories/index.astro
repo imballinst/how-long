@@ -8,7 +8,10 @@ import { HOME_CATEGORIES_BREADCRUMBS } from '../../helpers/paths';
 
 const { items, date } = json;
 
-const collections = appendExpressionToCategorizedCollection(items, new Date());
+const collections = appendExpressionToCategorizedCollection(
+  items,
+  new Date(date)
+);
 const titleCardPrefixes = { parentTitle: true, expression: true };
 ---
 
