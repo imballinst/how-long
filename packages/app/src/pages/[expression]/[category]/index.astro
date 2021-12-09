@@ -34,7 +34,8 @@ export async function getStaticPaths() {
       // There can be only one category here, so we access [0] right away.
       const filteredCategorized = categorized.filter((c) => c.slug === slug);
       filteredCategorized[0].collections = sortCollections(
-        filteredCategorized[0].collections
+        filteredCategorized[0].collections,
+        isSince ? 'desc' : 'asc'
       );
 
       paths.push({
