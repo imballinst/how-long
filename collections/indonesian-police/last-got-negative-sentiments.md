@@ -2,6 +2,24 @@
 title: Last Got Negative Sentiments
 ---
 
+## Blackmailing a rape victim
+
+<!-- datetime: 2021-12-10T04:20:00.000Z -->
+
+Two police officers were being investigated of blackmailing a rape victim, telling her to create a "letter" so that the perpetrators would not be processed by law.
+
+The article can be found here: https://www.cnnindonesia.com/nasional/20211210103045-12-732360/diduga-intimidasi-korban-perkosaan-2-polisi-diperiksa-propam-riau.
+
+The victim recorded the "conversation" containing the threat. In the video, although the police officers' faces weren't clear, their voices had high intonation. The sentences they said were along the lines of, _"We have helped you and this is how you repaid us. Next time if you have more problems, don't go to our office"_.
+
+They [one of the police officers] continued, _"Your proof was not truthy. I am concerned about you, what will you do if your child is abandoned? You have a child, right? They will be abandoned [if you go to prison and can't take care of them]. We are helping you. I still have conscience, otherwise you will be jailed. You are helped, you and your child are helped."_
+
+The video finished with them saying, _"If you don't bring it [the letter] tomorrow, don't blame me. I will wait you at 8 o'clock tomorrow, if by 10 o'clock you don't come, I will make you the perpetrator instead"_.
+
+By the time the article was written, Riau's regional police department were investigating the 2 police officers in particular for violating the professional ethics. It was said that the investigation will go further beyond that, including the North Tambusai's sectoral police department, where the victim reported the case in the first place. Hopefully, all police officers who violated their own ethics will get disciplinary actions. I'm not expecting much, however.
+
+This event was very baffling. How could they, instead of helping the victim, they blackmailed the victim instead? Oh, sure, "still have conscience". What a joke. They only answer to money.
+
 ## Slow response and ignorance towards rape victim's plight
 
 <!-- datetime: 2021-12-03T12:10:00.000Z -->
