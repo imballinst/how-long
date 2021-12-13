@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 // Stub event for local and development stuff.
 function stubEvent(_eventName: string, _eventDetail: any) {}
 function realEvent(eventName: string, eventDetail: any) {
