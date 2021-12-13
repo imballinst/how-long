@@ -10,6 +10,7 @@
     "collections:generate": "node --loader ts-node/esm src/generate-collections.ts",
     "format": "yarn prettier src",
     "dev": "node --loader ts-node/esm src/bin.ts dev",
-    "start": "node --loader ts-node/esm src/bin.ts start"
+    "start": "node --loader ts-node/esm src/bin.ts start",
+    "build": "node --loader ts-node/esm src/bin.ts build"
   }
 }
