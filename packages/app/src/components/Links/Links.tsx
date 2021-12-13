@@ -4,15 +4,20 @@ export interface LinkProps {
   href: string;
   children: ReactNode;
   isExternal?: boolean;
+  className?: string;
 }
 
 const ADDITIONAL_EXTERNAL_PROPS = { target: '_blank', rel: 'noopener' };
 
-export function Link({ href, children, isExternal }: LinkProps) {
+export function Link({
+  href,
+  children,
+  isExternal,
+  className = ''
+}: LinkProps) {
   const anchorProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
     href,
-    className:
-      'text-teal-500 dark:text-teal-300 hover:underline transition-colors break-all'
+    className: `text-teal-600 dark:text-teal-300 hover:underline transition-colors break-all ${className}`
   };
   let additionalChildren: ReactNode | undefined;
 
