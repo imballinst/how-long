@@ -1,0 +1,85 @@
+---
+import { Text } from '../Typography';
+import styles from './Timer.module.css';
+
+const INITIAL_STATE = {
+  years: '00',
+  months: '00',
+  days: '00',
+  hours: '00',
+  minutes: '00',
+  seconds: '00'
+};
+
+const { date } = Astro.props;
+const keys = Object.keys(INITIAL_STATE);
+---
+
+<Text
+  as="div"
+  colorScheme="gray"
+  className={`grid grid-cols-3 gap-4 ${styles['time-text']}`}
+>
+  {keys.map((key) => (
+    <div key={key} class="text-center">
+      <div class="text-5xl" id={`${key}-value`}>
+        {INITIAL_STATE[key]}
+      </div>
+      <div class="text-xl">{key}</div>
+    </div>
+  ))}
+</Text>
+
+<span hidden id="date">{date}</span>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/count-up-down@0.2.3/dist/count-up-down.min.js"
+></script>
+<script>
+  const INITIAL_STATE = {
+    years: '00',
+    months: '00',
+    days: '00',
+    hours: '00',
+    minutes: '00',
+    seconds: '00'
+  };
+
+  const keys = Object.keys(INITIAL_STATE);
+  const date = document.getElementById('date').innerHTML;
+
+  setState(padAll(calculate(new Date(date), new Date()).result));
+
+  setInterval(() => {
+    setState(padAll(calculate(new Date(date), new Date()).result));
+  }, 1000);
+
+  function setState(newState) {
+    for (const key of keys) {
+      const element = document.getElementById(`${key}-value`);
+
+      if (element) {
+        element.innerHTML = newState[key];
+      }
+    }
+  }
+
+  function padAll(input) {
+    const output = {
+      years: '',
+      months: '',
+      days: '',
+      hours: '',
+      minutes: '',
+      seconds: ''
+    };
+
+    const keys = Object.keys(input);
+
+    for (const key of keys) {
+      output[key] = `${input[key]}`.padStart(2, '0');
+    }
+
+    return output;
+  }
+</script>
