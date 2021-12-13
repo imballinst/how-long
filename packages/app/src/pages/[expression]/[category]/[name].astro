@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 import json from '../../../static/items.json';
-import { Timer } from '../../../components/Timer';
+import { Timer, TimerArticle } from '../../../components/Timer';
 import { DirectoryFooter } from '../../../components/Directories';
 import {
   HOME_SINCE_BREADCRUMBS,
@@ -79,7 +79,7 @@ const date = collection.events[0].datetime;
   }`}
   description={collection.events[0].meta.description}
 >
-  <Timer {date} {expression} {collection} client:load>
-    <DirectoryFooter updateDate={date} />
-  </Timer>
+  <TimerArticle {date} {expression} {collection}>
+    <Timer {date} client:idle />
+  </TimerArticle>
 </BaseLayout>
