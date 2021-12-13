@@ -6,7 +6,7 @@ title: Last Got Negative Sentiments
 
 <!-- datetime: 2021-12-10T04:20:00.000Z -->
 
-Two police officers were being investigated of blackmailing a rape victim, telling her to create a "letter" so that the perpetrators would not be processed by law.
+Two police officers were being investigated as they blackmailed a rape victim, telling her to create a "letter" so that the perpetrators would not be processed by law.
 
 The article can be found here: https://www.cnnindonesia.com/nasional/20211210103045-12-732360/diduga-intimidasi-korban-perkosaan-2-polisi-diperiksa-propam-riau.
 
