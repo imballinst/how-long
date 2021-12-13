@@ -61,6 +61,7 @@ export function DarkModeToggler() {
     <button
       onClick={onButtonClick}
       className="hover:bg-gray-200 dark:hover:bg-gray-500 p-2 rounded-full transition-colors"
+      aria-label={`Toggle ${mode === 'light' ? 'dark' : 'light'} mode`}
     >
       <svg
         viewBox="0 0 24 24"

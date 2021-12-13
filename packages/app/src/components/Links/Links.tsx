@@ -12,7 +12,7 @@ export function Link({ href, children, isExternal }: LinkProps) {
   const anchorProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
     href,
     className:
-      'text-teal-500 dark:text-teal-300 hover:underline transition-colors break-all'
+      'text-teal-600 dark:text-teal-300 hover:underline transition-colors break-all'
   };
   let additionalChildren: ReactNode | undefined;
 
