@@ -1,7 +1,3 @@
-.card-text {
-  display: block;
-}
-
 .card-text > p {
   display: -webkit-box;
   -webkit-line-clamp: 3;

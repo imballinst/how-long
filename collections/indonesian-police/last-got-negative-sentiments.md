@@ -14,7 +14,7 @@ The victim recorded the "conversation" containing the threat. In the video, alth
 
 They [one of the police officers] continued, _"Your proof was not truthy. I am concerned about you, what will you do if your child is abandoned? You have a child, right? They will be abandoned [if you go to prison and can't take care of them]. We are helping you. I still have conscience, otherwise you will be jailed. You are helped, you and your child are helped."_
 
-The video finished with them saying, _"If you don't bring it [the letter] tomorrow, don't blame me. I will wait you at 8 o'clock tomorrow, if by 10 o'clock you don't come, I will make you the perpetrator instead"_.
+The video finished with them saying, _"If you don't bring it [the letter] tomorrow, don't blame me. I will wait you at 8 o'clock tomorrow, if by 10 o'clock you haven't arrived, I will make you the perpetrator instead"_.
 
 By the time the article was written, Riau's regional police department were investigating the 2 police officers in particular for violating the professional ethics. It was said that the investigation will go further beyond that, including the North Tambusai's sectoral police department, where the victim reported the case in the first place. Hopefully, all police officers who violated their own ethics will get disciplinary actions. I'm not expecting much, however.
 

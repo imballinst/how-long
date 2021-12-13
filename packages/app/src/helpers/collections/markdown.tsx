@@ -55,6 +55,12 @@ function recursiveParse(node: any, idx: number) {
         {domToReact(node.children)}
       </Link>
     );
+  } else if (node.name === 'em') {
+    return (
+      <Text key={idx} as="em">
+        {domToReact(node.children)}
+      </Text>
+    );
   }
 
   return node;
