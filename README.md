@@ -18,7 +18,7 @@ These parameters above I will use to "filter" candidates and political parties. 
 
 There are other use cases for using this project, such as:
 
-1. Tracking the last time you get a panic attack.
+1. Tracking the last time you got a panic attack.
 2. Tracking the last time you bought an expensive meal.
 3. Tracking the last time you exercised.
 4. Tracking the time until a certain date, e.g. wedding anniversary.
@@ -95,7 +95,9 @@ Arsenal won 2-0 against Newcastle United in a Premier League match as Bukayo Sak
 Arsenal won 1-0 against Norwich City in a Premier League match, with Pierre-Emerick Aubameyang scoring the only goal.
 ```
 
-As usual, at the top, we have the frontmatter. This will be used to identify the "collection" name. After the frontmatter, we will have these structure:
+As usual, at the top, we have the frontmatter. This will be used to identify the "collection" name in the form of `title` field.
+
+After the frontmatter, we will have these structure:
 
 1. **Heading 2**: this will be the title of the event.
 2. **ISO8601 date comment**: this will be the date of occurrence of the event.
@@ -113,7 +115,6 @@ export interface Collection {
   title: string;
   parentTitle: string;
   events: Array<{
-    // This is mostly used when displaying "Previous events".
     title: string;
     description: string;
     // This is ISO8601 string.
