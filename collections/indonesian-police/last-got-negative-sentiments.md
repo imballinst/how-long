@@ -2,6 +2,20 @@
 title: Last Got Negative Sentiments
 ---
 
+## Rejecting a theft report
+
+<!-- datetime: 2021-12-13T14:53:00.000Z -->
+
+Aipda Rudi Panjaitan, a police officer, rejected a woman's theft report and told her to return home right away.
+
+The article can be found here: https://www.republika.co.id/berita/r41n8o484/tolak-laporan-warga-aipda-rudi-panjaitan-dicopot-dari-jabatannya.
+
+The theft took place after she just finished withdrawing money from an Automatic Teller Machine (ATM) in Pulogadung, East Jakarta. She went to the police to report of the incident, but the currently officer in charge, Aipda Rudi Panjaitan, dismissed her report right away and told her to go home.
+
+In other news, the Chief of East Jakarta Resort Police said that Aipda Rudi Panjaitan was only "joking" and did not have intentions to reject the report ([2nd tier media: Tribunnews](https://jateng.tribunnews.com/2021/12/13/kapolres-sebut-aipda-rudi-panjaitan-hanya-bercanda-tolak-laporan-korban-perampokan)).
+
+The police force in Indonesia was meant to serve and protect the people. What they are doing right now is the opposite.
+
 ## Blackmailing a rape victim
 
 <!-- datetime: 2021-12-10T04:20:00.000Z -->
