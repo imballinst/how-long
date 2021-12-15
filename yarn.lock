@@ -2355,11 +2355,6 @@ cosmiconfig@^7.0.1:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-count-up-down@0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/count-up-down/-/count-up-down-0.2.3.tgz#2856614335b76a983467188160794c003790b9cc"
-  integrity sha512-NzFPT0zdN3XMbziu8OrH7JrXKzUTS+h8Yc/yy6Wb43J+6Qth2taC5B2sMdjUYJikf4EhEBSsGcr7N9XMwoIu5w==
-
 create-require@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
