@@ -6,6 +6,8 @@ import { DarkModeToggler } from '../components/Layout';
 import { BreadcrumbHeader } from '../components/BreadcrumbHeader';
 import { GITHUB_LINK } from '../helpers/constants';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 const { title, description, content = {}, pages = [] } = Astro.props;
 const {
   title: contentTitle,
@@ -99,7 +101,9 @@ const pageTitle = pageTitlePrefix + 'How long';
         colorScheme="gray"
         class="sm:w-full md:w-wmd lg:w-wlg xl:w-wxl"
       >
-        <p class="font-bold text-center text-sm">&copy; 2021 Try Ajitiono</p>
+        <p class="font-bold text-center text-sm">
+          &copy; 2021-{CURRENT_YEAR} Try Ajitiono
+        </p>
 
         <p class="text-center text-sm">
           If this interests you, kindly pay the <Link

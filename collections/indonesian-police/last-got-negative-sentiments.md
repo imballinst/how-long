@@ -2,6 +2,20 @@
 title: Last Got Negative Sentiments
 ---
 
+## Demanding money for returning stolen goods
+
+<!-- datetime: 2021-12-20T09:21:00.000Z -->
+
+A tweet from [@txtdrberseragam](https://twitter.com/txtdrberseragam) went viral, containing 2 pictures ([picture 1](https://pbs.twimg.com/media/FHCmBH4UYAEBSYQ?format=jpg&name=small) and [picture 2](https://pbs.twimg.com/media/FHCmB9BVEAApkpU?format=jpg&name=small)). These 2 pictures contain a story of a person whose motorcycle was stolen.
+
+The tweet can be seen here: https://twitter.com/txtdrberseragam/status/1472859643772690433.
+
+The victim reached to the intelligence team of police forces to investigate the case because it had been 3-4 months since the thief was caught. The motorcycle, however, was sold to another person for Indonesian Rupiah (IDR) 3.5mio. The intelligence team acted quickly and they found the sold motorcycle. They asked for IDR 5.5mio as ransom and the victim fulfilled it.
+
+However, at the same time, the sectoral police forces (Polsek) told the intelligence team to bring the motorcycle to their base. Long story short, the victim got a call from Polsek that they demanded IDR 10mio as ransom, because they too want their share.
+
+I think it's a very systematic problem in Indonesia. It's either the people are so greedy, or too many money got corrupted by politicians of power, resulting in those in lower parts of the government needing to find money elsewhere. For the former, there is no way to fix it except by filtering future hires and existing personnel by a "good character". For the latter, however, the change needs to come from those who have the biggest power. The question is, can they do it, given that they too are the ones who "steal" people's money?
+
 ## Rejecting a theft report
 
 <!-- datetime: 2021-12-13T14:53:00.000Z -->
